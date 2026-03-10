@@ -615,13 +615,20 @@ ls -la outputs/disenos/
 
 ---
 
-## 📚 Leer Más
+## 📚 Documentación Adicional
 
-Si necesitas la versión completa con:
-- Guías detalladas
-- Ejemplos completos
-- Scripts de automatización
-- Documentación extensa
+### En Esta Rama (minimal)
+- **[CHANGELOG.md](CHANGELOG.md)** - Registro completo de cambios (v1.0 → v2.0)
+- **[GUIA-MIGRACION.md](GUIA-MIGRACION.md)** - Cómo migrar de v1.0 a v2.0 (5 min)
+- **[MINIMAL-INFO.md](MINIMAL-INFO.md)** - Info sobre esta rama minimal
+- **[core/agentes/*.md](core/agentes/)** - Definiciones de los 8 agentes
+
+### Rama Completa (main)
+Si necesitas:
+- ✅ Guías detalladas paso a paso
+- ✅ Ejemplos completos ejecutados
+- ✅ Scripts de automatización
+- ✅ Templates adicionales
 
 **Cambia a la rama `main`**:
 ```bash
@@ -630,8 +637,24 @@ git checkout main
 
 ---
 
-**Versión**: Minimal 1.0
-**Para**: Empezar rápido sin complejidad
-**Contiene**: Solo lo esencial para usar el sistema
+## 🔄 Versión y Cambios
+
+**Versión actual**: 2.0.0 (Minimal)
+**Fecha**: 2026-03-10
+**Cambio principal**: Agente Arquitecto + Separación de documentos
+
+**Novedades en v2.0**:
+- 🆕 Agente Arquitecto decide stack tecnológico inteligentemente
+- 🆕 Separación: Producto (QUÉ) vs Restricciones técnicas (CÓMO)
+- 🆕 Stack adaptativo basado en complejidad del proyecto
+- 📝 Ver [CHANGELOG.md](CHANGELOG.md) para detalles completos
+
+**Migrando desde v1.0?**
+- 📖 Lee [GUIA-MIGRACION.md](GUIA-MIGRACION.md) (5 minutos)
+
+---
+
+**Para**: Empezar rápido con decisiones arquitectónicas inteligentes
+**Contiene**: Solo lo esencial + Agente Arquitecto
 
 ¿Preguntas? Lee las definiciones de agentes en `core/agentes/`
