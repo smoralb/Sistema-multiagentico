@@ -1,6 +1,6 @@
 # 🚀 Sistema Multiagente - Versión Minimal
 
-Sistema autónomo de 7 agentes especializados que automatiza el desarrollo de software completo con validación en cada etapa.
+Sistema autónomo de **8 agentes especializados** que automatiza el desarrollo de software completo con validación en cada etapa. Incluye un **Agente Arquitecto** que toma decisiones técnicas inteligentes basándose en la complejidad del proyecto.
 
 ---
 
@@ -11,21 +11,23 @@ Sistema autónomo de 7 agentes especializados que automatiza el desarrollo de so
 ```
 sistema-multiagentico/
 ├── core/
-│   ├── 00-DOCUMENT-PRODUCT-STANDARDS.md  ← CONFIGURA ESTO PRIMERO
-│   └── agentes/                           ← 7 agentes especializados
+│   ├── 00-DOCUMENT-PRODUCT.md              ← QUÉ construir (producto)
+│   ├── 01-DOCUMENT-TECHNICAL-CONSTRAINTS.md ← Restricciones técnicas (opcional)
+│   └── agentes/                             ← 8 agentes especializados
 │       ├── 01-AGENTE-COORDINADOR.md
+│       ├── 08-AGENTE-ARQUITECTO.md         ← NUEVO: Decide stack/arquitectura
 │       ├── 02-AGENTE-PLANIFICADOR.md
 │       ├── 03-AGENTE-VALIDADOR.md
 │       ├── 04-AGENTE-DISENADOR.md
 │       ├── 05-AGENTE-DESARROLLADOR.md
 │       ├── 06-AGENTE-TESTING.md
 │       └── 07-AGENTE-DOCUMENTACION.md
-├── outputs/                               ← Se generan aquí automáticamente
+├── outputs/                                 ← Se generan aquí automáticamente
 │   ├── estados/
 │   ├── planes/
 │   ├── disenos/
 │   └── reportes/
-└── README.md                              ← Este archivo
+└── README.md                                ← Este archivo
 ```
 
 ---
@@ -34,18 +36,21 @@ sistema-multiagentico/
 
 ### **Caso de Uso: Implementar una Landing Page Corporativa Completa**
 
-#### **PASO 1: Configura los Estándares (2 min)**
+#### **PASO 1: Define el Producto (2 min)**
 
-Edita `core/00-DOCUMENT-PRODUCT-STANDARDS.md` y completa:
+Edita `core/00-DOCUMENT-PRODUCT.md` y describe QUÉ quieres construir:
 
 ```bash
-vi core/00-DOCUMENT-PRODUCT-STANDARDS.md
+vi core/00-DOCUMENT-PRODUCT.md
 ```
 
-**Completa mínimo estas secciones:**
-- **Línea 15-30**: Stack tecnológico (React, Next.js, Tailwind CSS, TypeScript, etc.)
-- **Línea 70-100**: Estándares de código (camelCase, componentización, max 200 líneas por componente, etc.)
-- **Línea 150-180**: Cobertura de tests (90% componentes críticos, 80% utils)
+**Completa estas secciones**:
+- **Visión del Producto**: Qué problema resuelve, para quién, propuesta de valor
+- **Funcionalidades**: Hero, servicios, portafolio, formulario, etc.
+- **Requisitos no funcionales**: Performance, SEO, accesibilidad
+- **Experiencia de usuario**: Flujos principales, interacciones clave
+
+**Nota**: NO especifiques tecnologías aquí. El **Agente Arquitecto** decidirá el stack basándose en la complejidad.
 
 #### **PASO 2: Solicitud al Coordinador (1 min)**
 
@@ -81,52 +86,67 @@ El **Coordinador** iniciará el flujo automático:
 ```
 1. COORDINADOR: Analiza la solicitud
    └─> Crea: outputs/estados/estado-landing-corporativa.md
+   └─> Determina: Tipo de proyecto, complejidad estimada
 
-2. PLANIFICADOR: Genera plan detallado (13 secciones)
-   └─> Crea: outputs/planes/plan-landing-corporativa.md
-   └─> Desglose: 8 componentes principales, 15 componentes reutilizables
+2. 🆕 ARQUITECTO: Toma decisiones técnicas inteligentes
+   └─> Lee: core/00-DOCUMENT-PRODUCT.md (requisitos)
+   └─> Lee: core/01-DOCUMENT-TECHNICAL-CONSTRAINTS.md (restricciones si existen)
+   └─> Analiza: Complejidad del proyecto (Baja/Media/Alta/Muy Alta)
+   └─> Decide: Stack tecnológico apropiado
+   └─> Decide: React + Next.js 14 + TypeScript + Tailwind CSS
+   └─> Decide: Arquitectura (Feature-based, patrones a usar)
+   └─> Justifica: Por qué eligió este stack vs alternativas
+   └─> Crea: outputs/disenos/arquitectura-landing-corporativa.md
+   └─> Crea: ADRs para decisiones críticas
 
-3. VALIDADOR: Revisa el plan
+3. VALIDADOR: Revisa arquitectura
    └─> ✅ Aprobado o ❌ Rechazado con feedback
 
-4. DISEÑADOR: Diseño técnico completo
-   └─> Crea: outputs/disenos/diseno-landing-corporativa.md
-   └─> Crea: outputs/disenos/adr-001-nextjs-vs-vite.md
-   └─> Crea: outputs/disenos/adr-002-tailwind-vs-styled-components.md
-   └─> Arquitectura de componentes, estructura de carpetas, design system
+4. PLANIFICADOR: Genera plan detallado usando la arquitectura
+   └─> Crea: outputs/planes/plan-landing-corporativa.md
+   └─> Desglose: Tareas específicas según stack elegido
+   └─> Usa: Componentes React, estructura Next.js definida
 
-5. VALIDADOR: Revisa el diseño
+5. VALIDADOR: Revisa el plan
+   └─> ✅ Aprobado o ❌ Rechazado con feedback
+
+6. DISEÑADOR: Diseño técnico detallado
+   └─> Crea: outputs/disenos/diseno-landing-corporativa.md
+   └─> Define: Arquitectura de componentes
+   └─> Define: Estructura de carpetas
+   └─> Define: Design system
+
+7. VALIDADOR: Revisa el diseño
    └─> ✅ Aprobado
 
-6. DESARROLLADOR: Implementa código + tests unitarios
-   └─> Estructura Next.js 14 con App Router
-   └─> Componentes React reutilizables
-   └─> Hooks personalizados (useScroll, useTheme, useForm)
-   └─> Utilities y helpers
+8. DESARROLLADOR: Implementa código + tests unitarios
+   └─> Usa: Stack decidido por Arquitecto
+   └─> Implementa: Componentes React reutilizables
+   └─> Crea: Hooks personalizados (useScroll, useTheme, useForm)
    └─> Coverage: 85%+
 
-7. VALIDADOR: Revisa código
+9. VALIDADOR: Revisa código
    └─> ✅ Aprobado
 
-8. TESTER: Suite completa de tests
-   └─> Crea: outputs/reportes/reporte-testing-landing.md
-   └─> Tests: Unit (Jest), Component (React Testing Library), E2E (Playwright)
-   └─> Tests de accesibilidad (axe-core)
-   └─> Performance tests (Lighthouse CI)
-   └─> Tests visuales (Chromatic/Percy)
+10. TESTER: Suite completa de tests
+    └─> Crea: outputs/reportes/reporte-testing-landing.md
+    └─> Tests: Unit (Jest), Component (RTL), E2E (Playwright)
+    └─> Tests de accesibilidad (axe-core)
+    └─> Performance tests (Lighthouse CI)
 
-9. VALIDADOR: Revisa tests
-   └─> ✅ Aprobado
+11. VALIDADOR: Revisa tests
+    └─> ✅ Aprobado
 
-10. DOCUMENTADOR: Documentación completa
+12. DOCUMENTADOR: Documentación completa
     └─> README con setup instructions
-    └─> Guía de componentes (Storybook)
-    └─> Guía de estilo y design tokens
+    └─> Guía de componentes
     └─> Documentación de deployment
 
-11. COORDINADOR: Revisión final
+13. COORDINADOR: Revisión final
     └─> ✅ COMPLETADO
 ```
+
+**💡 Ventaja Clave**: El **Arquitecto** analiza tu proyecto y elige el stack MÁS APROPIADO. Si tu landing es simple, podría elegir Vite + React. Si es compleja con SEO crítico, elegirá Next.js. Tú defines QUÉ quieres, el Arquitecto decide CÓMO construirlo.
 
 #### **PASO 4: Monitorea el Progreso**
 
@@ -151,41 +171,52 @@ cat outputs/reportes/reporte-testing-landing.md
 
 ---
 
-## 🎯 Los 7 Agentes
+## 🎯 Los 8 Agentes
 
 ### 1. **Coordinador** - El Director
 - **Input**: Solicitud del usuario
 - **Output**: `outputs/estados/estado-[feature].md`
-- **Función**: Orquesta todo el flujo, gestiona feedback loops
+- **Función**: Orquesta todo el flujo, gestiona feedback loops, determina complejidad inicial
 
-### 2. **Planificador** - El Estratega
-- **Input**: Solicitud + Estándares
+### 2. 🆕 **Arquitecto** - El Tomador de Decisiones Técnicas
+- **Input**: Requisitos de producto (`00-DOCUMENT-PRODUCT.md`) + Restricciones técnicas (opcional)
+- **Output**: `outputs/disenos/arquitectura-[feature].md` + ADRs
+- **Función**: **Analiza complejidad del proyecto y decide stack tecnológico, arquitectura y patrones más apropiados**
+- **Decisiones clave**:
+  - Stack tecnológico (React vs Vue, Next.js vs Vite, etc.)
+  - Arquitectura de software (MVC, Clean, Feature-based, etc.)
+  - Patrones de diseño a usar
+  - Estrategias de performance, testing, deployment
+  - Justifica TODAS las decisiones con alternativas consideradas
+
+### 3. **Planificador** - El Estratega
+- **Input**: Arquitectura del Arquitecto + Requisitos
 - **Output**: `outputs/planes/plan-[feature].md`
-- **Función**: Analiza requisitos, identifica dependencias, evalúa riesgos
+- **Función**: Crea plan detallado BASADO en el stack y arquitectura ya decididos, identifica dependencias, evalúa riesgos
 
-### 3. **Validador** - El Guardian de Calidad
+### 4. **Validador** - El Guardian de Calidad
 - **Input**: Output de cualquier agente
 - **Output**: ✅ Aprobado / ❌ Rechazado + Feedback
-- **Función**: Valida contra estándares, genera feedback accionable
+- **Función**: Valida contra requisitos de producto y decisiones arquitectónicas, genera feedback accionable
 
-### 4. **Diseñador** - El Arquitecto
-- **Input**: Plan aprobado
-- **Output**: `outputs/disenos/diseno-[feature].md` + ADRs
-- **Función**: Define arquitectura técnica, patrones, interfaces
+### 5. **Diseñador** - El Diseñador Técnico Detallado
+- **Input**: Plan aprobado + Arquitectura
+- **Output**: `outputs/disenos/diseno-[feature].md`
+- **Función**: Define diseño técnico DETALLADO (componentes, interfaces, contratos) usando la arquitectura ya elegida
 
-### 5. **Desarrollador** - El Constructor
+### 6. **Desarrollador** - El Constructor
 - **Input**: Diseño aprobado
 - **Output**: Código + Tests unitarios
-- **Función**: Implementa siguiendo estándares, auto-revisa código
+- **Función**: Implementa usando el stack decidido por el Arquitecto, sigue patrones definidos, auto-revisa código
 
-### 6. **Tester** - El Inspector
+### 7. **Tester** - El Inspector
 - **Input**: Código implementado
 - **Output**: `outputs/reportes/reporte-testing-[feature].md` + Suite de tests
-- **Función**: Tests completos (unit, integration, e2e, security, performance)
+- **Función**: Tests completos (unit, integration, e2e, security, performance, accessibility)
 
-### 7. **Documentador** - El Escritor
+### 8. **Documentador** - El Escritor
 - **Input**: Feature completada
-- **Output**: Docs técnicas, API docs, ADRs, guides
+- **Output**: Docs técnicas, setup guides, deployment docs
 - **Función**: Mantiene documentación actualizada y completa
 
 ---
@@ -195,13 +226,17 @@ cat outputs/reportes/reporte-testing-landing.md
 ```
 Usuario solicita feature
     ↓
-[Coordinador] Analiza y crea estado
+[Coordinador] Analiza solicitud y estima complejidad
     ↓
-[Planificador] Crea plan detallado
+[Arquitecto] 🆕 Lee producto, analiza complejidad, DECIDE stack/arquitectura
+    ↓
+[Validador] ✅/❌ Valida arquitectura
+    ↓
+[Planificador] Crea plan detallado usando arquitectura decidida
     ↓
 [Validador] ✅/❌ (max 2 iteraciones)
     ↓
-[Diseñador] Diseño técnico
+[Diseñador] Diseño técnico detallado
     ↓
 [Validador] ✅/❌
     ↓
@@ -233,7 +268,7 @@ Usuario solicita feature
 ### **Cada Agente es un Documento Markdown**
 
 Los agentes NO son código ejecutable, son **especificaciones en markdown** que:
-1. Defines qué hace el agente
+1. Definen qué hace el agente
 2. Qué inputs recibe
 3. Qué outputs produce
 4. Qué criterios debe seguir
@@ -241,84 +276,149 @@ Los agentes NO son código ejecutable, son **especificaciones en markdown** que:
 
 **Tú o tu LLM lee estos documentos** y ejecuta las instrucciones.
 
+### **La Innovación: Agente Arquitecto Inteligente** 🆕
+
+A diferencia de otros sistemas donde TÚ decides el stack tecnológico, este sistema incluye un **Agente Arquitecto** que:
+
+1. **Lee los requisitos del producto** (QUÉ construir)
+2. **Analiza la complejidad** del proyecto
+3. **Considera restricciones** técnicas si las hay
+4. **Decide el stack MÁS APROPIADO** para ESE proyecto específico
+5. **Justifica sus decisiones** con alternativas consideradas
+
+**Ejemplo**:
+```
+Proyecto Simple (Landing estática, 5 secciones, sin interactividad compleja):
+→ Arquitecto decide: Astro + Tailwind (SSG, ultra-rápido, perfecto para estático)
+
+Proyecto Medio (Landing con formularios, animaciones, modo oscuro):
+→ Arquitecto decide: React + Vite + Tailwind (SPA, suficiente interactividad)
+
+Proyecto Complejo (Landing + Blog + Multi-idioma + SEO crítico):
+→ Arquitecto decide: Next.js 14 + TypeScript + Tailwind (SSR/SSG híbrido, SEO óptimo)
+
+Proyecto Muy Complejo (Portal + Auth + Dashboard + Tiempo real):
+→ Arquitecto decide: Next.js + tRPC + Prisma + WebSockets (Full-stack robusto)
+```
+
+**Ventaja**: El stack se adapta a TU proyecto, no al revés.
+
 ### **Ejemplo de Uso con Claude/GPT**
 
 ```
 # Prompt a tu LLM:
 "Actúa como el Agente Coordinador definido en core/agentes/01-AGENTE-COORDINADOR.md.
 
-Consulta los estándares en core/00-DOCUMENT-PRODUCT-STANDARDS.md.
+Consulta el documento de producto en core/00-DOCUMENT-PRODUCT.md.
 
 Solicitud del usuario: [tu solicitud]
 
 Ejecuta el flujo según tu definición."
 ```
 
-El LLM leerá su definición, consultará los estándares, y ejecutará su rol.
+El LLM:
+1. Leerá la definición del Coordinador
+2. Consultará el documento de producto
+3. Activará al Agente Arquitecto (que analizará y decidirá el stack)
+4. Continuará con el flujo usando las decisiones del Arquitecto
 
 ---
 
-## 🛠️ Configuración del Documento de Estándares
+## 🛠️ Configuración de Documentos
 
-**Archivo crítico**: `core/00-DOCUMENT-PRODUCT-STANDARDS.md`
+### **Archivo 1: Producto** (Obligatorio)
+**Ubicación**: `core/00-DOCUMENT-PRODUCT.md`
+**Consultado por**: TODOS los agentes, especialmente el Arquitecto
 
-Este archivo es consultado por **TODOS los agentes** en **CADA fase**.
+**Qué incluir**:
 
-### **Qué Configurar (Mínimo Indispensable)**
-
-#### 1. **Stack Tecnológico** (~Línea 15-30)
+#### 1. **Visión del Producto**
 ```markdown
-## Stack Tecnológico
+## Visión del Producto
 
-### Frontend
-- **Framework**: Next.js 14+ con App Router
-- **Librería UI**: React 18+
-- **Lenguaje**: TypeScript 5.0+
-- **Estilos**: Tailwind CSS 3.4+
-- **Animaciones**: Framer Motion
-- **Iconos**: React Icons / Heroicons
+### Descripción General
+[Nombre del Producto] es una landing page corporativa que permite a empresas
+de tecnología presentar sus servicios de manera profesional y moderna.
 
-### Testing
-- **Unit tests**: Jest + React Testing Library
-- **E2E tests**: Playwright
-- **Visual tests**: Chromatic (opcional)
-- **Accesibilidad**: axe-core
+### Misión
+Generar leads calificados a través de una experiencia web impactante.
+
+### Usuarios Objetivo
+- Potenciales clientes B2B
+- Visitantes interesados en servicios tech
+- Empresas buscando soluciones tecnológicas
 ```
 
-#### 2. **Estándares de Código** (~Línea 70-100)
+#### 2. **Funcionalidades Principales**
 ```markdown
-## Estándares de Código
+## Funcionalidades
 
-### Nomenclatura
-- Componentes: PascalCase (Button.tsx, HeroSection.tsx)
-- Hooks personalizados: camelCase con prefijo 'use' (useScroll, useTheme)
-- Utilities: camelCase (formatDate, validateEmail)
-- Constantes: UPPER_SNAKE_CASE (API_URL, MAX_WIDTH)
-- Archivos CSS: kebab-case (global-styles.css)
-
-### Límites
-- Máximo 200 líneas por componente
-- Máximo 5 props por componente (luego usar objeto config)
-- Componentes reutilizables en /components/common/
-- Páginas en /app/ (Next.js App Router)
+1. Hero Section: Captura atención con CTA prominente
+2. Servicios: Showcase de 4 servicios principales
+3. Portafolio: Galería filtrable de proyectos
+4. Testimonios: Carousel de clientes satisfechos
+5. Formulario de contacto: Con validación y anti-spam
+6. Footer: Info completa + redes sociales
 ```
 
-#### 3. **Cobertura de Tests** (~Línea 150-180)
+#### 3. **Requisitos No Funcionales**
 ```markdown
-## Estándares de Testing
+## Requisitos No Funcionales
 
-### Cobertura Mínima
-- Componentes críticos (Hero, Form, Checkout): 95%
-- Componentes reutilizables: 90%
-- Hooks personalizados: 95%
-- Utils/helpers: 85%
-- Páginas: 80%
+### Performance
+- Carga inicial: <3 segundos
+- Lighthouse Performance: >90
+
+### SEO
+- Meta tags completos
+- Sitemap.xml
+- Schema.org markup
 
 ### Accesibilidad
-- Lighthouse Accessibility score: >90
-- Cumplimiento WCAG 2.1 nivel AA
-- Tests automatizados con axe-core
+- WCAG 2.1 nivel AA
+- Navegación por teclado
+- Screen reader friendly
+
+### Responsive
+- Mobile-first
+- Funcional en todos los dispositivos
 ```
+
+**NOTA IMPORTANTE**: ❌ NO especifiques tecnologías aquí. El Arquitecto decidirá el stack apropiado.
+
+---
+
+### **Archivo 2: Restricciones Técnicas** (Opcional)
+**Ubicación**: `core/01-DOCUMENT-TECHNICAL-CONSTRAINTS.md`
+**Consultado por**: Agente Arquitecto
+
+**Cuándo crear este archivo**:
+- Si tienes tecnologías PROHIBIDAS (ej: no usar Vue)
+- Si tienes tecnologías REQUERIDAS (ej: debe usar TypeScript)
+- Si hay restricciones de presupuesto
+- Si hay limitaciones de equipo (experiencia)
+- Si hay deadlines críticos
+
+**Ejemplo**:
+```markdown
+## Restricciones Obligatorias
+
+### Tecnologías Prohibidas
+❌ NO usar:
+- Vue.js (equipo no tiene experiencia)
+- MongoDB (queremos SQL)
+
+### Tecnologías Requeridas
+✅ DEBE usar:
+- TypeScript (política de empresa)
+- PostgreSQL (estandarizado)
+
+### Presupuesto
+- Hosting: Máximo $20/mes
+- Preferir tier gratuito cuando sea posible
+```
+
+**Si NO tienes restricciones**: Puedes dejar este archivo vacío o eliminarlo. El Arquitecto tendrá libertad total para decidir.
 
 ---
 
@@ -465,16 +565,19 @@ Puedes:
 ## 🚀 Empezar AHORA
 
 ```bash
-# 1. Configura estándares
-vi core/00-DOCUMENT-PRODUCT-STANDARDS.md
+# 1. Define el producto (QUÉ construir, no CÓMO)
+vi core/00-DOCUMENT-PRODUCT.md
 
-# 2. Lee la definición del Coordinador
+# 2. (Opcional) Define restricciones técnicas si las hay
+vi core/01-DOCUMENT-TECHNICAL-CONSTRAINTS.md
+
+# 3. Lee la definición del Coordinador
 cat core/agentes/01-AGENTE-COORDINADOR.md
 
-# 3. Envía tu solicitud al LLM con el prompt:
+# 4. Envía tu solicitud al LLM con el prompt:
 "Actúa como el Agente Coordinador según la definición en core/agentes/01-AGENTE-COORDINADOR.md.
 
-Consulta los estándares en core/00-DOCUMENT-PRODUCT-STANDARDS.md.
+Consulta el documento de producto en core/00-DOCUMENT-PRODUCT.md.
 
 Solicitud: Implementa una landing page corporativa moderna y responsiva.
 
@@ -489,11 +592,23 @@ Requisitos:
 - Modo oscuro/claro
 - 100% responsive
 - SEO optimizado
+- Performance: Lighthouse >90
+- Accesibilidad: WCAG 2.1 AA
 
-Stack: React + Next.js 14 + TypeScript + Tailwind CSS"
+IMPORTANTE: NO especifiques stack tecnológico. El Agente Arquitecto analizará
+la complejidad y decidirá el stack más apropiado (podría ser React puro,
+Next.js, Astro, etc. según lo que sea mejor para ESTE proyecto específico)."
 
-# 4. Monitorea los outputs en:
+# 5. El flujo automático incluirá al Arquitecto:
+# - El Arquitecto leerá los requisitos
+# - Analizará complejidad
+# - Decidirá stack apropiado
+# - Justificará sus decisiones
+# - Creará outputs/disenos/arquitectura-[proyecto].md
+
+# 6. Monitorea los outputs en:
 ls -la outputs/estados/
+ls -la outputs/disenos/arquitectura-*.md  # Decisiones del Arquitecto
 ls -la outputs/planes/
 ls -la outputs/disenos/
 ```

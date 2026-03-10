@@ -7,11 +7,13 @@ Esta es la **rama minimal** del Sistema Multiagente. Contiene SOLO lo esencial p
 ## 🎯 ¿Qué Contiene Esta Rama?
 
 ### ✅ Incluido (Lo Esencial)
-- `core/00-DOCUMENT-PRODUCT-STANDARDS.md` - Configuración de estándares
-- `core/agentes/*.md` - Las 7 definiciones de agentes
+- `core/00-DOCUMENT-PRODUCT.md` - Define QUÉ construir (producto, no técnico)
+- `core/01-DOCUMENT-TECHNICAL-CONSTRAINTS.md` - Restricciones técnicas (opcional)
+- `core/agentes/*.md` - **8 agentes especializados** (incluye nuevo Agente Arquitecto)
 - `outputs/` - Estructura vacía (se llena automáticamente)
 - `README.md` - Guía de inicio rápido con caso de uso
 - `.gitignore` - Configuración Git simplificada
+- `MINIMAL-INFO.md` - Este archivo
 
 ### ❌ Excluido (Disponible en rama `main`)
 - `core/docs/` - Guías detalladas y ejemplos extensos
@@ -27,13 +29,15 @@ Esta es la **rama minimal** del Sistema Multiagente. Contiene SOLO lo esencial p
 
 | Aspecto | Rama `minimal` | Rama `main` |
 |---------|----------------|-------------|
-| **Archivos** | 9 archivos | 30+ archivos |
+| **Archivos** | 11 archivos (con nuevo Arquitecto) | 30+ archivos |
+| **Agentes** | 8 agentes (incluye Arquitecto) | 8 agentes + extras |
 | **Documentación** | 1 README conciso | Múltiples guías detalladas |
 | **Complejidad** | Mínima | Completa |
-| **Tiempo de lectura** | 10 minutos | 60+ minutos |
+| **Tiempo de lectura** | 15 minutos | 60+ minutos |
 | **Caso de uso** | Empezar rápido | Documentación completa |
 | **Scripts** | ❌ No incluidos | ✅ Automatización completa |
 | **Ejemplos** | ❌ Solo descripción | ✅ Ejemplos completos ejecutados |
+| **Innovación** | ✅ Agente Arquitecto decide stack | ✅ Agente Arquitecto decide stack |
 
 ---
 
@@ -79,26 +83,28 @@ git checkout minimal
 ```
 sistema-multiagentico/
 ├── core/
-│   ├── 00-DOCUMENT-PRODUCT-STANDARDS.md  ← Configura esto
-│   └── agentes/                           ← 7 agentes
+│   ├── 00-DOCUMENT-PRODUCT.md              ← Define QUÉ construir
+│   ├── 01-DOCUMENT-TECHNICAL-CONSTRAINTS.md ← Restricciones (opcional)
+│   └── agentes/                             ← 8 agentes
 │       ├── 01-AGENTE-COORDINADOR.md
+│       ├── 08-AGENTE-ARQUITECTO.md         ← NUEVO: Decide stack
 │       ├── 02-AGENTE-PLANIFICADOR.md
 │       ├── 03-AGENTE-VALIDADOR.md
 │       ├── 04-AGENTE-DISENADOR.md
 │       ├── 05-AGENTE-DESARROLLADOR.md
 │       ├── 06-AGENTE-TESTING.md
 │       └── 07-AGENTE-DOCUMENTACION.md
-├── outputs/                               ← Se genera aquí
+├── outputs/                                 ← Se genera aquí
 │   ├── estados/
 │   ├── planes/
 │   ├── disenos/
 │   └── reportes/
 ├── .gitignore
-├── MINIMAL-INFO.md                        ← Este archivo
-└── README.md                              ← Inicio rápido
+├── MINIMAL-INFO.md                          ← Este archivo
+└── README.md                                ← Inicio rápido
 ```
 
-**Total**: 9 archivos esenciales
+**Total**: 11 archivos esenciales (2 docs producto + 8 agentes + 3 otros)
 
 ---
 
@@ -108,13 +114,20 @@ sistema-multiagentico/
 # 1. Leer el README
 cat README.md
 
-# 2. Configurar estándares
-vi core/00-DOCUMENT-PRODUCT-STANDARDS.md
+# 2. Definir producto (QUÉ construir, no CÓMO)
+vi core/00-DOCUMENT-PRODUCT.md
 
-# 3. Leer definición del Coordinador
+# 3. (Opcional) Definir restricciones técnicas
+vi core/01-DOCUMENT-TECHNICAL-CONSTRAINTS.md
+
+# 4. Leer definición del Coordinador
 cat core/agentes/01-AGENTE-COORDINADOR.md
 
-# 4. ¡Empezar a usar con tu LLM!
+# 5. Leer definición del NUEVO Agente Arquitecto
+cat core/agentes/08-AGENTE-ARQUITECTO.md
+
+# 6. ¡Empezar a usar con tu LLM!
+# El Arquitecto analizará tu proyecto y decidirá el stack más apropiado
 ```
 
 ---
