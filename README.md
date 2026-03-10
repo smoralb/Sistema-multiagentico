@@ -4,6 +4,7 @@ Sistema autónomo de agentes especializados que gestiona el ciclo completo de de
 
 ## 📋 Tabla de Contenidos
 
+- [Estructura del Proyecto](#estructura-del-proyecto)
 - [Visión General](#visión-general)
 - [Arquitectura del Sistema](#arquitectura-del-sistema)
 - [Agentes del Sistema](#agentes-del-sistema)
@@ -14,6 +15,57 @@ Sistema autónomo de agentes especializados que gestiona el ciclo completo de de
 - [Ventajas del Sistema](#ventajas-del-sistema)
 - [Configuración Inicial](#configuración-inicial)
 - [Troubleshooting](#troubleshooting)
+
+## 📁 Estructura del Proyecto
+
+```
+sistema-multiagentico/
+│
+├── core/                                    # 🔒 Sistema base (raramente modificado)
+│   ├── 00-DOCUMENT-PRODUCT-STANDARDS.md   # ⭐ Configuración central - personalízalo
+│   ├── agentes/                            # Definiciones de los 7 agentes
+│   │   ├── 01-AGENTE-COORDINADOR.md
+│   │   ├── 02-AGENTE-PLANIFICADOR.md
+│   │   ├── 03-AGENTE-VALIDADOR.md
+│   │   ├── 04-AGENTE-DISENADOR.md
+│   │   ├── 05-AGENTE-DESARROLLADOR.md
+│   │   ├── 06-AGENTE-TESTING.md
+│   │   └── 07-AGENTE-DOCUMENTACION.md
+│   ├── docs/                               # Documentación de soporte
+│   │   ├── GUIA-RAPIDA.md
+│   │   └── EJEMPLO-EJECUCION-COMPLETA.md
+│   └── templates/                          # Templates para outputs
+│       └── 08-TEMPLATE-ESTADO-PROYECTO.md
+│
+├── outputs/                                 # 🤖 Archivos generados automáticamente
+│   ├── estados/                            # Estados del proyecto (tracking)
+│   ├── planes/                             # Planes de implementación
+│   ├── disenos/                            # Diseños técnicos y ADRs
+│   ├── reportes/                           # Reportes de testing/validación
+│   └── tests/                              # Suites de pruebas generadas
+│
+├── examples/                                # 📚 Ejemplos completos de ejecuciones
+│   └── jwt-authentication/                 # Ejemplo: implementación JWT
+│
+├── scripts/                                 # 🛠️ Scripts de automatización
+│   ├── init-project.sh                     # Inicializar nuevo proyecto
+│   ├── clean-outputs.sh                    # Limpiar archivos generados
+│   ├── archive-completed.sh                # Archivar features completadas
+│   └── generate-metrics.sh                 # Generar reporte de métricas
+│
+├── .gitignore                              # Configuración Git
+├── README.md                               # Este archivo
+└── INDEX.md                                # Índice de navegación rápida
+```
+
+### 🎯 Separación de Responsabilidades
+
+| Directorio | Propósito | Modifica | Versiona en Git |
+|------------|-----------|----------|-----------------|
+| `core/` | Definiciones del sistema y configuración | Raramente | ✅ Siempre |
+| `outputs/` | Archivos generados por agentes | Nunca (auto) | ⚠️ Opcional |
+| `examples/` | Referencias y casos de uso | Para agregar ejemplos | ✅ Siempre |
+| `scripts/` | Automatización y utilidades | Para mejorar scripts | ✅ Siempre |
 
 ## Visión General
 
@@ -71,7 +123,7 @@ Este sistema multiagente automatiza el proceso de desarrollo de software mediant
 ## Agentes del Sistema
 
 ### 1. 🎯 Agente Coordinador
-**Archivo**: `01-AGENTE-COORDINADOR.md`
+**Archivo**: `core/agentes/01-AGENTE-COORDINADOR.md`
 - Orquesta todo el flujo
 - Gestiona el estado del proyecto
 - Coordina entre agentes
@@ -79,7 +131,7 @@ Este sistema multiagente automatiza el proceso de desarrollo de software mediant
 - Escala al usuario cuando es necesario
 
 ### 2. 📋 Agente Planificador
-**Archivo**: `02-AGENTE-PLANIFICADOR.md`
+**Archivo**: `core/agentes/02-AGENTE-PLANIFICADOR.md`
 - Analiza requerimientos
 - Identifica dependencias
 - Define tareas y fases
@@ -87,7 +139,7 @@ Este sistema multiagente automatiza el proceso de desarrollo de software mediant
 - Estima complejidad
 
 ### 3. ✅ Agente Validador
-**Archivo**: `03-AGENTE-VALIDADOR.md`
+**Archivo**: `core/agentes/03-AGENTE-VALIDADOR.md`
 - Valida cada output contra estándares
 - Aplica checklists específicos por fase
 - Genera feedback accionable
@@ -95,7 +147,7 @@ Este sistema multiagente automatiza el proceso de desarrollo de software mediant
 - Sugiere mejoras
 
 ### 4. 🎨 Agente Diseñador
-**Archivo**: `04-AGENTE-DISENADOR.md`
+**Archivo**: `core/agentes/04-AGENTE-DISENADOR.md`
 - Define arquitectura técnica
 - Especifica interfaces y contratos
 - Selecciona patrones de diseño
@@ -103,7 +155,7 @@ Este sistema multiagente automatiza el proceso de desarrollo de software mediant
 - Considera escalabilidad y performance
 
 ### 5. 💻 Agente Desarrollador
-**Archivo**: `05-AGENTE-DESARROLLADOR.md`
+**Archivo**: `core/agentes/05-AGENTE-DESARROLLADOR.md`
 - Implementa el código
 - Escribe tests unitarios
 - Sigue estándares de código
@@ -111,7 +163,7 @@ Este sistema multiagente automatiza el proceso de desarrollo de software mediant
 - Auto-revisa su código
 
 ### 6. 🧪 Agente de Testing
-**Archivo**: `06-AGENTE-TESTING.md`
+**Archivo**: `core/agentes/06-AGENTE-TESTING.md`
 - Crea suite de tests completa
 - Tests de integración y E2E
 - Valida cobertura
@@ -119,7 +171,7 @@ Este sistema multiagente automatiza el proceso de desarrollo de software mediant
 - Reporta bugs encontrados
 
 ### 7. 📚 Agente de Documentación
-**Archivo**: `07-AGENTE-DOCUMENTACION.md`
+**Archivo**: `core/agentes/07-AGENTE-DOCUMENTACION.md`
 - Actualiza documentación técnica
 - Documenta APIs
 - Crea guías de uso
@@ -199,7 +251,7 @@ Si después de 2 iteraciones sigue rechazado → Escalado al usuario
 1. **Personalizar el Documento de Estándares**
    ```bash
    # Edita este archivo con los estándares de TU proyecto
-   vi 00-DOCUMENT-PRODUCT-STANDARDS.md
+   vi core/00-DOCUMENT-PRODUCT-STANDARDS.md
    ```
 
    Completa:
@@ -210,9 +262,15 @@ Si después de 2 iteraciones sigue rechazado → Escalado al usuario
    - Requisitos de seguridad
 
 2. **Revisar Configuración de Agentes**
-   - Cada agente tiene su archivo markdown
+   - Cada agente tiene su archivo markdown en `core/agentes/`
    - Puedes ajustar checklists y criterios si es necesario
    - Los agentes consultarán estos documentos
+
+3. **Inicializar Estructura (Opcional)**
+   ```bash
+   # Usa el script de inicialización si es un proyecto nuevo
+   ./scripts/init-project.sh mi-proyecto
+   ```
 
 ### Paso 2: Iniciar una Nueva Funcionalidad
 
@@ -255,28 +313,28 @@ El Coordinador responde a:
 
 ## Documentos Clave
 
-### Documentos de Configuración
+### Documentos de Configuración (en `core/`)
 
 | Documento | Propósito | Editable |
 |-----------|-----------|----------|
-| `00-DOCUMENT-PRODUCT-STANDARDS.md` | Estándares del proyecto | ✅ Sí, personaliza |
-| `01-AGENTE-COORDINADOR.md` | Definición del coordinador | ⚠️ Raramente |
-| `02-AGENTE-PLANIFICADOR.md` | Definición del planificador | ⚠️ Raramente |
-| `03-AGENTE-VALIDADOR.md` | Definición del validador | ⚠️ Raramente |
-| `04-AGENTE-DISENADOR.md` | Definición del diseñador | ⚠️ Raramente |
-| `05-AGENTE-DESARROLLADOR.md` | Definición del desarrollador | ⚠️ Raramente |
-| `06-AGENTE-TESTING.md` | Definición del tester | ⚠️ Raramente |
-| `07-AGENTE-DOCUMENTACION.md` | Definición del documentador | ⚠️ Raramente |
+| `core/00-DOCUMENT-PRODUCT-STANDARDS.md` | ⭐ Estándares del proyecto | ✅ Sí, personaliza |
+| `core/agentes/01-AGENTE-COORDINADOR.md` | Definición del coordinador | ⚠️ Raramente |
+| `core/agentes/02-AGENTE-PLANIFICADOR.md` | Definición del planificador | ⚠️ Raramente |
+| `core/agentes/03-AGENTE-VALIDADOR.md` | Definición del validador | ⚠️ Raramente |
+| `core/agentes/04-AGENTE-DISENADOR.md` | Definición del diseñador | ⚠️ Raramente |
+| `core/agentes/05-AGENTE-DESARROLLADOR.md` | Definición del desarrollador | ⚠️ Raramente |
+| `core/agentes/06-AGENTE-TESTING.md` | Definición del tester | ⚠️ Raramente |
+| `core/agentes/07-AGENTE-DOCUMENTACION.md` | Definición del documentador | ⚠️ Raramente |
 
-### Documentos Generados Automáticamente
+### Documentos Generados Automáticamente (en `outputs/`)
 
-| Documento | Cuándo se crea | Propósito |
-|-----------|----------------|-----------|
-| `estado-[funcionalidad].md` | Al iniciar | Tracking del progreso |
-| `plan-[funcionalidad].md` | Fase de planificación | Plan detallado |
-| `diseno-[funcionalidad].md` | Fase de diseño | Diseño técnico |
-| `adr-[numero]-[titulo].md` | Cuando hay decisión | Architecture Decision Record |
-| `reporte-testing-[funcionalidad].md` | Fase de testing | Resultados de tests |
+| Documento | Ubicación | Cuándo se crea | Propósito |
+|-----------|-----------|----------------|-----------|
+| `estado-[funcionalidad].md` | `outputs/estados/` | Al iniciar | Tracking del progreso |
+| `plan-[funcionalidad].md` | `outputs/planes/` | Fase de planificación | Plan detallado |
+| `diseno-[funcionalidad].md` | `outputs/disenos/` | Fase de diseño | Diseño técnico |
+| `adr-[numero]-[titulo].md` | `outputs/disenos/` | Cuando hay decisión | Architecture Decision Record |
+| `reporte-testing-[funcionalidad].md` | `outputs/reportes/` | Fase de testing | Resultados de tests |
 
 ## Ejemplos de Uso
 
@@ -374,11 +432,8 @@ El Coordinador responde a:
 ### 1. Preparar el Documento de Estándares
 
 ```bash
-# 1. Copia el template
-cp 00-DOCUMENT-PRODUCT-STANDARDS.md mi-proyecto-standards.md
-
-# 2. Edita con los estándares de tu proyecto
-vi mi-proyecto-standards.md
+# 1. Edita directamente el archivo de estándares
+vi core/00-DOCUMENT-PRODUCT-STANDARDS.md
 
 # Completa:
 # - Stack tecnológico (líneas 15-30)
@@ -386,6 +441,9 @@ vi mi-proyecto-standards.md
 # - Estándares de código (líneas 70-150)
 # - Estándares de testing (líneas 152-200)
 # - etc.
+
+# 2. O usa el script de inicialización para un proyecto nuevo
+./scripts/init-project.sh mi-proyecto
 ```
 
 ### 2. Ajustar Checklists de Validación (Opcional)
@@ -393,7 +451,7 @@ vi mi-proyecto-standards.md
 Si tus estándares difieren significativamente:
 
 ```bash
-vi 03-AGENTE-VALIDADOR.md
+vi core/agentes/03-AGENTE-VALIDADOR.md
 
 # Ajusta los checklists en:
 # - Línea 95: Checklist de planificación
@@ -429,7 +487,7 @@ jobs:
 
 **Solución**:
 1. Revisa el feedback específico del validador
-2. Ajusta los estándares en `00-DOCUMENT-PRODUCT-STANDARDS.md`
+2. Ajusta los estándares en `core/00-DOCUMENT-PRODUCT-STANDARDS.md`
 3. O ajusta el checklist del validador si es demasiado estricto
 
 ### Problema: El proceso se quedó atascado
@@ -439,7 +497,7 @@ jobs:
 **Solución**:
 ```bash
 # 1. Revisar el documento de estado
-cat estado-[funcionalidad].md | grep -A 5 "Bloqueos"
+cat outputs/estados/estado-[funcionalidad].md | grep -A 5 "Bloqueos"
 
 # 2. Usar comando de coordinador
 /estado  # Ver qué está pasando
@@ -451,7 +509,7 @@ cat estado-[funcionalidad].md | grep -A 5 "Bloqueos"
 **Causa**: Documento de estándares no está completo o claro
 
 **Solución**:
-1. Revisar `00-DOCUMENT-PRODUCT-STANDARDS.md`
+1. Revisar `core/00-DOCUMENT-PRODUCT-STANDARDS.md`
 2. Asegurarse de que está específico, no ambiguo
 3. Agregar ejemplos concretos de lo esperado
 
@@ -493,11 +551,14 @@ cat estado-[funcionalidad].md | grep -A 5 "Bloqueos"
 
 ## Próximos Pasos
 
-1. **Personaliza** `00-DOCUMENT-PRODUCT-STANDARDS.md` con tus estándares
-2. **Prueba** el sistema con una funcionalidad pequeña
-3. **Ajusta** según los resultados
-4. **Escala** a funcionalidades más complejas
-5. **Itera** y mejora el sistema basado en experiencia
+1. **Personaliza** `core/00-DOCUMENT-PRODUCT-STANDARDS.md` con tus estándares
+2. **Inicializa** tu proyecto con `./scripts/init-project.sh` (si es nuevo)
+3. **Prueba** el sistema con una funcionalidad pequeña
+4. **Revisa** los outputs generados en `outputs/`
+5. **Ajusta** según los resultados
+6. **Escala** a funcionalidades más complejas
+7. **Documenta** ejemplos exitosos en `examples/`
+8. **Itera** y mejora el sistema basado en experiencia
 
 ## Contribuir
 

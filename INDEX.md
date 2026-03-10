@@ -2,13 +2,14 @@
 
 ## 🚀 Inicio Rápido
 
-1. **[GUIA-RAPIDA.md](docs/GUIA-RAPIDA.md)** ← ⚡ **Empieza aquí (5 min)**
+1. **[GUIA-RAPIDA.md](core/docs/GUIA-RAPIDA.md)** ← ⚡ **Empieza aquí (5 min)**
 2. **[README.md](README.md)** ← Documentación completa
-3. **[EJEMPLO-EJECUCION-COMPLETA.md](docs/EJEMPLO-EJECUCION-COMPLETA.md)** ← Ejemplo real paso a paso
+3. **[EJEMPLO-EJECUCION-COMPLETA.md](core/docs/EJEMPLO-EJECUCION-COMPLETA.md)** ← Ejemplo real paso a paso
+4. **[Init Script](scripts/init-project.sh)** ← Inicializa un nuevo proyecto
 
 ## ⚙️ Configuración
 
-**[00-DOCUMENT-PRODUCT-STANDARDS.md](00-DOCUMENT-PRODUCT-STANDARDS.md)** ← ⭐ **EDITA ESTO PRIMERO**
+**[core/00-DOCUMENT-PRODUCT-STANDARDS.md](core/00-DOCUMENT-PRODUCT-STANDARDS.md)** ← ⭐ **EDITA ESTO PRIMERO**
 - Fuente única de verdad
 - Define tus estándares de proyecto
 - Consultado por todos los agentes
@@ -16,49 +17,49 @@
 ## 🤖 Los 7 Agentes
 
 ### Agente Coordinador
-**[agentes/01-AGENTE-COORDINADOR.md](agentes/01-AGENTE-COORDINADOR.md)**
+**[core/agentes/01-AGENTE-COORDINADOR.md](core/agentes/01-AGENTE-COORDINADOR.md)**
 - Orquesta todo el flujo
 - Gestiona el estado del proyecto
 - Coordina entre agentes
 - Maneja feedback loops
 
 ### Agente Planificador
-**[agentes/02-AGENTE-PLANIFICADOR.md](agentes/02-AGENTE-PLANIFICADOR.md)**
+**[core/agentes/02-AGENTE-PLANIFICADOR.md](core/agentes/02-AGENTE-PLANIFICADOR.md)**
 - Analiza requerimientos
 - Identifica dependencias
 - Define tareas y fases
 - Evalúa riesgos
 
 ### Agente Validador
-**[agentes/03-AGENTE-VALIDADOR.md](agentes/03-AGENTE-VALIDADOR.md)**
+**[core/agentes/03-AGENTE-VALIDADOR.md](core/agentes/03-AGENTE-VALIDADOR.md)**
 - Valida cada output contra estándares
 - Aplica checklists específicos
 - Genera feedback accionable
 - Aprueba/rechaza cada fase
 
 ### Agente Diseñador
-**[agentes/04-AGENTE-DISENADOR.md](agentes/04-AGENTE-DISENADOR.md)**
+**[core/agentes/04-AGENTE-DISENADOR.md](core/agentes/04-AGENTE-DISENADOR.md)**
 - Define arquitectura técnica
 - Especifica interfaces
 - Selecciona patrones de diseño
 - Documenta decisiones
 
 ### Agente Desarrollador
-**[agentes/05-AGENTE-DESARROLLADOR.md](agentes/05-AGENTE-DESARROLLADOR.md)**
+**[core/agentes/05-AGENTE-DESARROLLADOR.md](core/agentes/05-AGENTE-DESARROLLADOR.md)**
 - Implementa el código
 - Escribe tests unitarios
 - Sigue estándares
 - Auto-revisa su código
 
 ### Agente de Testing
-**[agentes/06-AGENTE-TESTING.md](agentes/06-AGENTE-TESTING.md)**
+**[core/agentes/06-AGENTE-TESTING.md](core/agentes/06-AGENTE-TESTING.md)**
 - Crea suite de tests completa
 - Tests de integración y E2E
 - Valida cobertura
 - Reporta bugs
 
 ### Agente de Documentación
-**[agentes/07-AGENTE-DOCUMENTACION.md](agentes/07-AGENTE-DOCUMENTACION.md)**
+**[core/agentes/07-AGENTE-DOCUMENTACION.md](core/agentes/07-AGENTE-DOCUMENTACION.md)**
 - Actualiza documentación técnica
 - Documenta APIs
 - Crea guías de uso
@@ -66,26 +67,41 @@
 
 ## 📋 Templates
 
-**[templates/08-TEMPLATE-ESTADO-PROYECTO.md](templates/08-TEMPLATE-ESTADO-PROYECTO.md)**
+**[core/templates/08-TEMPLATE-ESTADO-PROYECTO.md](core/templates/08-TEMPLATE-ESTADO-PROYECTO.md)**
 - Template para tracking de progreso
 - Usado por el Coordinador
-- Se genera automáticamente para cada proyecto
+- Se genera automáticamente en `outputs/estados/`
 
 ## 📚 Documentación Adicional
 
 ### Guía Rápida
-**[docs/GUIA-RAPIDA.md](docs/GUIA-RAPIDA.md)**
+**[core/docs/GUIA-RAPIDA.md](core/docs/GUIA-RAPIDA.md)**
 - Inicio en 5 minutos
 - Casos de uso
 - Comandos básicos
 - FAQ
 
 ### Ejemplo Completo
-**[docs/EJEMPLO-EJECUCION-COMPLETA.md](docs/EJEMPLO-EJECUCION-COMPLETA.md)**
+**[core/docs/EJEMPLO-EJECUCION-COMPLETA.md](core/docs/EJEMPLO-EJECUCION-COMPLETA.md)**
 - Ejemplo real: Autenticación JWT
 - Flujo completo paso a paso
 - 8 horas de trabajo automatizado
 - Outputs de cada agente
+
+### Ejemplos Reales
+**[examples/](examples/)**
+- Casos de uso completados
+- Referencias de implementación
+- Ver `examples/README.md` para más detalles
+
+## 🛠️ Scripts de Automatización
+
+**[scripts/](scripts/)**
+- `init-project.sh` - Inicializa un nuevo proyecto
+- `clean-outputs.sh` - Limpia archivos generados
+- `archive-completed.sh` - Archiva features completadas
+- `generate-metrics.sh` - Genera reporte de métricas
+- Ver `scripts/README.md` para más detalles
 
 ## 🔄 Flujo del Sistema
 
@@ -120,42 +136,65 @@ Usuario solicita funcionalidad
 ## 📂 Ubicación de Archivos
 
 ```
-/Users/smoralber/sistema-multiagentico/
+sistema-multiagentico/
 │
-├── INDEX.md                           ← Este archivo
-├── README.md                          ← Doc principal
-├── 00-DOCUMENT-PRODUCT-STANDARDS.md   ← Estándares
+├── INDEX.md                                ← Este archivo
+├── README.md                               ← Doc principal
+├── .gitignore                              ← Git ignore configurado
 │
-├── agentes/                           ← 7 agentes
-│   ├── 01-AGENTE-COORDINADOR.md
-│   ├── 02-AGENTE-PLANIFICADOR.md
-│   ├── 03-AGENTE-VALIDADOR.md
-│   ├── 04-AGENTE-DISENADOR.md
-│   ├── 05-AGENTE-DESARROLLADOR.md
-│   ├── 06-AGENTE-TESTING.md
-│   └── 07-AGENTE-DOCUMENTACION.md
+├── core/                                   ← 🔒 Sistema base (raramente modificado)
+│   ├── 00-DOCUMENT-PRODUCT-STANDARDS.md   ← ⭐ Estándares (EDITA ESTO)
+│   ├── README.md                           ← Info sobre el core
+│   ├── agentes/                            ← Definiciones de agentes
+│   │   ├── 01-AGENTE-COORDINADOR.md
+│   │   ├── 02-AGENTE-PLANIFICADOR.md
+│   │   ├── 03-AGENTE-VALIDADOR.md
+│   │   ├── 04-AGENTE-DISENADOR.md
+│   │   ├── 05-AGENTE-DESARROLLADOR.md
+│   │   ├── 06-AGENTE-TESTING.md
+│   │   └── 07-AGENTE-DOCUMENTACION.md
+│   ├── docs/                               ← Guías de uso
+│   │   ├── GUIA-RAPIDA.md
+│   │   └── EJEMPLO-EJECUCION-COMPLETA.md
+│   └── templates/                          ← Templates para outputs
+│       └── 08-TEMPLATE-ESTADO-PROYECTO.md
 │
-├── docs/                              ← Guías
-│   ├── GUIA-RAPIDA.md
-│   └── EJEMPLO-EJECUCION-COMPLETA.md
+├── outputs/                                ← 🤖 Archivos generados (auto)
+│   ├── README.md                           ← Info sobre outputs
+│   ├── estados/                            ← Estados del proyecto
+│   ├── planes/                             ← Planes de implementación
+│   ├── disenos/                            ← Diseños técnicos + ADRs
+│   ├── reportes/                           ← Reportes de testing
+│   └── tests/                              ← Suites de pruebas
 │
-└── templates/                         ← Templates
-    └── 08-TEMPLATE-ESTADO-PROYECTO.md
+├── examples/                               ← 📚 Ejemplos reales completados
+│   ├── README.md                           ← Info sobre ejemplos
+│   └── jwt-authentication/                 ← Ejemplo JWT completo
+│
+└── scripts/                                ← 🛠️ Scripts de automatización
+    ├── README.md                           ← Info sobre scripts
+    ├── init-project.sh                     ← Inicializar proyecto
+    ├── clean-outputs.sh                    ← Limpiar outputs
+    ├── archive-completed.sh                ← Archivar completados
+    └── generate-metrics.sh                 ← Generar métricas
 ```
 
 ## 🎯 Siguientes Pasos
 
-1. ✅ Lee [GUIA-RAPIDA.md](docs/GUIA-RAPIDA.md) (5 minutos)
-2. ✏️ Edita [00-DOCUMENT-PRODUCT-STANDARDS.md](00-DOCUMENT-PRODUCT-STANDARDS.md) con tus estándares
-3. 📖 Revisa [EJEMPLO-EJECUCION-COMPLETA.md](docs/EJEMPLO-EJECUCION-COMPLETA.md)
-4. 🚀 ¡Empieza a usar el sistema!
+1. ✅ Lee [GUIA-RAPIDA.md](core/docs/GUIA-RAPIDA.md) (5 minutos)
+2. 🛠️ Ejecuta `./scripts/init-project.sh mi-proyecto` para inicializar
+3. ✏️ Edita [core/00-DOCUMENT-PRODUCT-STANDARDS.md](core/00-DOCUMENT-PRODUCT-STANDARDS.md) con tus estándares
+4. 📖 Revisa [EJEMPLO-EJECUCION-COMPLETA.md](core/docs/EJEMPLO-EJECUCION-COMPLETA.md)
+5. 🚀 ¡Empieza a usar el sistema!
+6. 📊 Los outputs se generarán automáticamente en `outputs/`
 
 ## 🆘 Necesitas Ayuda?
 
-- **Inicio rápido**: [GUIA-RAPIDA.md](docs/GUIA-RAPIDA.md)
+- **Inicio rápido**: [GUIA-RAPIDA.md](core/docs/GUIA-RAPIDA.md)
 - **Documentación completa**: [README.md](README.md)
-- **Ver ejemplo real**: [EJEMPLO-EJECUCION-COMPLETA.md](docs/EJEMPLO-EJECUCION-COMPLETA.md)
-- **FAQ**: Ver sección en [GUIA-RAPIDA.md](docs/GUIA-RAPIDA.md#-faq-rápido)
+- **Ver ejemplo real**: [EJEMPLO-EJECUCION-COMPLETA.md](core/docs/EJEMPLO-EJECUCION-COMPLETA.md)
+- **FAQ**: Ver sección en [GUIA-RAPIDA.md](core/docs/GUIA-RAPIDA.md#-faq-rápido)
+- **Scripts**: [scripts/README.md](scripts/README.md)
 
 ## 📊 Tamaño de los Archivos
 
@@ -170,22 +209,26 @@ Usuario solicita funcionalidad
 ## ⚡ Acceso Rápido por Rol
 
 ### Para el Usuario/Product Manager
-1. [GUIA-RAPIDA.md](docs/GUIA-RAPIDA.md) - Cómo usar el sistema
-2. [EJEMPLO-EJECUCION-COMPLETA.md](docs/EJEMPLO-EJECUCION-COMPLETA.md) - Qué esperar
+1. [GUIA-RAPIDA.md](core/docs/GUIA-RAPIDA.md) - Cómo usar el sistema
+2. [EJEMPLO-EJECUCION-COMPLETA.md](core/docs/EJEMPLO-EJECUCION-COMPLETA.md) - Qué esperar
+3. [outputs/estados/](outputs/estados/) - Ver progreso en tiempo real
 
 ### Para el Tech Lead
-1. [00-DOCUMENT-PRODUCT-STANDARDS.md](00-DOCUMENT-PRODUCT-STANDARDS.md) - Configurar estándares
+1. [core/00-DOCUMENT-PRODUCT-STANDARDS.md](core/00-DOCUMENT-PRODUCT-STANDARDS.md) - Configurar estándares
 2. [README.md](README.md) - Arquitectura completa
-3. [agentes/03-AGENTE-VALIDADOR.md](agentes/03-AGENTE-VALIDADOR.md) - Criterios de validación
+3. [core/agentes/03-AGENTE-VALIDADOR.md](core/agentes/03-AGENTE-VALIDADOR.md) - Criterios de validación
+4. [scripts/](scripts/) - Automatización y métricas
 
 ### Para el Desarrollador
-1. [agentes/05-AGENTE-DESARROLLADOR.md](agentes/05-AGENTE-DESARROLLADOR.md) - Guía de desarrollo
-2. [00-DOCUMENT-PRODUCT-STANDARDS.md](00-DOCUMENT-PRODUCT-STANDARDS.md) - Estándares a seguir
-3. [templates/08-TEMPLATE-ESTADO-PROYECTO.md](templates/08-TEMPLATE-ESTADO-PROYECTO.md) - Tracking
+1. [core/agentes/05-AGENTE-DESARROLLADOR.md](core/agentes/05-AGENTE-DESARROLLADOR.md) - Guía de desarrollo
+2. [core/00-DOCUMENT-PRODUCT-STANDARDS.md](core/00-DOCUMENT-PRODUCT-STANDARDS.md) - Estándares a seguir
+3. [outputs/planes/](outputs/planes/) - Ver planes de implementación
+4. [examples/](examples/) - Ejemplos de referencia
 
 ### Para el QA/Tester
-1. [agentes/06-AGENTE-TESTING.md](agentes/06-AGENTE-TESTING.md) - Estrategia de testing
-2. [agentes/03-AGENTE-VALIDADOR.md](agentes/03-AGENTE-VALIDADOR.md) - Criterios de calidad
+1. [core/agentes/06-AGENTE-TESTING.md](core/agentes/06-AGENTE-TESTING.md) - Estrategia de testing
+2. [core/agentes/03-AGENTE-VALIDADOR.md](core/agentes/03-AGENTE-VALIDADOR.md) - Criterios de calidad
+3. [outputs/reportes/](outputs/reportes/) - Ver reportes de tests
 
 ---
 
