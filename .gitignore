@@ -1,139 +1,15 @@
-# Sistema Multiagente - Git Ignore
+# Sistema Multiagente - Minimal Version
 
-# ========================================
-# OUTPUTS - Archivos Generados
-# ========================================
-# Descomentar estas líneas si quieres que outputs sean temporales (no versionados)
-# outputs/estados/*
-# outputs/planes/*
-# outputs/disenos/*
-# outputs/reportes/*
-# outputs/tests/*
-
-# O comentar las anteriores y mantener esta si quieres versionar outputs
-# Solo ignorar archivos temporales específicos
+# Outputs temporales
 outputs/**/*.tmp
 outputs/**/*.temp
 outputs/**/*.log
 
-# ========================================
-# ARCHIVOS DE SISTEMA
-# ========================================
+# Sistema
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# ========================================
-# EDITORS / IDEs
-# ========================================
-# VSCode
-.vscode/
-*.code-workspace
-
-# JetBrains (IntelliJ, WebStorm, etc.)
-.idea/
-*.iml
-
-# Vim
 *.swp
-*.swo
-*~
 
-# Emacs
-*~
-\#*\#
-/.emacs.desktop
-/.emacs.desktop.lock
-
-# Sublime Text
-*.sublime-project
-*.sublime-workspace
-
-# ========================================
-# NODE / JAVASCRIPT (si usas herramientas JS)
-# ========================================
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-package-lock.json
-yarn.lock
-
-# ========================================
-# PYTHON (si usas herramientas Python)
-# ========================================
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-venv/
-env/
-ENV/
-*.egg-info/
-
-# ========================================
-# BACKUPS Y ARCHIVOS TEMPORALES
-# ========================================
-*.bak
-*.backup
-*.old
-*.orig
-backups/*.tar.gz
-backups/*.zip
-
-# Mantener estructura de backups pero no el contenido
-backups/*
-!backups/.gitkeep
-
-# ========================================
-# ARCHIVOS SENSIBLES
-# ========================================
-# Nunca commitear configuraciones con secrets
+# Configuraciones locales sensibles
 *secrets*
 *credentials*
 *.env
-*.env.local
-.env*.local
-config.local.*
-
-# ========================================
-# LOGS Y DEBUGGING
-# ========================================
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-
-# ========================================
-# COVERAGE Y TESTING
-# ========================================
-coverage/
-.nyc_output/
-*.lcov
-.coverage
-htmlcov/
-
-# ========================================
-# OUTPUTS TEMPORALES DE SCRIPTS
-# ========================================
-scripts/*.tmp
-scripts/*.log
-scripts/temp/
-
-# ========================================
-# KEEP FILES
-# ========================================
-# Mantener estas carpetas en Git incluso si están vacías
-!outputs/.gitkeep
-!outputs/estados/.gitkeep
-!outputs/planes/.gitkeep
-!outputs/disenos/.gitkeep
-!outputs/reportes/.gitkeep
-!outputs/tests/.gitkeep
-!examples/.gitkeep
-!scripts/.gitkeep
