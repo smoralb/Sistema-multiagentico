@@ -32,7 +32,7 @@ sistema-multiagentico/
 
 ## ⚡ INICIO RÁPIDO (5 minutos)
 
-### **Caso de Uso: Implementar Autenticación JWT en una API REST**
+### **Caso de Uso: Implementar una Landing Page Corporativa Completa**
 
 #### **PASO 1: Configura los Estándares (2 min)**
 
@@ -43,68 +43,86 @@ vi core/00-DOCUMENT-PRODUCT-STANDARDS.md
 ```
 
 **Completa mínimo estas secciones:**
-- **Línea 15-30**: Stack tecnológico (Node.js/Express, TypeScript, MongoDB, etc.)
-- **Línea 70-100**: Estándares de código (camelCase, max 50 líneas por función, etc.)
-- **Línea 150-180**: Cobertura de tests (95% business logic, 90% services)
+- **Línea 15-30**: Stack tecnológico (React, Next.js, Tailwind CSS, TypeScript, etc.)
+- **Línea 70-100**: Estándares de código (camelCase, componentización, max 200 líneas por componente, etc.)
+- **Línea 150-180**: Cobertura de tests (90% componentes críticos, 80% utils)
 
 #### **PASO 2: Solicitud al Coordinador (1 min)**
 
 Envía esta solicitud al **Agente Coordinador**:
 
 ```
-"Implementa un sistema de autenticación JWT completo para la API REST.
+"Implementa una landing page corporativa moderna y responsiva para una empresa de tecnología.
 
 Requisitos:
-- Login endpoint (POST /api/auth/login)
-- Registro endpoint (POST /api/auth/register)
-- JWT tokens con 1h de expiración
-- Refresh tokens con 7 días de expiración
-- Middleware para proteger rutas
-- Hash de passwords con bcrypt
-- Validación de inputs
-- Manejo de errores robusto
+- Hero section con CTA (Call to Action)
+- Sección de servicios (mínimo 4 servicios)
+- Sección 'Sobre Nosotros' con timeline
+- Portafolio/proyectos con filtros
+- Sección de testimonios (carousel)
+- Formulario de contacto funcional con validación
+- Footer con redes sociales y mapa del sitio
+- Navegación sticky con scroll suave
+- Modo oscuro/claro
+- Animaciones y transiciones suaves
+- SEO optimizado
+- Performance (Lighthouse score >90)
+- 100% responsive (mobile-first)
+- Accesibilidad WCAG 2.1 nivel AA
 
-Stack: Node.js + Express + TypeScript + MongoDB
+Stack: React + Next.js 14 + TypeScript + Tailwind CSS + Framer Motion
 "
 ```
 
-#### **PASO 3: El Sistema Trabaja Automáticamente (2 min para configurar, ~6 horas de trabajo automatizado)**
+#### **PASO 3: El Sistema Trabaja Automáticamente (2 min para configurar, ~8 horas de trabajo automatizado)**
 
 El **Coordinador** iniciará el flujo automático:
 
 ```
 1. COORDINADOR: Analiza la solicitud
-   └─> Crea: outputs/estados/estado-jwt-auth.md
+   └─> Crea: outputs/estados/estado-landing-corporativa.md
 
 2. PLANIFICADOR: Genera plan detallado (13 secciones)
-   └─> Crea: outputs/planes/plan-jwt-auth.md
+   └─> Crea: outputs/planes/plan-landing-corporativa.md
+   └─> Desglose: 8 componentes principales, 15 componentes reutilizables
 
 3. VALIDADOR: Revisa el plan
    └─> ✅ Aprobado o ❌ Rechazado con feedback
 
 4. DISEÑADOR: Diseño técnico completo
-   └─> Crea: outputs/disenos/diseno-jwt-auth.md
-   └─> Crea: outputs/disenos/adr-001-jwt-vs-sessions.md
+   └─> Crea: outputs/disenos/diseno-landing-corporativa.md
+   └─> Crea: outputs/disenos/adr-001-nextjs-vs-vite.md
+   └─> Crea: outputs/disenos/adr-002-tailwind-vs-styled-components.md
+   └─> Arquitectura de componentes, estructura de carpetas, design system
 
 5. VALIDADOR: Revisa el diseño
    └─> ✅ Aprobado
 
 6. DESARROLLADOR: Implementa código + tests unitarios
-   └─> Crea código en tu proyecto
-   └─> Coverage: 95%+
+   └─> Estructura Next.js 14 con App Router
+   └─> Componentes React reutilizables
+   └─> Hooks personalizados (useScroll, useTheme, useForm)
+   └─> Utilities y helpers
+   └─> Coverage: 85%+
 
 7. VALIDADOR: Revisa código
    └─> ✅ Aprobado
 
 8. TESTER: Suite completa de tests
-   └─> Crea: outputs/reportes/reporte-testing-jwt-auth.md
-   └─> Tests: Unit, Integration, E2E, Security
+   └─> Crea: outputs/reportes/reporte-testing-landing.md
+   └─> Tests: Unit (Jest), Component (React Testing Library), E2E (Playwright)
+   └─> Tests de accesibilidad (axe-core)
+   └─> Performance tests (Lighthouse CI)
+   └─> Tests visuales (Chromatic/Percy)
 
 9. VALIDADOR: Revisa tests
    └─> ✅ Aprobado
 
 10. DOCUMENTADOR: Documentación completa
-    └─> API docs, guías de uso, troubleshooting
+    └─> README con setup instructions
+    └─> Guía de componentes (Storybook)
+    └─> Guía de estilo y design tokens
+    └─> Documentación de deployment
 
 11. COORDINADOR: Revisión final
     └─> ✅ COMPLETADO
@@ -116,16 +134,19 @@ Durante la ejecución, consulta:
 
 ```bash
 # Ver estado actual del proyecto
-cat outputs/estados/estado-jwt-auth.md
+cat outputs/estados/estado-landing-corporativa.md
 
 # Ver plan de implementación
-cat outputs/planes/plan-jwt-auth.md
+cat outputs/planes/plan-landing-corporativa.md
 
 # Ver diseño técnico
-cat outputs/disenos/diseno-jwt-auth.md
+cat outputs/disenos/diseno-landing-corporativa.md
+
+# Ver arquitectura de componentes
+cat outputs/disenos/arquitectura-componentes.md
 
 # Ver reporte de testing
-cat outputs/reportes/reporte-testing-jwt-auth.md
+cat outputs/reportes/reporte-testing-landing.md
 ```
 
 ---
@@ -249,16 +270,19 @@ Este archivo es consultado por **TODOS los agentes** en **CADA fase**.
 ```markdown
 ## Stack Tecnológico
 
-### Backend
-- **Framework**: Express.js v4.18+
+### Frontend
+- **Framework**: Next.js 14+ con App Router
+- **Librería UI**: React 18+
 - **Lenguaje**: TypeScript 5.0+
-- **Base de datos**: MongoDB 6.0+
-- **ORM/ODM**: Mongoose
+- **Estilos**: Tailwind CSS 3.4+
+- **Animaciones**: Framer Motion
+- **Iconos**: React Icons / Heroicons
 
 ### Testing
-- **Unit tests**: Jest
-- **Integration tests**: Supertest
-- **E2E tests**: Cypress
+- **Unit tests**: Jest + React Testing Library
+- **E2E tests**: Playwright
+- **Visual tests**: Chromatic (opcional)
+- **Accesibilidad**: axe-core
 ```
 
 #### 2. **Estándares de Código** (~Línea 70-100)
@@ -266,15 +290,17 @@ Este archivo es consultado por **TODOS los agentes** en **CADA fase**.
 ## Estándares de Código
 
 ### Nomenclatura
-- Variables/funciones: camelCase
-- Clases/Interfaces: PascalCase
-- Constantes: UPPER_SNAKE_CASE
-- Archivos: kebab-case
+- Componentes: PascalCase (Button.tsx, HeroSection.tsx)
+- Hooks personalizados: camelCase con prefijo 'use' (useScroll, useTheme)
+- Utilities: camelCase (formatDate, validateEmail)
+- Constantes: UPPER_SNAKE_CASE (API_URL, MAX_WIDTH)
+- Archivos CSS: kebab-case (global-styles.css)
 
 ### Límites
-- Máximo 50 líneas por función
-- Máximo 3-4 parámetros (luego usar objetos)
-- Complejidad ciclomática < 10
+- Máximo 200 líneas por componente
+- Máximo 5 props por componente (luego usar objeto config)
+- Componentes reutilizables en /components/common/
+- Páginas en /app/ (Next.js App Router)
 ```
 
 #### 3. **Cobertura de Tests** (~Línea 150-180)
@@ -282,11 +308,16 @@ Este archivo es consultado por **TODOS los agentes** en **CADA fase**.
 ## Estándares de Testing
 
 ### Cobertura Mínima
-- Rutas críticas: 100%
-- Business logic: 95%
-- Services: 90%
-- Utils: 85%
-- UI Components: 70%
+- Componentes críticos (Hero, Form, Checkout): 95%
+- Componentes reutilizables: 90%
+- Hooks personalizados: 95%
+- Utils/helpers: 85%
+- Páginas: 80%
+
+### Accesibilidad
+- Lighthouse Accessibility score: >90
+- Cumplimiento WCAG 2.1 nivel AA
+- Tests automatizados con axe-core
 ```
 
 ---
@@ -295,17 +326,17 @@ Este archivo es consultado por **TODOS los agentes** en **CADA fase**.
 
 ### **Caso 2: Bug Fix**
 ```
-"Fix: Los usuarios pueden hacer doble-submit del formulario de pago
+"Fix: El formulario de contacto permite envíos duplicados
 
-Reproduce: Hacer click rápido 2 veces en botón 'Pagar'
-Resultado actual: Se crean 2 cargos
-Resultado esperado: Solo 1 cargo, botón deshabilitado tras primer click
+Reproduce: Hacer click rápido 2 veces en botón 'Enviar'
+Resultado actual: Se envían 2 emails duplicados
+Resultado esperado: Solo 1 envío, botón deshabilitado durante el proceso
 "
 ```
 
 **Flujo automatizado** (más corto para bugs):
 1. Planificador: Análisis del bug + estrategia
-2. Desarrollador: Implementa fix (debounce + disabled state)
+2. Desarrollador: Implementa fix (estado de loading + debounce)
 3. Tester: Tests de regresión + caso específico
 4. Documentador: Actualiza troubleshooting
 
@@ -315,25 +346,56 @@ Resultado esperado: Solo 1 cargo, botón deshabilitado tras primer click
 
 ### **Caso 3: Nueva Feature Compleja**
 ```
-"Implementa sistema de notificaciones push en tiempo real con WebSockets
+"Implementa un blog multi-idioma con CMS headless
 
 Requisitos:
-- Notificaciones en tiempo real para usuarios conectados
-- Queue para usuarios offline (entregar cuando se conecten)
-- Tipos de notificaciones: info, warning, error, success
-- Persistencia en BD
-- Mark as read/unread
-- Badge count en UI
-- Rate limiting
+- Integración con Contentful/Sanity CMS
+- Sistema de i18n (Español, Inglés, Portugués)
+- Categorías y tags dinámicos
+- Búsqueda en tiempo real con Algolia
+- Sistema de comentarios con moderación
+- Related posts con IA
+- RSS feed automático
+- Sitemap dinámico
+- Open Graph y Twitter Cards
+- Tiempo de lectura estimado
+- Modo lectura (sin distracciones)
+- Compartir en redes sociales
+- Newsletter subscription integrado
 
-Stack: Node.js + Socket.io + Redis + React
+Stack: Next.js 14 + TypeScript + Contentful + Algolia + Tailwind
 "
 ```
 
 **Flujo completo** (todas las fases):
-1-10. Flujo completo con validaciones
+1-11. Flujo completo con validaciones
 
-**Tiempo**: ~12 horas de trabajo automatizado
+**Tiempo**: ~16 horas de trabajo automatizado
+
+---
+
+### **Caso 4: E-commerce Landing Page**
+```
+"Implementa una landing page de e-commerce para lanzamiento de producto
+
+Requisitos:
+- Hero con countdown para lanzamiento
+- Galería de productos (carousel + zoom)
+- Sección de características con iconos animados
+- Pricing table con comparación
+- FAQs acordeón
+- Early bird signup form
+- Instagram feed integrado
+- Video showcase (YouTube embed)
+- Trust badges y testimonios
+- Sticky 'Pre-order Now' button
+- Pixel de Facebook y Google Analytics
+
+Stack: Next.js 14 + TypeScript + Tailwind + Stripe (checkout básico)
+"
+```
+
+**Tiempo**: ~10 horas de trabajo automatizado
 
 ---
 
@@ -414,11 +476,26 @@ cat core/agentes/01-AGENTE-COORDINADOR.md
 
 Consulta los estándares en core/00-DOCUMENT-PRODUCT-STANDARDS.md.
 
-Solicitud: [tu solicitud aquí]"
+Solicitud: Implementa una landing page corporativa moderna y responsiva.
+
+Requisitos:
+- Hero section con CTA
+- Sección de servicios (4 servicios)
+- Portafolio con filtros
+- Testimonios carousel
+- Formulario de contacto con validación
+- Footer completo
+- Navegación sticky
+- Modo oscuro/claro
+- 100% responsive
+- SEO optimizado
+
+Stack: React + Next.js 14 + TypeScript + Tailwind CSS"
 
 # 4. Monitorea los outputs en:
 ls -la outputs/estados/
 ls -la outputs/planes/
+ls -la outputs/disenos/
 ```
 
 ---
