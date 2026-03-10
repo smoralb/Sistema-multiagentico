@@ -6,13 +6,16 @@ Sistema autónomo de **8 agentes especializados** que automatiza el desarrollo d
 
 ## 📦 ¿Qué Contiene Esta Versión?
 
-**SOLO lo esencial para usar el sistema:**
+**Rama MINIMAL - SOLO lo esencial (17 archivos):**
 
 ```
 sistema-multiagentico/
+│
+├── README.md                                ← Este archivo (guía completa)
+├── .gitignore                               ← Configuración Git
+│
 ├── core/
-│   ├── 00-DOCUMENT-PRODUCT.md              ← QUÉ construir (producto)
-│   ├── 01-DOCUMENT-TECHNICAL-CONSTRAINTS.md ← Restricciones técnicas (opcional)
+│   ├── 00-DOCUMENT-PRODUCT.md              ← Template: QUÉ construir
 │   └── agentes/                             ← 8 agentes especializados
 │       ├── 01-AGENTE-COORDINADOR.md
 │       ├── 08-AGENTE-ARQUITECTO.md         ← NUEVO: Decide stack/arquitectura
@@ -22,12 +25,39 @@ sistema-multiagentico/
 │       ├── 05-AGENTE-DESARROLLADOR.md
 │       ├── 06-AGENTE-TESTING.md
 │       └── 07-AGENTE-DOCUMENTACION.md
-├── outputs/                                 ← Se generan aquí automáticamente
-│   ├── estados/
-│   ├── planes/
-│   ├── disenos/
-│   └── reportes/
-└── README.md                                ← Este archivo
+│
+└── outputs/                                 ← Se generan aquí automáticamente
+    ├── estados/
+    ├── planes/
+    ├── disenos/
+    └── reportes/
+```
+
+**Archivo Opcional** (crear solo si tienes restricciones técnicas):
+- `core/01-DOCUMENT-TECHNICAL-CONSTRAINTS.md` - Solo si hay techs prohibidas/requeridas
+
+---
+
+## ℹ️ Sobre Esta Rama
+
+**Rama**: `minimal` (versión simplificada)
+**Propósito**: Solo archivos esenciales para usar el sistema
+**Total**: 17 archivos base + 1 opcional = 18 archivos máximo
+
+### ¿Cuándo usar `minimal`?
+✅ Quieres empezar rápido sin documentación extensa
+✅ Solo necesitas las definiciones de agentes
+✅ Prefieres simplicidad sobre guías detalladas
+
+### ¿Cuándo usar `main`?
+✅ Necesitas guías paso a paso
+✅ Quieres ejemplos completos
+✅ Necesitas scripts de automatización
+✅ Quieres ver CHANGELOG y guías de migración
+
+**Cambiar a rama completa:**
+```bash
+git checkout main
 ```
 
 ---
@@ -418,7 +448,9 @@ Generar leads calificados a través de una experiencia web impactante.
 - Preferir tier gratuito cuando sea posible
 ```
 
-**Si NO tienes restricciones**: Puedes dejar este archivo vacío o eliminarlo. El Arquitecto tendrá libertad total para decidir.
+**Si NO tienes restricciones**: No necesitas crear este archivo. El Arquitecto tendrá libertad total para decidir.
+
+**Nota**: Este archivo NO está incluido por defecto en la rama minimal. Créalo solo si tienes restricciones reales.
 
 ---
 
@@ -618,13 +650,13 @@ ls -la outputs/disenos/
 ## 📚 Documentación Adicional
 
 ### En Esta Rama (minimal)
-- **[CHANGELOG.md](CHANGELOG.md)** - Registro completo de cambios (v1.0 → v2.0)
-- **[GUIA-MIGRACION.md](GUIA-MIGRACION.md)** - Cómo migrar de v1.0 a v2.0 (5 min)
-- **[MINIMAL-INFO.md](MINIMAL-INFO.md)** - Info sobre esta rama minimal
-- **[core/agentes/*.md](core/agentes/)** - Definiciones de los 8 agentes
+- **[core/agentes/*.md](core/agentes/)** - Definiciones de los 8 agentes (consultar según necesidad)
+- **[core/00-DOCUMENT-PRODUCT.md](core/00-DOCUMENT-PRODUCT.md)** - Template de producto (personalizar)
 
-### Rama Completa (main)
+### Documentación Completa en Rama `main`
 Si necesitas:
+- ✅ **CHANGELOG.md** - Registro completo de cambios (v1.0 → v2.0)
+- ✅ **GUIA-MIGRACION.md** - Cómo migrar de v1.0 a v2.0
 - ✅ Guías detalladas paso a paso
 - ✅ Ejemplos completos ejecutados
 - ✅ Scripts de automatización
