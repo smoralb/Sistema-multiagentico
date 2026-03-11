@@ -66,7 +66,7 @@ Contiene: Tecnologías prohibidas/requeridas, preferencias, limitaciones
 
 ## 📤 Output Esperado
 
-El Arquitecto genera un documento: `outputs/disenos/arquitectura-[proyecto].md`
+El Arquitecto genera un documento: `outputs/designs/arquitectura-[proyecto].md`
 
 ### Estructura del Output:
 
@@ -608,7 +608,7 @@ Basándose en complejidad y decisiones:
 
 ### PASO 8: Generar Output
 ```
-1. Crear archivo outputs/disenos/arquitectura-[proyecto].md
+1. Crear archivo outputs/designs/arquitectura-[proyecto].md
 2. Seguir estructura definida en Output Esperado
 3. Incluir TODA la información relevante
 4. Justificar TODAS las decisiones importantes

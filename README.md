@@ -16,7 +16,7 @@ sistema-multiagentico/
 │
 ├── core/
 │   ├── 00-DOCUMENT-PRODUCT.md              ← Template: QUÉ construir
-│   └── agentes/                             ← 8 agentes especializados
+│   └── agents/                              ← 8 agentes especializados
 │       ├── 01-AGENTE-COORDINADOR.md
 │       ├── 08-AGENTE-ARQUITECTO.md         ← NUEVO: Decide stack/arquitectura
 │       ├── 02-AGENTE-PLANIFICADOR.md
@@ -27,10 +27,10 @@ sistema-multiagentico/
 │       └── 07-AGENTE-DOCUMENTACION.md
 │
 └── outputs/                                 ← Se generan aquí automáticamente
-    ├── estados/
-    ├── planes/
-    ├── disenos/
-    └── reportes/
+    ├── states/
+    ├── plans/
+    ├── designs/
+    └── reports/
 ```
 
 **Archivo Opcional** (crear solo si tienes restricciones técnicas):
@@ -115,7 +115,7 @@ El **Coordinador** iniciará el flujo automático:
 
 ```
 1. COORDINADOR: Analiza la solicitud
-   └─> Crea: outputs/estados/estado-landing-corporativa.md
+   └─> Crea: outputs/states/estado-landing-corporativa.md
    └─> Determina: Tipo de proyecto, complejidad estimada
 
 2. 🆕 ARQUITECTO: Toma decisiones técnicas inteligentes
@@ -126,14 +126,14 @@ El **Coordinador** iniciará el flujo automático:
    └─> Decide: React + Next.js 14 + TypeScript + Tailwind CSS
    └─> Decide: Arquitectura (Feature-based, patrones a usar)
    └─> Justifica: Por qué eligió este stack vs alternativas
-   └─> Crea: outputs/disenos/arquitectura-landing-corporativa.md
+   └─> Crea: outputs/designs/arquitectura-landing-corporativa.md
    └─> Crea: ADRs para decisiones críticas
 
 3. VALIDADOR: Revisa arquitectura
    └─> ✅ Aprobado o ❌ Rechazado con feedback
 
 4. PLANIFICADOR: Genera plan detallado usando la arquitectura
-   └─> Crea: outputs/planes/plan-landing-corporativa.md
+   └─> Crea: outputs/plans/plan-landing-corporativa.md
    └─> Desglose: Tareas específicas según stack elegido
    └─> Usa: Componentes React, estructura Next.js definida
 
@@ -141,7 +141,7 @@ El **Coordinador** iniciará el flujo automático:
    └─> ✅ Aprobado o ❌ Rechazado con feedback
 
 6. DISEÑADOR: Diseño técnico detallado
-   └─> Crea: outputs/disenos/diseno-landing-corporativa.md
+   └─> Crea: outputs/designs/diseno-landing-corporativa.md
    └─> Define: Arquitectura de componentes
    └─> Define: Estructura de carpetas
    └─> Define: Design system
@@ -159,7 +159,7 @@ El **Coordinador** iniciará el flujo automático:
    └─> ✅ Aprobado
 
 10. TESTER: Suite completa de tests
-    └─> Crea: outputs/reportes/reporte-testing-landing.md
+    └─> Crea: outputs/reports/reporte-testing-landing.md
     └─> Tests: Unit (Jest), Component (RTL), E2E (Playwright)
     └─> Tests de accesibilidad (axe-core)
     └─> Performance tests (Lighthouse CI)
@@ -184,19 +184,19 @@ Durante la ejecución, consulta:
 
 ```bash
 # Ver estado actual del proyecto
-cat outputs/estados/estado-landing-corporativa.md
+cat outputs/states/estado-landing-corporativa.md
 
 # Ver plan de implementación
-cat outputs/planes/plan-landing-corporativa.md
+cat outputs/plans/plan-landing-corporativa.md
 
 # Ver diseño técnico
-cat outputs/disenos/diseno-landing-corporativa.md
+cat outputs/designs/diseno-landing-corporativa.md
 
 # Ver arquitectura de componentes
-cat outputs/disenos/arquitectura-componentes.md
+cat outputs/designs/arquitectura-componentes.md
 
 # Ver reporte de testing
-cat outputs/reportes/reporte-testing-landing.md
+cat outputs/reports/reporte-testing-landing.md
 ```
 
 ---
@@ -205,12 +205,12 @@ cat outputs/reportes/reporte-testing-landing.md
 
 ### 1. **Coordinador** - El Director
 - **Input**: Solicitud del usuario
-- **Output**: `outputs/estados/estado-[feature].md`
+- **Output**: `outputs/states/estado-[feature].md`
 - **Función**: Orquesta todo el flujo, gestiona feedback loops, determina complejidad inicial
 
 ### 2. 🆕 **Arquitecto** - El Tomador de Decisiones Técnicas
 - **Input**: Requisitos de producto (`00-DOCUMENT-PRODUCT.md`) + Restricciones técnicas (opcional)
-- **Output**: `outputs/disenos/arquitectura-[feature].md` + ADRs
+- **Output**: `outputs/designs/arquitectura-[feature].md` + ADRs
 - **Función**: **Analiza complejidad del proyecto y decide stack tecnológico, arquitectura y patrones más apropiados**
 - **Decisiones clave**:
   - Stack tecnológico (React vs Vue, Next.js vs Vite, etc.)
@@ -221,7 +221,7 @@ cat outputs/reportes/reporte-testing-landing.md
 
 ### 3. **Planificador** - El Estratega
 - **Input**: Arquitectura del Arquitecto + Requisitos
-- **Output**: `outputs/planes/plan-[feature].md`
+- **Output**: `outputs/plans/plan-[feature].md`
 - **Función**: Crea plan detallado BASADO en el stack y arquitectura ya decididos, identifica dependencias, evalúa riesgos
 
 ### 4. **Validador** - El Guardian de Calidad
@@ -231,7 +231,7 @@ cat outputs/reportes/reporte-testing-landing.md
 
 ### 5. **Diseñador** - El Diseñador Técnico Detallado
 - **Input**: Plan aprobado + Arquitectura
-- **Output**: `outputs/disenos/diseno-[feature].md`
+- **Output**: `outputs/designs/diseno-[feature].md`
 - **Función**: Define diseño técnico DETALLADO (componentes, interfaces, contratos) usando la arquitectura ya elegida
 
 ### 6. **Desarrollador** - El Constructor
@@ -241,7 +241,7 @@ cat outputs/reportes/reporte-testing-landing.md
 
 ### 7. **Tester** - El Inspector
 - **Input**: Código implementado
-- **Output**: `outputs/reportes/reporte-testing-[feature].md` + Suite de tests
+- **Output**: `outputs/reports/reporte-testing-[feature].md` + Suite de tests
 - **Función**: Tests completos (unit, integration, e2e, security, performance, accessibility)
 
 ### 8. **Documentador** - El Escritor
@@ -560,10 +560,10 @@ Todos los archivos se generan en `outputs/`:
 
 | Carpeta | Contenido | Generado Por |
 |---------|-----------|--------------|
-| `estados/` | Estado del proyecto en tiempo real | Coordinador |
-| `planes/` | Planes de implementación (13 secciones) | Planificador |
-| `disenos/` | Diseños técnicos + ADRs | Diseñador |
-| `reportes/` | Reportes de testing + validación | Tester + Validador |
+| `states/` | Estado del proyecto en tiempo real | Coordinador |
+| `plans/` | Planes de implementación (13 secciones) | Planificador |
+| `designs/` | Diseños técnicos + ADRs | Diseñador |
+| `reports/` | Reportes de testing + validación | Tester + Validador |
 
 ---
 
@@ -604,10 +604,10 @@ vi core/00-DOCUMENT-PRODUCT.md
 vi core/01-DOCUMENT-TECHNICAL-CONSTRAINTS.md
 
 # 3. Lee la definición del Coordinador
-cat core/agentes/01-AGENTE-COORDINADOR.md
+cat core/agents/01-AGENTE-COORDINADOR.md
 
 # 4. Envía tu solicitud al LLM con el prompt:
-"Actúa como el Agente Coordinador según la definición en core/agentes/01-AGENTE-COORDINADOR.md.
+"Actúa como el Agente Coordinador según la definición en core/agents/01-AGENTE-COORDINADOR.md.
 
 Consulta el documento de producto en core/00-DOCUMENT-PRODUCT.md.
 
@@ -639,10 +639,10 @@ Next.js, Astro, etc. según lo que sea mejor para ESTE proyecto específico)."
 # - Creará outputs/disenos/arquitectura-[proyecto].md
 
 # 6. Monitorea los outputs en:
-ls -la outputs/estados/
-ls -la outputs/disenos/arquitectura-*.md  # Decisiones del Arquitecto
-ls -la outputs/planes/
-ls -la outputs/disenos/
+ls -la outputs/states/
+ls -la outputs/designs/arquitectura-*.md  # Decisiones del Arquitecto
+ls -la outputs/plans/
+ls -la outputs/designs/
 ```
 
 ---
@@ -650,7 +650,7 @@ ls -la outputs/disenos/
 ## 📚 Documentación Adicional
 
 ### En Esta Rama (minimal)
-- **[core/agentes/*.md](core/agentes/)** - Definiciones de los 8 agentes (consultar según necesidad)
+- **[core/agents/*.md](core/agents/)** - Definiciones de los 8 agentes (consultar según necesidad)
 - **[core/00-DOCUMENT-PRODUCT.md](core/00-DOCUMENT-PRODUCT.md)** - Template de producto (personalizar)
 
 ### Documentación Completa en Rama `main`
@@ -689,4 +689,4 @@ git checkout main
 **Para**: Empezar rápido con decisiones arquitectónicas inteligentes
 **Contiene**: Solo lo esencial + Agente Arquitecto
 
-¿Preguntas? Lee las definiciones de agentes en `core/agentes/`
+¿Preguntas? Lee las definiciones de agentes en `core/agents/`
