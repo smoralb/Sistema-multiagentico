@@ -9,7 +9,7 @@ Registro de cambios significativos del sistema.
 ### 🆕 AGREGADO
 
 #### Nuevo Agente: Arquitecto
-- **Archivo**: `core/agentes/08-AGENTE-ARQUITECTO.md`
+- **Archivo**: `core/agents/08-AGENTE-ARQUITECTO.md`
 - **Posición**: Se ejecuta después del Coordinador, antes del Planificador
 - **Función**: Toma decisiones técnicas inteligentes basándose en complejidad del proyecto
 - **Capacidades**:
@@ -24,7 +24,7 @@ Registro de cambios significativos del sistema.
   - Identifica riesgos técnicos y propone mitigaciones
   - Estima esfuerzo de implementación
   - Genera ADRs (Architecture Decision Records) automáticamente
-- **Output**: `outputs/disenos/arquitectura-[proyecto].md`
+- **Output**: `outputs/designs/arquitectura-[proyecto].md`
 
 #### Nuevo Documento: Producto
 - **Archivo**: `core/00-DOCUMENT-PRODUCT.md`
@@ -146,7 +146,7 @@ core/
 - 00-DOCUMENT-PRODUCT-STANDARDS.md (eliminado)
 + 00-DOCUMENT-PRODUCT.md (nuevo)
 + 01-DOCUMENT-TECHNICAL-CONSTRAINTS.md (nuevo)
-  agentes/
+  agents/
     01-AGENTE-COORDINADOR.md
 +   08-AGENTE-ARQUITECTO.md (nuevo)
     02-AGENTE-PLANIFICADOR.md
@@ -160,15 +160,15 @@ core/
 #### Outputs Generados
 ```diff
 outputs/
-  estados/
+  states/
     estado-[proyecto].md (Coordinador)
-  planes/
+  plans/
     plan-[proyecto].md (Planificador)
-  disenos/
+  designs/
 +   arquitectura-[proyecto].md (nuevo, generado por Arquitecto)
 +   adr-[numero]-[titulo].md (nuevo, generados por Arquitecto)
     diseno-[proyecto].md (Diseñador)
-  reportes/
+  reports/
     reporte-testing-[proyecto].md (Tester)
 ```
 
@@ -241,7 +241,7 @@ Landing page para empresa de tecnología.
 Complejidad: BAJA (3 puntos)
 → Decide: Astro + Tailwind
 → Justifica: Proyecto estático, SSG puro, ultra-rápido
-→ Genera: outputs/disenos/arquitectura-landing.md
+→ Genera: outputs/designs/arquitectura-landing.md
 ```
 
 ---
@@ -277,7 +277,7 @@ Restricciones: Debe usar React + TypeScript
   - Cumple restricción de React
   - Vite apropiado para proyecto simple (no necesita Next.js)
   - TypeScript requerido por política
-→ Genera: outputs/disenos/arquitectura-landing.md
+→ Genera: outputs/designs/arquitectura-landing.md
 ```
 
 ---
@@ -338,7 +338,7 @@ rm core/00-DOCUMENT-PRODUCT-STANDARDS.md
    - Impacto: 2 pasos adicionales en el flujo (Arquitecto + Validador)
    - Beneficio: Decisiones técnicas fundamentadas desde el inicio
 
-3. **Outputs adicionales**: `outputs/disenos/arquitectura-*.md`
+3. **Outputs adicionales**: `outputs/designs/arquitectura-*.md`
    - Impacto: Nuevo archivo generado en cada proyecto
    - Beneficio: Decisiones arquitectónicas documentadas
 
@@ -395,7 +395,7 @@ rm core/00-DOCUMENT-PRODUCT-STANDARDS.md
 - ✅ `MINIMAL-INFO.md` - Info de rama minimal actualizada
 - ✅ `core/00-DOCUMENT-PRODUCT.md` - Template completo
 - ✅ `core/01-DOCUMENT-TECHNICAL-CONSTRAINTS.md` - Template completo
-- ✅ `core/agentes/08-AGENTE-ARQUITECTO.md` - Definición completa del agente
+- ✅ `core/agents/08-AGENTE-ARQUITECTO.md` - Definición completa del agente
 
 #### Documentos Nuevos
 - ✅ `CHANGELOG.md` - Este archivo

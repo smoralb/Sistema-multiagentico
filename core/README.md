@@ -7,7 +7,7 @@ Este directorio contiene las **definiciones inmutables** del sistema de multiage
 ```
 core/
 ├── 00-DOCUMENT-PRODUCT-STANDARDS.md   # ⭐ Fuente única de verdad - Standards del proyecto
-├── agentes/                            # Definiciones de los 7 agentes especializados
+├── agents/                            # Definiciones de los 7 agentes especializados
 ├── docs/                               # Documentación de soporte
 └── templates/                          # Templates para archivos generados
 ```
@@ -28,7 +28,7 @@ core/
 - Al modificar requisitos de cobertura
 - Al actualizar criterios de validación
 
-### `agentes/`
+### `agents/`
 **Propósito**: Especificaciones de cada agente (rol, responsabilidades, flujo)
 **Cuándo modificar**:
 - Al cambiar la lógica de un agente

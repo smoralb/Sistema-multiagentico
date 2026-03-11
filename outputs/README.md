@@ -6,16 +6,16 @@ Este directorio contiene todos los **archivos generados automáticamente** duran
 
 ```
 outputs/
-├── estados/        # Documentos de estado del proyecto (estado-*.md)
-├── planes/         # Planes de implementación (plan-*.md)
-├── disenos/        # Diseños técnicos (diseno-*.md, adr-*.md)
-├── reportes/       # Reportes de testing y validación (reporte-*.md)
+├── states/        # Documentos de estado del proyecto (estado-*.md)
+├── plans/         # Planes de implementación (plan-*.md)
+├── designs/        # Diseños técnicos (diseno-*.md, adr-*.md)
+├── reports/       # Reportes de testing y validación (reporte-*.md)
 └── tests/          # Suites de pruebas generadas
 ```
 
 ## 🤖 Archivos Generados
 
-### `estados/`
+### `states/`
 **Generado por**: Agente Coordinador
 **Formato**: `estado-[nombre-feature].md`
 **Propósito**: Tracking en tiempo real del progreso del proyecto
@@ -27,7 +27,7 @@ outputs/
 
 **Ejemplo**: `estado-jwt-authentication.md`
 
-### `planes/`
+### `plans/`
 **Generado por**: Agente Planificador
 **Formato**: `plan-[nombre-feature].md`
 **Propósito**: Plan detallado de implementación con 13 secciones
@@ -40,7 +40,7 @@ outputs/
 
 **Ejemplo**: `plan-jwt-authentication.md`
 
-### `disenos/`
+### `designs/`
 **Generado por**: Agente Diseñador
 **Formato**: `diseno-[nombre-feature].md`, `adr-[numero]-[titulo].md`
 **Propósito**: Diseño técnico detallado y decisiones arquitectónicas
@@ -55,7 +55,7 @@ outputs/
 - `diseno-jwt-authentication.md`
 - `adr-001-jwt-vs-sessions.md`
 
-### `reportes/`
+### `reports/`
 **Generado por**: Agente de Testing + Agente Validador
 **Formato**: `reporte-testing-[nombre-feature].md`, `reporte-validacion-[fase].md`
 **Propósito**: Resultados de pruebas y validaciones
@@ -103,10 +103,10 @@ rm -rf outputs/*/{estados,planes,disenos,reportes}/*
 
 ```bash
 # Contar features en progreso
-ls -1 outputs/estados/ | wc -l
+ls -1 outputs/states/ | wc -l
 
 # Ver última actividad
-ls -lt outputs/estados/ | head -5
+ls -lt outputs/states/ | head -5
 
 # Tamaño total de outputs
 du -sh outputs/

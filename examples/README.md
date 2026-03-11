@@ -94,7 +94,7 @@ ejemplo-[nombre]/
 ### Para Comparar Tus Resultados
 ```bash
 # Diff tu plan vs. el ejemplo
-diff outputs/planes/plan-mi-feature.md examples/jwt-authentication/2-plan-implementacion.md
+diff outputs/plans/plan-mi-feature.md examples/jwt-authentication/2-plan-implementacion.md
 
 # Comparar estructura de tests
 diff -r outputs/tests/ examples/jwt-authentication/6-codigo/tests/

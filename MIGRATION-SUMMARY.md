@@ -20,7 +20,7 @@ Separar claramente los **archivos de definición del sistema** (inmutables) de l
 ```
 sistema-multiagentico/
 ├── 00-DOCUMENT-PRODUCT-STANDARDS.md
-├── agentes/
+├── agents/
 ├── docs/
 ├── templates/
 ├── README.md
@@ -32,16 +32,16 @@ sistema-multiagentico/
 sistema-multiagentico/
 ├── core/                          # 🔒 Sistema base
 │   ├── 00-DOCUMENT-PRODUCT-STANDARDS.md
-│   ├── agentes/
+│   ├── agents/
 │   ├── docs/
 │   ├── templates/
 │   └── README.md
 │
 ├── outputs/                       # 🤖 Archivos generados
-│   ├── estados/
-│   ├── planes/
-│   ├── disenos/
-│   ├── reportes/
+│   ├── states/
+│   ├── plans/
+│   ├── designs/
+│   ├── reports/
 │   ├── tests/
 │   └── README.md
 │
@@ -63,7 +63,7 @@ sistema-multiagentico/
 
 | Archivo Original | Nueva Ubicación |
 |------------------|-----------------|
-| `agentes/*` | `core/agentes/*` |
+| `agents/*` | `core/agents/*` |
 | `docs/*` | `core/docs/*` |
 | `templates/*` | `core/templates/*` |
 | `00-DOCUMENT-PRODUCT-STANDARDS.md` | `core/00-DOCUMENT-PRODUCT-STANDARDS.md` |
@@ -108,10 +108,10 @@ sistema-multiagentico/
 **Versionar en Git**: ⚠️ Opcional (configurable en .gitignore)
 
 **Sub-directorios**:
-- `estados/` - Documentos de estado del proyecto (tracking)
-- `planes/` - Planes de implementación generados
-- `disenos/` - Diseños técnicos y ADRs
-- `reportes/` - Reportes de testing y validación
+- `states/` - Documentos de estado del proyecto (tracking)
+- `plans/` - Planes de implementación generados
+- `designs/` - Diseños técnicos y ADRs
+- `reports/` - Reportes de testing y validación
 - `tests/` - Suites de pruebas generadas
 
 ### `examples/` - Ejemplos Completos
@@ -226,8 +226,8 @@ vi core/00-DOCUMENT-PRODUCT-STANDARDS.md
 
 ```bash
 # Ver outputs generados
-ls -la outputs/estados/
-ls -la outputs/planes/
+ls -la outputs/states/
+ls -la outputs/plans/
 
 # Limpiar outputs (cuando el script esté listo)
 ./scripts/clean-outputs.sh
@@ -243,8 +243,8 @@ ls -la outputs/planes/
 mkdir examples/mi-feature-exitosa/
 
 # Copiar outputs relevantes
-cp outputs/estados/estado-mi-feature.md examples/mi-feature-exitosa/
-cp outputs/planes/plan-mi-feature.md examples/mi-feature-exitosa/
+cp outputs/states/estado-mi-feature.md examples/mi-feature-exitosa/
+cp outputs/plans/plan-mi-feature.md examples/mi-feature-exitosa/
 # ... etc
 
 # Agregar README explicativo

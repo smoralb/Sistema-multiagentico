@@ -70,7 +70,7 @@ if [ ! -f "$PROJECT_ROOT/core/00-DOCUMENT-PRODUCT-STANDARDS.md" ]; then
 fi
 
 if [ ! -d "$PROJECT_ROOT/core/agentes" ]; then
-    echo -e "${RED}❌ ERROR: core/agentes/ no encontrado${NC}"
+    echo -e "${RED}❌ ERROR: core/agents/ no encontrado${NC}"
     exit 1
 fi
 
@@ -89,10 +89,10 @@ mkdir -p "$PROJECT_ROOT/outputs/archive"
 
 # Crear .gitkeep files
 touch "$PROJECT_ROOT/outputs/.gitkeep"
-touch "$PROJECT_ROOT/outputs/estados/.gitkeep"
-touch "$PROJECT_ROOT/outputs/planes/.gitkeep"
-touch "$PROJECT_ROOT/outputs/disenos/.gitkeep"
-touch "$PROJECT_ROOT/outputs/reportes/.gitkeep"
+touch "$PROJECT_ROOT/outputs/states/.gitkeep"
+touch "$PROJECT_ROOT/outputs/plans/.gitkeep"
+touch "$PROJECT_ROOT/outputs/designs/.gitkeep"
+touch "$PROJECT_ROOT/outputs/reports/.gitkeep"
 touch "$PROJECT_ROOT/outputs/tests/.gitkeep"
 
 echo -e "${GREEN}✅ Estructura outputs/ creada${NC}"
@@ -149,7 +149,7 @@ echo -e "      ${GREEN}cat $PROJECT_ROOT/core/docs/GUIA-RAPIDA.md${NC}"
 echo ""
 echo -e "   ${BLUE}4.${NC} Inicia tu primera funcionalidad:"
 echo "      • El Agente Coordinador creará archivos en outputs/"
-echo "      • Monitorea el progreso en outputs/estados/"
+echo "      • Monitorea el progreso en outputs/states/"
 echo ""
 
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"

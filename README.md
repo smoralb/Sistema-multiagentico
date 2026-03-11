@@ -23,7 +23,7 @@ sistema-multiagentico/
 │
 ├── core/                                    # 🔒 Sistema base (raramente modificado)
 │   ├── 00-DOCUMENT-PRODUCT-STANDARDS.md   # ⭐ Configuración central - personalízalo
-│   ├── agentes/                            # Definiciones de los 7 agentes
+│   ├── agents/                            # Definiciones de los 7 agentes
 │   │   ├── 01-AGENTE-COORDINADOR.md
 │   │   ├── 02-AGENTE-PLANIFICADOR.md
 │   │   ├── 03-AGENTE-VALIDADOR.md
@@ -38,10 +38,10 @@ sistema-multiagentico/
 │       └── 08-TEMPLATE-ESTADO-PROYECTO.md
 │
 ├── outputs/                                 # 🤖 Archivos generados automáticamente
-│   ├── estados/                            # Estados del proyecto (tracking)
-│   ├── planes/                             # Planes de implementación
-│   ├── disenos/                            # Diseños técnicos y ADRs
-│   ├── reportes/                           # Reportes de testing/validación
+│   ├── states/                            # Estados del proyecto (tracking)
+│   ├── plans/                             # Planes de implementación
+│   ├── designs/                            # Diseños técnicos y ADRs
+│   ├── reports/                           # Reportes de testing/validación
 │   └── tests/                              # Suites de pruebas generadas
 │
 ├── examples/                                # 📚 Ejemplos completos de ejecuciones
@@ -123,7 +123,7 @@ Este sistema multiagente automatiza el proceso de desarrollo de software mediant
 ## Agentes del Sistema
 
 ### 1. 🎯 Agente Coordinador
-**Archivo**: `core/agentes/01-AGENTE-COORDINADOR.md`
+**Archivo**: `core/agents/01-AGENTE-COORDINADOR.md`
 - Orquesta todo el flujo
 - Gestiona el estado del proyecto
 - Coordina entre agentes
@@ -131,7 +131,7 @@ Este sistema multiagente automatiza el proceso de desarrollo de software mediant
 - Escala al usuario cuando es necesario
 
 ### 2. 📋 Agente Planificador
-**Archivo**: `core/agentes/02-AGENTE-PLANIFICADOR.md`
+**Archivo**: `core/agents/02-AGENTE-PLANIFICADOR.md`
 - Analiza requerimientos
 - Identifica dependencias
 - Define tareas y fases
@@ -139,7 +139,7 @@ Este sistema multiagente automatiza el proceso de desarrollo de software mediant
 - Estima complejidad
 
 ### 3. ✅ Agente Validador
-**Archivo**: `core/agentes/03-AGENTE-VALIDADOR.md`
+**Archivo**: `core/agents/03-AGENTE-VALIDADOR.md`
 - Valida cada output contra estándares
 - Aplica checklists específicos por fase
 - Genera feedback accionable
@@ -147,7 +147,7 @@ Este sistema multiagente automatiza el proceso de desarrollo de software mediant
 - Sugiere mejoras
 
 ### 4. 🎨 Agente Diseñador
-**Archivo**: `core/agentes/04-AGENTE-DISENADOR.md`
+**Archivo**: `core/agents/04-AGENTE-DISENADOR.md`
 - Define arquitectura técnica
 - Especifica interfaces y contratos
 - Selecciona patrones de diseño
@@ -155,7 +155,7 @@ Este sistema multiagente automatiza el proceso de desarrollo de software mediant
 - Considera escalabilidad y performance
 
 ### 5. 💻 Agente Desarrollador
-**Archivo**: `core/agentes/05-AGENTE-DESARROLLADOR.md`
+**Archivo**: `core/agents/05-AGENTE-DESARROLLADOR.md`
 - Implementa el código
 - Escribe tests unitarios
 - Sigue estándares de código
@@ -163,7 +163,7 @@ Este sistema multiagente automatiza el proceso de desarrollo de software mediant
 - Auto-revisa su código
 
 ### 6. 🧪 Agente de Testing
-**Archivo**: `core/agentes/06-AGENTE-TESTING.md`
+**Archivo**: `core/agents/06-AGENTE-TESTING.md`
 - Crea suite de tests completa
 - Tests de integración y E2E
 - Valida cobertura
@@ -171,7 +171,7 @@ Este sistema multiagente automatiza el proceso de desarrollo de software mediant
 - Reporta bugs encontrados
 
 ### 7. 📚 Agente de Documentación
-**Archivo**: `core/agentes/07-AGENTE-DOCUMENTACION.md`
+**Archivo**: `core/agents/07-AGENTE-DOCUMENTACION.md`
 - Actualiza documentación técnica
 - Documenta APIs
 - Crea guías de uso
@@ -262,7 +262,7 @@ Si después de 2 iteraciones sigue rechazado → Escalado al usuario
    - Requisitos de seguridad
 
 2. **Revisar Configuración de Agentes**
-   - Cada agente tiene su archivo markdown en `core/agentes/`
+   - Cada agente tiene su archivo markdown en `core/agents/`
    - Puedes ajustar checklists y criterios si es necesario
    - Los agentes consultarán estos documentos
 
@@ -318,23 +318,23 @@ El Coordinador responde a:
 | Documento | Propósito | Editable |
 |-----------|-----------|----------|
 | `core/00-DOCUMENT-PRODUCT-STANDARDS.md` | ⭐ Estándares del proyecto | ✅ Sí, personaliza |
-| `core/agentes/01-AGENTE-COORDINADOR.md` | Definición del coordinador | ⚠️ Raramente |
-| `core/agentes/02-AGENTE-PLANIFICADOR.md` | Definición del planificador | ⚠️ Raramente |
-| `core/agentes/03-AGENTE-VALIDADOR.md` | Definición del validador | ⚠️ Raramente |
-| `core/agentes/04-AGENTE-DISENADOR.md` | Definición del diseñador | ⚠️ Raramente |
-| `core/agentes/05-AGENTE-DESARROLLADOR.md` | Definición del desarrollador | ⚠️ Raramente |
-| `core/agentes/06-AGENTE-TESTING.md` | Definición del tester | ⚠️ Raramente |
-| `core/agentes/07-AGENTE-DOCUMENTACION.md` | Definición del documentador | ⚠️ Raramente |
+| `core/agents/01-AGENTE-COORDINADOR.md` | Definición del coordinador | ⚠️ Raramente |
+| `core/agents/02-AGENTE-PLANIFICADOR.md` | Definición del planificador | ⚠️ Raramente |
+| `core/agents/03-AGENTE-VALIDADOR.md` | Definición del validador | ⚠️ Raramente |
+| `core/agents/04-AGENTE-DISENADOR.md` | Definición del diseñador | ⚠️ Raramente |
+| `core/agents/05-AGENTE-DESARROLLADOR.md` | Definición del desarrollador | ⚠️ Raramente |
+| `core/agents/06-AGENTE-TESTING.md` | Definición del tester | ⚠️ Raramente |
+| `core/agents/07-AGENTE-DOCUMENTACION.md` | Definición del documentador | ⚠️ Raramente |
 
 ### Documentos Generados Automáticamente (en `outputs/`)
 
 | Documento | Ubicación | Cuándo se crea | Propósito |
 |-----------|-----------|----------------|-----------|
-| `estado-[funcionalidad].md` | `outputs/estados/` | Al iniciar | Tracking del progreso |
-| `plan-[funcionalidad].md` | `outputs/planes/` | Fase de planificación | Plan detallado |
-| `diseno-[funcionalidad].md` | `outputs/disenos/` | Fase de diseño | Diseño técnico |
-| `adr-[numero]-[titulo].md` | `outputs/disenos/` | Cuando hay decisión | Architecture Decision Record |
-| `reporte-testing-[funcionalidad].md` | `outputs/reportes/` | Fase de testing | Resultados de tests |
+| `estado-[funcionalidad].md` | `outputs/states/` | Al iniciar | Tracking del progreso |
+| `plan-[funcionalidad].md` | `outputs/plans/` | Fase de planificación | Plan detallado |
+| `diseno-[funcionalidad].md` | `outputs/designs/` | Fase de diseño | Diseño técnico |
+| `adr-[numero]-[titulo].md` | `outputs/designs/` | Cuando hay decisión | Architecture Decision Record |
+| `reporte-testing-[funcionalidad].md` | `outputs/reports/` | Fase de testing | Resultados de tests |
 
 ## Ejemplos de Uso
 
@@ -451,7 +451,7 @@ vi core/00-DOCUMENT-PRODUCT-STANDARDS.md
 Si tus estándares difieren significativamente:
 
 ```bash
-vi core/agentes/03-AGENTE-VALIDADOR.md
+vi core/agents/03-AGENTE-VALIDADOR.md
 
 # Ajusta los checklists en:
 # - Línea 95: Checklist de planificación
@@ -497,7 +497,7 @@ jobs:
 **Solución**:
 ```bash
 # 1. Revisar el documento de estado
-cat outputs/estados/estado-[funcionalidad].md | grep -A 5 "Bloqueos"
+cat outputs/states/estado-[funcionalidad].md | grep -A 5 "Bloqueos"
 
 # 2. Usar comando de coordinador
 /estado  # Ver qué está pasando

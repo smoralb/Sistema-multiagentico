@@ -17,49 +17,49 @@
 ## 🤖 Los 7 Agentes
 
 ### Agente Coordinador
-**[core/agentes/01-AGENTE-COORDINADOR.md](core/agentes/01-AGENTE-COORDINADOR.md)**
+**[core/agents/01-AGENTE-COORDINADOR.md](core/agents/01-AGENTE-COORDINADOR.md)**
 - Orquesta todo el flujo
 - Gestiona el estado del proyecto
 - Coordina entre agentes
 - Maneja feedback loops
 
 ### Agente Planificador
-**[core/agentes/02-AGENTE-PLANIFICADOR.md](core/agentes/02-AGENTE-PLANIFICADOR.md)**
+**[core/agents/02-AGENTE-PLANIFICADOR.md](core/agents/02-AGENTE-PLANIFICADOR.md)**
 - Analiza requerimientos
 - Identifica dependencias
 - Define tareas y fases
 - Evalúa riesgos
 
 ### Agente Validador
-**[core/agentes/03-AGENTE-VALIDADOR.md](core/agentes/03-AGENTE-VALIDADOR.md)**
+**[core/agents/03-AGENTE-VALIDADOR.md](core/agents/03-AGENTE-VALIDADOR.md)**
 - Valida cada output contra estándares
 - Aplica checklists específicos
 - Genera feedback accionable
 - Aprueba/rechaza cada fase
 
 ### Agente Diseñador
-**[core/agentes/04-AGENTE-DISENADOR.md](core/agentes/04-AGENTE-DISENADOR.md)**
+**[core/agents/04-AGENTE-DISENADOR.md](core/agents/04-AGENTE-DISENADOR.md)**
 - Define arquitectura técnica
 - Especifica interfaces
 - Selecciona patrones de diseño
 - Documenta decisiones
 
 ### Agente Desarrollador
-**[core/agentes/05-AGENTE-DESARROLLADOR.md](core/agentes/05-AGENTE-DESARROLLADOR.md)**
+**[core/agents/05-AGENTE-DESARROLLADOR.md](core/agents/05-AGENTE-DESARROLLADOR.md)**
 - Implementa el código
 - Escribe tests unitarios
 - Sigue estándares
 - Auto-revisa su código
 
 ### Agente de Testing
-**[core/agentes/06-AGENTE-TESTING.md](core/agentes/06-AGENTE-TESTING.md)**
+**[core/agents/06-AGENTE-TESTING.md](core/agents/06-AGENTE-TESTING.md)**
 - Crea suite de tests completa
 - Tests de integración y E2E
 - Valida cobertura
 - Reporta bugs
 
 ### Agente de Documentación
-**[core/agentes/07-AGENTE-DOCUMENTACION.md](core/agentes/07-AGENTE-DOCUMENTACION.md)**
+**[core/agents/07-AGENTE-DOCUMENTACION.md](core/agents/07-AGENTE-DOCUMENTACION.md)**
 - Actualiza documentación técnica
 - Documenta APIs
 - Crea guías de uso
@@ -70,7 +70,7 @@
 **[core/templates/08-TEMPLATE-ESTADO-PROYECTO.md](core/templates/08-TEMPLATE-ESTADO-PROYECTO.md)**
 - Template para tracking de progreso
 - Usado por el Coordinador
-- Se genera automáticamente en `outputs/estados/`
+- Se genera automáticamente en `outputs/states/`
 
 ## 📚 Documentación Adicional
 
@@ -145,7 +145,7 @@ sistema-multiagentico/
 ├── core/                                   ← 🔒 Sistema base (raramente modificado)
 │   ├── 00-DOCUMENT-PRODUCT-STANDARDS.md   ← ⭐ Estándares (EDITA ESTO)
 │   ├── README.md                           ← Info sobre el core
-│   ├── agentes/                            ← Definiciones de agentes
+│   ├── agents/                            ← Definiciones de agentes
 │   │   ├── 01-AGENTE-COORDINADOR.md
 │   │   ├── 02-AGENTE-PLANIFICADOR.md
 │   │   ├── 03-AGENTE-VALIDADOR.md
@@ -161,10 +161,10 @@ sistema-multiagentico/
 │
 ├── outputs/                                ← 🤖 Archivos generados (auto)
 │   ├── README.md                           ← Info sobre outputs
-│   ├── estados/                            ← Estados del proyecto
-│   ├── planes/                             ← Planes de implementación
-│   ├── disenos/                            ← Diseños técnicos + ADRs
-│   ├── reportes/                           ← Reportes de testing
+│   ├── states/                            ← Estados del proyecto
+│   ├── plans/                             ← Planes de implementación
+│   ├── designs/                            ← Diseños técnicos + ADRs
+│   ├── reports/                           ← Reportes de testing
 │   └── tests/                              ← Suites de pruebas
 │
 ├── examples/                               ← 📚 Ejemplos reales completados
@@ -211,24 +211,24 @@ sistema-multiagentico/
 ### Para el Usuario/Product Manager
 1. [GUIA-RAPIDA.md](core/docs/GUIA-RAPIDA.md) - Cómo usar el sistema
 2. [EJEMPLO-EJECUCION-COMPLETA.md](core/docs/EJEMPLO-EJECUCION-COMPLETA.md) - Qué esperar
-3. [outputs/estados/](outputs/estados/) - Ver progreso en tiempo real
+3. [outputs/states/](outputs/states/) - Ver progreso en tiempo real
 
 ### Para el Tech Lead
 1. [core/00-DOCUMENT-PRODUCT-STANDARDS.md](core/00-DOCUMENT-PRODUCT-STANDARDS.md) - Configurar estándares
 2. [README.md](README.md) - Arquitectura completa
-3. [core/agentes/03-AGENTE-VALIDADOR.md](core/agentes/03-AGENTE-VALIDADOR.md) - Criterios de validación
+3. [core/agents/03-AGENTE-VALIDADOR.md](core/agents/03-AGENTE-VALIDADOR.md) - Criterios de validación
 4. [scripts/](scripts/) - Automatización y métricas
 
 ### Para el Desarrollador
-1. [core/agentes/05-AGENTE-DESARROLLADOR.md](core/agentes/05-AGENTE-DESARROLLADOR.md) - Guía de desarrollo
+1. [core/agents/05-AGENTE-DESARROLLADOR.md](core/agents/05-AGENTE-DESARROLLADOR.md) - Guía de desarrollo
 2. [core/00-DOCUMENT-PRODUCT-STANDARDS.md](core/00-DOCUMENT-PRODUCT-STANDARDS.md) - Estándares a seguir
-3. [outputs/planes/](outputs/planes/) - Ver planes de implementación
+3. [outputs/plans/](outputs/plans/) - Ver planes de implementación
 4. [examples/](examples/) - Ejemplos de referencia
 
 ### Para el QA/Tester
-1. [core/agentes/06-AGENTE-TESTING.md](core/agentes/06-AGENTE-TESTING.md) - Estrategia de testing
-2. [core/agentes/03-AGENTE-VALIDADOR.md](core/agentes/03-AGENTE-VALIDADOR.md) - Criterios de calidad
-3. [outputs/reportes/](outputs/reportes/) - Ver reportes de tests
+1. [core/agents/06-AGENTE-TESTING.md](core/agents/06-AGENTE-TESTING.md) - Estrategia de testing
+2. [core/agents/03-AGENTE-VALIDADOR.md](core/agents/03-AGENTE-VALIDADOR.md) - Criterios de calidad
+3. [outputs/reports/](outputs/reports/) - Ver reportes de tests
 
 ---
 

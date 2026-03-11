@@ -104,7 +104,7 @@ ls -la core/
 # Deberías ver:
 # - 00-DOCUMENT-PRODUCT.md ✓
 # - 01-DOCUMENT-TECHNICAL-CONSTRAINTS.md ✓ (si lo creaste)
-# - agentes/ ✓
+# - agents/ ✓
 ```
 
 ---
@@ -247,7 +247,7 @@ Dashboard empresarial con autenticación.
 - [ ] `core/00-DOCUMENT-PRODUCT.md` existe y está completo
 - [ ] `core/01-DOCUMENT-TECHNICAL-CONSTRAINTS.md` existe (si hay restricciones) O no existe (si no hay)
 - [ ] `core/00-DOCUMENT-PRODUCT-STANDARDS.md` eliminado
-- [ ] `core/agentes/08-AGENTE-ARQUITECTO.md` existe (debe estar desde Git)
+- [ ] `core/agents/08-AGENTE-ARQUITECTO.md` existe (debe estar desde Git)
 - [ ] Prompts actualizados (no especifican stack tecnológico)
 - [ ] Entendimiento del nuevo flujo (Coordinador → Arquitecto → Planificador...)
 
@@ -259,10 +259,10 @@ ls -la core/
 # Debería mostrar:
 # 00-DOCUMENT-PRODUCT.md ✓
 # 01-DOCUMENT-TECHNICAL-CONSTRAINTS.md ✓ (opcional)
-# agentes/ ✓
+# agents/ ✓
 
 # Ver agentes
-ls -la core/agentes/
+ls -la core/agents/
 
 # Debería mostrar 8 archivos (01-07 + 08-ARQUITECTO)
 
@@ -314,7 +314,7 @@ git checkout minimal
 git pull origin minimal
 
 # Verificar
-ls core/agentes/08-AGENTE-ARQUITECTO.md
+ls core/agents/08-AGENTE-ARQUITECTO.md
 ```
 
 ### Problema 2: "El sistema sigue pidiendo 00-DOCUMENT-PRODUCT-STANDARDS.md"
@@ -329,7 +329,7 @@ ls core/agentes/08-AGENTE-ARQUITECTO.md
 
 ### Problema 4: "El Arquitecto eligió una tecnología que no conozco"
 **Solución**:
-1. Revisar `outputs/disenos/arquitectura-[proyecto].md` para ver justificación
+1. Revisar `outputs/designs/arquitectura-[proyecto].md` para ver justificación
 2. Agregar restricción en `01-DOCUMENT-TECHNICAL-CONSTRAINTS.md`:
    ```markdown
    ## Experiencia del Equipo
@@ -345,7 +345,7 @@ Si completaste los 3 pasos y pasaste la verificación, ¡estás listo!
 
 ### Próximos Pasos
 1. Prueba el sistema con un proyecto pequeño
-2. Revisa la salida del Arquitecto en `outputs/disenos/arquitectura-*.md`
+2. Revisa la salida del Arquitecto en `outputs/designs/arquitectura-*.md`
 3. Valida que las decisiones sean apropiadas
 4. Ajusta `01-DOCUMENT-TECHNICAL-CONSTRAINTS.md` si es necesario
 5. Usa el sistema en proyectos reales
@@ -356,7 +356,7 @@ Si completaste los 3 pasos y pasaste la verificación, ¡estás listo!
 
 - **CHANGELOG.md**: Lista completa de cambios
 - **README.md**: Guía de uso actualizada
-- **core/agentes/08-AGENTE-ARQUITECTO.md**: Definición completa del agente
+- **core/agents/08-AGENTE-ARQUITECTO.md**: Definición completa del agente
 - **MINIMAL-INFO.md**: Info sobre rama minimal
 
 ---

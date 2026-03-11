@@ -4,10 +4,10 @@
 # OUTPUTS - Archivos Generados
 # ========================================
 # Descomentar estas líneas si quieres que outputs sean temporales (no versionados)
-# outputs/estados/*
-# outputs/planes/*
-# outputs/disenos/*
-# outputs/reportes/*
+# outputs/states/*
+# outputs/plans/*
+# outputs/designs/*
+# outputs/reports/*
 # outputs/tests/*
 
 # O comentar las anteriores y mantener esta si quieres versionar outputs
@@ -130,10 +130,10 @@ scripts/temp/
 # ========================================
 # Mantener estas carpetas en Git incluso si están vacías
 !outputs/.gitkeep
-!outputs/estados/.gitkeep
-!outputs/planes/.gitkeep
-!outputs/disenos/.gitkeep
-!outputs/reportes/.gitkeep
+!outputs/states/.gitkeep
+!outputs/plans/.gitkeep
+!outputs/designs/.gitkeep
+!outputs/reports/.gitkeep
 !outputs/tests/.gitkeep
 !examples/.gitkeep
 !scripts/.gitkeep

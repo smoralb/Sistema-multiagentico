@@ -64,7 +64,7 @@ scripts/
 
 **Opciones**:
 - `--force`: No pide confirmación
-- `--only [tipo]`: Solo limpia tipo específico (estados/planes/disenos/reportes)
+- `--only [tipo]`: Solo limpia tipo específico (states/plans/designs/reportes)
 - `--except [tipo]`: Limpia todo excepto tipo especificado
 - `--older-than [days]`: Solo archivos más antiguos que X días
 
@@ -107,7 +107,7 @@ scripts/
 **Validaciones**:
 - ✅ Verifica existencia de carpetas requeridas
 - ✅ Comprueba que `00-DOCUMENT-PRODUCT-STANDARDS.md` existe
-- ✅ Valida que agentes/*.md tienen formato correcto
+- ✅ Valida que agents/*.md tienen formato correcto
 - ✅ Verifica permisos de escritura en `outputs/`
 - ✅ Comprueba que no hay outputs en `core/` (separación)
 
