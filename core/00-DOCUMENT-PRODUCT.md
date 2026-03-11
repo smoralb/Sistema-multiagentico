@@ -1,5 +1,11 @@
 # Documento de Producto: Web "Hola Multiagentes"
 
+## 📄 Documentación Completa
+Para más detalles y especificaciones del producto, consultar el documento en Google Drive:
+https://docs.google.com/document/d/1X57TS9iOUFsGhmGCSANjxeCoDKpdsLC-/edit
+
+---
+
 ## 🎯 Visión del Producto
 
 ### Descripción General
