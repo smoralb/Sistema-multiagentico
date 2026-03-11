@@ -19,6 +19,129 @@ Traduce el plan de implementación en un diseño técnico detallado. Define la a
 - Considerar escalabilidad y performance
 - Documentar decisiones de diseño y trade-offs
 
+## 🎨 Herramientas de Diseño Visual
+
+### Pencil (Wireframes y Diagramas)
+
+El Agente Diseñador puede usar **Pencil** para crear wireframes, mockups y diagramas visuales profesionales.
+
+#### Detección Automática de Pencil
+
+**1. Verificar disponibilidad según el sistema operativo:**
+
+```bash
+# macOS
+/Applications/Pencil.app
+
+# Windows
+C:\Program Files\Pencil\Pencil.exe
+C:\Program Files (x86)\Pencil\Pencil.exe
+
+# Linux
+/usr/bin/pencil
+/opt/Pencil/pencil
+```
+
+**2. Activar servidor MCP:**
+
+Si Pencil está instalado pero no está ejecutándose:
+- **macOS**: `open -a Pencil`
+- **Windows**: `start Pencil`
+- **Linux**: `pencil &`
+
+El servidor MCP se inicia automáticamente cuando Pencil arranca.
+
+**3. Verificar conexión MCP:**
+
+El Agente Coordinador debe verificar que Pencil aparece en la lista de servidores MCP disponibles antes de asignar tareas de diseño visual.
+
+#### Uso de Pencil vía MCP
+
+Una vez que Pencil está activo y conectado:
+
+1. **Crear diseños programáticamente** usando las herramientas MCP expuestas por Pencil
+2. **Manipular archivos `.pen`** (formato nativo de Pencil)
+3. **Exportar diseños** a formatos de imagen para documentación
+
+#### Outputs con Pencil
+
+Cuando se usa Pencil, generar:
+
+```
+outputs/
+└── designs/
+    ├── [nombre-proyecto].pen              # Archivo Pencil editable
+    ├── [nombre-proyecto]-wireframe.png    # Wireframe exportado
+    └── diseno-[nombre-proyecto].md        # Documentación técnica
+```
+
+#### Tipos de Diagramas a Crear con Pencil
+
+1. **Wireframes de UI**: Para interfaces de usuario
+2. **Diagramas de flujo**: Para flujos de usuario y lógica
+3. **Mockups**: Para visualización de la UI final
+4. **Arquitectura visual**: Diagramas de componentes y módulos
+
+#### Estrategia de Fallback
+
+Si Pencil **NO está disponible**:
+1. Generar diagramas en formato **Mermaid** (Markdown)
+2. Usar **diagramas ASCII** para arquitectura
+3. Documentar todo en Markdown
+4. Notificar al usuario que la instalación de Pencil mejoraría los outputs visuales
+
+#### Ejemplo de Workflow con Pencil
+
+```python
+# Pseudocódigo del Agente Diseñador
+
+def diseñar_solucion(plan, contexto):
+    # 1. Verificar si Pencil está disponible
+    pencil_disponible = verificar_pencil_mcp()
+
+    if pencil_disponible:
+        # 2. Crear wireframes con Pencil
+        wireframe = crear_wireframe_pencil(plan.ui_requirements)
+
+        # 3. Crear diagramas de arquitectura con Pencil
+        diagrama_arquitectura = crear_diagrama_pencil(
+            tipo="architecture",
+            componentes=plan.componentes
+        )
+
+        # 4. Exportar a imagen para documentación
+        exportar_imagen(wireframe, "outputs/designs/wireframe.png")
+        exportar_imagen(diagrama_arquitectura, "outputs/designs/arquitectura.png")
+
+        # 5. Guardar archivo .pen editable
+        guardar_pen(wireframe, "outputs/designs/proyecto.pen")
+    else:
+        # Fallback: usar Mermaid y ASCII
+        diagrama_mermaid = crear_diagrama_mermaid(plan.componentes)
+        diagrama_ascii = crear_diagrama_ascii(plan.arquitectura)
+
+    # 6. Generar documentación técnica en Markdown
+    generar_documento_diseño(plan, diagramas)
+```
+
+#### Configuración de Pencil
+
+El archivo de configuración de Pencil se encuentra en:
+- **macOS**: `~/Library/Application Support/Pencil/config.json`
+- **Windows**: `%APPDATA%\Pencil\config.json`
+- **Linux**: `~/.config/Pencil/config.json`
+
+Verificar que `enabledIntegrations` incluya `"claudeCodeCLI"`:
+
+```json
+{
+  "enabledIntegrations": [
+    "claudeCodeCLI",
+    "claudeDesktop"
+  ]
+}
+```
+
 ## Inputs
 
 ```yaml

@@ -102,6 +102,93 @@ El código final se implementa en:
 - `src/` para proyectos de aplicación
 - O la estructura apropiada según el proyecto
 
+**Outputs visuales con Pencil** (si está disponible):
+```
+outputs/
+└── designs/
+    ├── [nombre-proyecto].pen              # Archivo Pencil editable
+    ├── [nombre-proyecto]-wireframe.png    # Wireframe exportado
+    └── diseno-[nombre-proyecto].md        # Documentación técnica
+```
+
+---
+
+## 🎨 Integración Automática con Pencil
+
+### Activación de Pencil
+
+Cuando el **Agente Diseñador** necesite crear wireframes o diagramas visuales:
+
+**1. Detectar Pencil automáticamente:**
+
+```bash
+# macOS
+if [ -d "/Applications/Pencil.app" ]; then
+    open -a Pencil
+fi
+
+# Windows
+if exist "C:\Program Files\Pencil\Pencil.exe" (
+    start Pencil
+)
+
+# Linux
+if [ -f "/usr/bin/pencil" ] || [ -f "/opt/Pencil/pencil" ]; then
+    pencil &
+fi
+```
+
+**2. Verificar servidor MCP activo:**
+
+Confirmar que Pencil aparece en la lista de servidores MCP antes de invocar al Agente Diseñador para crear diseños visuales.
+
+**3. Usar herramientas MCP de Pencil:**
+
+Una vez conectado, el Agente Diseñador puede:
+- Crear wireframes programáticamente
+- Generar diagramas de arquitectura
+- Manipular archivos `.pen`
+- Exportar diseños a imágenes
+
+### Estrategia de Fallback
+
+Si Pencil **NO está disponible**:
+1. El Agente Diseñador usa **Mermaid** para diagramas
+2. Usa **diagramas ASCII** para arquitectura
+3. Notifica al usuario: "Pencil no detectado. Usando formato Mermaid/ASCII. Para mejores visualizaciones, instala Pencil desde https://pencil.dev"
+
+### Cuándo Activar Pencil
+
+Activa Pencil automáticamente cuando:
+- ✅ La solicitud incluye diseño de UI/UX
+- ✅ Se necesitan wireframes o mockups
+- ✅ Se requieren diagramas de arquitectura visual
+- ✅ El proyecto es una aplicación web con interfaz
+
+NO activar Pencil para:
+- ❌ APIs puras sin interfaz
+- ❌ Scripts o CLIs
+- ❌ Microservicios backend
+- ❌ Tareas de refactoring sin cambios de UI
+
+### Verificación de Configuración
+
+Antes de usar Pencil, verificar que el archivo de configuración incluya la integración:
+
+**macOS**: `~/Library/Application Support/Pencil/config.json`
+**Windows**: `%APPDATA%\Pencil\config.json`
+**Linux**: `~/.config/Pencil/config.json`
+
+Debe contener:
+```json
+{
+  "enabledIntegrations": [
+    "claudeCodeCLI",
+    "claudeDesktop"
+  ]
+}
+```
+
 ---
 
 ## 🎮 Comandos Especiales del Usuario
