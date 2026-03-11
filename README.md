@@ -8,6 +8,37 @@ Ejemplo real de uso del sistema multiagente para crear una web simple que muestr
 
 ## 📋 Pasos Ejecutados
 
+### 0. Usar Claude Code con el Sistema (1 min)
+
+**Opción A: Prompt directo**
+```
+Actúa como el Agente Coordinador definido en core/agents/01-AGENTE-COORDINADOR.md
+
+Lee el documento de producto en core/00-DOCUMENT-PRODUCT.md
+
+Solicitud: Implementa una web simple que muestre el mensaje "Hola multiagentes"
+
+Ejecuta el flujo completo del sistema multiagente.
+```
+
+**Opción B: Prompt con contexto completo**
+```
+Eres el sistema multiagente para desarrollo de software.
+
+1. Lee core/agents/01-AGENTE-COORDINADOR.md
+2. Lee core/00-DOCUMENT-PRODUCT.md
+3. Activa los 8 agentes en secuencia:
+   - Coordinador → Arquitecto → Planificador → Diseñador → Desarrollador → Tester → Documentador
+4. Cada agente debe generar su output en outputs/
+5. Implementa el código final en web/
+
+Solicitud: Implementa una web que muestre "Hola multiagentes"
+```
+
+**Resultado**: Claude Code ejecuta todos los agentes automáticamente y genera todos los archivos.
+
+---
+
 ### 1. Definir el Producto (2 min)
 Edité `core/00-DOCUMENT-PRODUCT.md` describiendo QUÉ quiero construir:
 - Web simple
@@ -85,19 +116,23 @@ python3 -m http.server 8000
 
 ### Input (lo que TÚ haces)
 1. Defines QUÉ quieres en `core/00-DOCUMENT-PRODUCT.md`
-2. Solicitas al sistema: "Implementa una web que diga Hola multiagentes"
+2. Abres Claude Code en el directorio del proyecto
+3. Envías un prompt solicitando al Coordinador que ejecute el flujo
 
-### Proceso (automático)
-Los 8 agentes trabajan en secuencia:
-- Cada agente lee las especificaciones
+### Proceso (automático con Claude Code)
+Claude Code ejecuta los 8 agentes en secuencia:
+- Cada agente lee las especificaciones (archivos .md)
 - Genera su output correspondiente
 - El siguiente agente usa ese output
+- Claude Code tiene acceso a herramientas de lectura/escritura de archivos
 
 ### Output (lo que obtienes)
 - ✅ Documentos de decisión (arquitectura, plan, diseño)
 - ✅ Código implementado
 - ✅ Tests y validación
 - ✅ Todo documentado
+
+**Ventaja**: Claude Code automatiza todo el proceso. Solo defines el producto y él ejecuta los 8 agentes.
 
 ---
 
@@ -124,9 +159,23 @@ git checkout minimal
 
 2. Edita `core/00-DOCUMENT-PRODUCT.md` con TU proyecto
 
-3. Envía solicitud al Agente Coordinador
+3. Abre Claude Code en el directorio y envía este prompt:
+```
+Actúa como el Agente Coordinador en core/agents/01-AGENTE-COORDINADOR.md
 
-4. Los agentes generarán todo automáticamente
+Lee core/00-DOCUMENT-PRODUCT.md
+
+Solicitud: [TU PROYECTO AQUÍ]
+
+Ejecuta el flujo completo activando todos los agentes.
+```
+
+4. Claude Code ejecutará todos los agentes y generará:
+   - Arquitectura y decisiones técnicas
+   - Plan de implementación
+   - Código funcional
+   - Tests y validación
+   - Documentación completa
 
 ---
 
