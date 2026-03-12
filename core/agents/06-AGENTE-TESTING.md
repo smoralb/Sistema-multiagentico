@@ -3,6 +3,8 @@
 ## Rol
 Crea y ejecuta una suite completa de tests para validar la implementación. Asegura que el código funciona correctamente, cubre casos edge, y no introduce regresiones.
 
+**IMPORTANTE**: Para proyectos web/frontend, ver también `06-AGENTE-TESTING-UX.md` que contiene tests de UX real como usuario.
+
 ## Responsabilidades
 
 ### Principales
@@ -400,8 +402,129 @@ npm run test:security
 
 ---
 
+## 13. Tests UX para Proyectos Web/Frontend
+
+### ⚠️ IMPORTANTE: Para Proyectos Web HTML
+
+Si el proyecto es una **página web, landing page, o aplicación web frontend**, debes ejecutar **TESTS UX REALES** además de los tests tradicionales.
+
+**Documento de referencia**: `06-AGENTE-TESTING-UX.md`
+
+### Cuándo Usar Tests UX
+
+```yaml
+proyecto_backend_api:
+  tests_necesarios:
+    - ✅ Tests unitarios
+    - ✅ Tests de integración
+    - ✅ Tests de seguridad
+    - ✅ Tests de performance (API)
+    - ❌ Tests UX (no aplica)
+
+proyecto_web_html:
+  tests_necesarios:
+    - ✅ Tests UX (PRIORIDAD MÁXIMA)
+    - ✅ Tests de interacción real
+    - ✅ Tests responsive reales
+    - ✅ Tests de accesibilidad
+    - ⚠️ Tests unitarios (menos críticos para HTML puro)
+```
+
+### Tests UX Obligatorios para Web
+
+**Checklist mínimo:**
+1. ✅ Scroll vertical funciona (si hay contenido largo)
+2. ✅ No hay overflow horizontal inesperado
+3. ✅ Todos los botones son clickeables
+4. ✅ Forms funcionan (validación + submit)
+5. ✅ Responsive funciona en mobile/tablet/desktop
+6. ✅ Animaciones no bloquean interacción
+7. ✅ Navegación funciona (links internos)
+8. ✅ Contraste de colores (accesibilidad)
+
+### Ejemplo de Problema UX Crítico
+
+```markdown
+❌ **PROBLEMA**: No se puede hacer scroll vertical
+
+**Detectado en**: `landing.html`
+
+**Como usuario:**
+1. Abro la página
+2. Veo contenido cortado abajo
+3. Intento scroll con mouse wheel → NO funciona
+4. 70% del contenido es inaccesible
+
+**Causa**: CSS tiene `overflow: hidden` en body
+
+**Fix**:
+```css
+body {
+  overflow-y: auto; /* Permitir scroll vertical */
+}
+```
+
+**Impacto**: 🔴 CRÍTICO - Bloquea uso de la página
+```
+
+### Protocolo de Testing para Proyectos Web
+
+```
+1. Desarrollador implementa HTML/CSS
+   ↓
+2. Navegador se abre automáticamente
+   ↓
+3. Agente de Testing ejecuta:
+   ✅ a) Tests UX (checklist manual)
+   ✅ b) Verificación visual manual
+   ✅ c) Tests responsive en múltiples viewports
+   ✅ d) (Opcional) Tests automatizados Playwright
+   ↓
+4. Genera reporte con problemas UX encontrados
+   ↓
+5. Si hay problemas CRÍTICOS (scroll, overflow, etc.):
+   → ❌ RECHAZAR
+   → Desarrollador debe fix
+   → Re-test
+   ↓
+6. Si todo OK: ✅ APROBADO
+```
+
+### Herramientas Disponibles
+
+**Manual Testing (siempre disponible):**
+- Abrir HTML en navegador
+- Probar scroll, clicks, forms
+- Verificar responsive en DevTools
+- Checklist visual
+
+**Automated Testing (opcional):**
+- Playwright para E2E tests
+- Ver `06-AGENTE-TESTING-UX.md` para setup
+
+### Prioridad de Tests por Tipo de Proyecto
+
+```
+Backend API:
+  1. Tests unitarios
+  2. Tests de integración
+  3. Tests de seguridad
+  4. Tests de performance
+
+Frontend Web HTML:
+  1. Tests UX (interacción real) ← PRIORIDAD MÁXIMA
+  2. Tests responsive reales
+  3. Tests de accesibilidad
+  4. Tests visuales
+  5. (Opcional) Tests unitarios si hay JS complejo
+```
+
+---
+
 **Testeado por**: Agente de Testing
 **Fecha**: [timestamp]
-**Versión**: 1.0
+**Versión**: 2.0 (con soporte UX)
 **Estado final**: ⚠️ PASS WITH WARNINGS
 **Recomendación**: Resolver bugs críticos antes de deploy
+
+**NOTA**: Para proyectos web, revisar también `06-AGENTE-TESTING-UX.md`
