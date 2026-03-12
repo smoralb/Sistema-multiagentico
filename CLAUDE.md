@@ -208,28 +208,31 @@ def decidir_accion(solicitud, estado_validacion):
 
 ### Mensaje al Usuario (Si NO está contemplada)
 
-Cuando una solicitud NO está contemplada, mostrar:
+Cuando una solicitud NO está contemplada, usar **AskUserQuestion** con selector interactivo:
 
-```markdown
+```python
+def consultar_usuario_no_contemplada_interactivo(solicitud, documento, contexto, analisis):
+    """
+    Usa AskUserQuestion para mostrar selector interactivo
+    """
+    # 1. Mostrar contexto primero
+    print(f"""
 ⚠️  **VALIDACIÓN DE ALCANCE: Solicitud Fuera del Documento**
 
 ---
 
 📋 **Tu solicitud:**
-"[solicitud del usuario]"
+"{solicitud}"
 
 ---
 
 📄 **Documento de Producto actual:**
 
 **Alcance definido:**
-- [Funcionalidad 1]
-- [Funcionalidad 2]
-- [Funcionalidad 3]
+{formatear_lista(contexto.alcance)}
 
-**Objetivos:**
-- [Objetivo 1]
-- [Objetivo 2]
+**Funcionalidades contempladas:**
+{formatear_lista(contexto.funcionalidades)}
 
 ---
 
@@ -238,36 +241,66 @@ Cuando una solicitud NO está contemplada, mostrar:
 Tu solicitud **NO está contemplada** en el documento de producto actual.
 
 **Razón:**
-[Explicación específica de por qué no está contemplada]
+{analisis.justificacion}
 
 **Ejemplos de lo que SÍ está contemplado:**
-- [Ejemplo 1]
-- [Ejemplo 2]
-- [Ejemplo 3]
+{formatear_ejemplos_contemplados(contexto)}
 
 ---
+""")
 
-🤔 **¿Qué deseas hacer?**
+    # 2. Usar AskUserQuestion con selector interactivo
+    respuesta = AskUserQuestion(
+        questions=[
+            {
+                "question": "¿Qué deseas hacer con esta solicitud que NO está contemplada en el documento?",
+                "header": "Validación",
+                "multiSelect": False,
+                "options": [
+                    {
+                        "label": "Actualizar documento y continuar (Recomendado)",
+                        "description": "Actualizaré core/00-DOCUMENT-PRODUCT.md para incluir esta funcionalidad y luego continuaré con la implementación. El documento y código quedarán alineados."
+                    },
+                    {
+                        "label": "Cancelar solicitud",
+                        "description": "Detendré el proceso actual. No se realizarán cambios. Puedes hacer otra solicitud alineada con el documento."
+                    },
+                    {
+                        "label": "Continuar sin actualizar (Override)",
+                        "description": "Implementaré la funcionalidad SIN actualizar el documento. NO recomendado - crea desalineación entre docs y código. Solo para casos temporales."
+                    }
+                ]
+            }
+        ]
+    )
 
-**Opción A: Actualizar documento y continuar** ✅
-- Actualizaré `core/00-DOCUMENT-PRODUCT.md` para incluir esta funcionalidad
-- Luego continuaré con la implementación
-- Recomendado si esta funcionalidad es parte de la evolución natural del producto
+    # 3. Procesar respuesta
+    opcion_seleccionada = respuesta.answers["question_0"]
 
-**Opción B: Cancelar esta solicitud** ❌
-- Detendré el proceso actual
-- No se realizarán cambios
-- Puedes hacer otra solicitud alineada con el documento
+    if "Actualizar documento" in opcion_seleccionada:
+        # Opción A
+        actualizar_documento_producto(solicitud, documento, contexto)
+        return {'estado': 'CONTEMPLADA_ACTUALIZADA', 'continuar': True}
 
-**Opción C: Continuar sin actualizar documento** ⚡ (Override)
-- Implementaré la funcionalidad SIN actualizar el documento
-- NO recomendado (crea desalineación entre docs y código)
-- Usar solo si es temporal o experimental
+    elif "Cancelar" in opcion_seleccionada:
+        # Opción B
+        print("\n❌ Solicitud cancelada por el usuario")
+        print("✅ No se realizaron cambios\n")
+        return {'estado': 'CANCELADA', 'continuar': False}
 
----
-
-Por favor responde: **A**, **B** o **C**
+    else:  # Override
+        # Opción C
+        print("\n⚡ Override activado - continuando sin actualizar documento")
+        print("⚠️  ADVERTENCIA: El documento quedará desactualizado\n")
+        return {'estado': 'OVERRIDE', 'continuar': True}
 ```
+
+**Ventajas del selector interactivo:**
+- ✅ Más rápido que escribir A/B/C
+- ✅ Muestra las descripciones completas de cada opción
+- ✅ Interfaz visual clara con flechas para navegar
+- ✅ Previene errores de tipeo
+- ✅ Experiencia de usuario mejorada
 
 ### Actualización del Documento (Si el usuario elige Opción A)
 

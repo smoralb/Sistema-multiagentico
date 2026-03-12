@@ -170,8 +170,10 @@ def validar_alcance_solicitud(solicitud_usuario):
 def consultar_usuario_no_contemplada(solicitud, documento, contexto, analisis):
     """
     Consulta al usuario cuando la solicitud NO está contemplada
+    USA AskUserQuestion para selector interactivo en terminal
     """
-    mensaje = f"""
+    # 1. Mostrar contexto primero
+    print(f"""
 ⚠️  **VALIDACIÓN DE ALCANCE: Solicitud Fuera del Documento**
 
 ---
@@ -208,45 +210,49 @@ Tu solicitud **NO está contemplada** en el documento de producto actual.
 {formatear_ejemplos_contemplados(contexto)}
 
 ---
+""")
 
-🤔 **¿Qué deseas hacer?**
+    # 2. Usar AskUserQuestion con selector interactivo (flechas ↑↓)
+    respuesta = AskUserQuestion(
+        questions=[
+            {
+                "question": "¿Qué deseas hacer con esta solicitud NO contemplada?",
+                "header": "Validación",
+                "multiSelect": False,
+                "options": [
+                    {
+                        "label": "Actualizar documento y continuar (Recomendado)",
+                        "description": "Actualizaré core/00-DOCUMENT-PRODUCT.md para incluir esta funcionalidad y luego continuaré con la implementación. El documento y código quedarán alineados."
+                    },
+                    {
+                        "label": "Cancelar solicitud",
+                        "description": "Detendré el proceso actual. No se realizarán cambios. Puedes hacer otra solicitud alineada con el documento."
+                    },
+                    {
+                        "label": "Continuar sin actualizar (Override)",
+                        "description": "Implementaré la funcionalidad SIN actualizar el documento. NO recomendado - crea desalineación entre docs y código. Solo para casos temporales."
+                    }
+                ]
+            }
+        ]
+    )
 
-**Opción A: Actualizar documento y continuar** ✅
-- Actualizaré `core/00-DOCUMENT-PRODUCT.md` para incluir esta funcionalidad
-- Luego continuaré con la implementación
-- ✅ Recomendado si esta funcionalidad es parte de la evolución natural del producto
+    # 3. Procesar respuesta del selector
+    opcion_seleccionada = respuesta.answers["question_0"]
 
-**Opción B: Cancelar esta solicitud** ❌
-- Detendré el proceso actual
-- No se realizarán cambios
-- Puedes hacer otra solicitud alineada con el documento
-
-**Opción C: Continuar sin actualizar documento** ⚡ (Override)
-- Implementaré la funcionalidad SIN actualizar el documento
-- ⚠️  NO recomendado (crea desalineación entre docs y código)
-- Usar solo si es temporal o experimental
-
----
-
-Por favor responde: **A**, **B** o **C**
-"""
-
-    # Mostrar mensaje y esperar respuesta
-    mostrar_mensaje(mensaje)
-    respuesta = esperar_respuesta_usuario(['A', 'B', 'C'])
-
-    if respuesta == 'A':
-        # Actualizar documento y continuar
+    if "Actualizar documento" in opcion_seleccionada:
+        # Opción A: Actualizar documento y continuar
         actualizar_documento_producto(solicitud, documento, contexto)
         return {'estado': 'CONTEMPLADA_ACTUALIZADA', 'continuar': True}
 
-    elif respuesta == 'B':
-        # Cancelar
+    elif "Cancelar" in opcion_seleccionada:
+        # Opción B: Cancelar
         print("\n❌ Solicitud cancelada por el usuario")
         print("✅ No se realizaron cambios\n")
         return {'estado': 'CANCELADA', 'continuar': False}
 
-    else:  # C - Override
+    else:  # "Continuar sin actualizar"
+        # Opción C: Override
         print("\n⚡ Override activado - continuando sin actualizar documento")
         print("⚠️  ADVERTENCIA: El documento quedará desactualizado\n")
         return {'estado': 'OVERRIDE', 'continuar': True}
