@@ -418,14 +418,19 @@ Nueva Funcionalidad:
   1. Agente Planificador
   2. Agente Validador (valida plan)
   3. Agente de Diseño
-  4. Agente Validador (valida diseño)
-  5. Agente Desarrollador
-  6. Verificación Visual (si es proyecto web, abre navegador)
-  7. Agente Validador (valida código)
-  8. Agente de Testing
-  9. Agente Validador (valida tests)
-  10. Agente de Documentación
-  11. Revisión Final
+  4. 👤 VALIDACIÓN MANUAL DEL USUARIO (interactivo - nuevo)
+     - Muestra diseño visual (screenshot si Pencil)
+     - Usuario decide: "Aprobar" o "Hacer cambios"
+     - Si cambios: loop a paso 3 con feedback
+     - Hasta que usuario apruebe
+  5. Agente Validador (valida diseño técnicamente)
+  6. Agente Desarrollador
+  7. Verificación Visual (si es proyecto web, abre navegador)
+  8. Agente Validador (valida código)
+  9. Agente de Testing
+  10. Agente Validador (valida tests)
+  11. Agente de Documentación
+  12. Revisión Final
 
 Bug Fix:
   0. ✅ Validación de Alcance (normalmente omitida - bugs siempre contemplados)
@@ -447,7 +452,272 @@ Refactor:
   7. Agente Validador (valida que no se rompe nada)
 ```
 
-### 3. Protocolo Especial: Pencil como Fuente Única de Diseño
+### 3. Validación Manual del Diseño por el Usuario
+
+**⭐ NUEVO PASO OBLIGATORIO EN EL FLUJO**
+
+Después de que el Agente Diseñador complete el diseño visual, el Coordinador **DEBE** solicitar validación manual del usuario antes de continuar.
+
+```python
+def validacion_manual_diseno(resultado_diseñador, estado):
+    """
+    Paso obligatorio después del Agente Diseñador
+    Permite al usuario validar el diseño antes de implementar
+    """
+    print("\n" + "="*60)
+    print("👤 VALIDACIÓN MANUAL DEL DISEÑO")
+    print("="*60 + "\n")
+
+    # 1. Mostrar el diseño al usuario
+    mostrar_resumen_diseno(resultado_diseñador)
+
+    # 2. Generar screenshot si es Pencil
+    if resultado_diseñador.archivo_pen:
+        screenshot = generar_screenshot_pencil(resultado_diseñador.archivo_pen)
+        print(f"📸 Screenshot del diseño: {screenshot}")
+        # El screenshot se mostrará visualmente en el terminal
+
+    # 3. Usar AskUserQuestion para validación interactiva
+    respuesta = AskUserQuestion(
+        questions=[
+            {
+                "question": "¿Apruebas este diseño para continuar con la implementación?",
+                "header": "Diseño",
+                "multiSelect": False,
+                "options": [
+                    {
+                        "label": "Sí, aprobar y continuar (Recomendado)",
+                        "description": "El diseño se ve bien. Continuar con la implementación usando este diseño como base."
+                    },
+                    {
+                        "label": "Hacer cambios al diseño",
+                        "description": "Necesito modificaciones en el diseño antes de implementar. Se solicitarán los cambios específicos."
+                    },
+                    {
+                        "label": "Rediseñar desde cero",
+                        "description": "El diseño no cumple las expectativas. Volver a empezar con una nueva dirección."
+                    }
+                ]
+            }
+        ]
+    )
+
+    decision = respuesta.answers["question_0"]
+
+    # 4. Procesar decisión
+    if "aprobar y continuar" in decision.lower():
+        print("\n✅ Diseño aprobado por el usuario")
+        print("➡️  Continuando con validación técnica e implementación...\n")
+        estado.diseño_aprobado = True
+        return {'accion': 'continuar', 'diseño': resultado_diseñador}
+
+    elif "hacer cambios" in decision.lower():
+        # Preguntar qué tipo de cambios
+        tipo_cambios = AskUserQuestion(
+            questions=[
+                {
+                    "question": "¿Qué tipo de cambios deseas hacer?",
+                    "header": "Cambios",
+                    "multiSelect": False,
+                    "options": [
+                        {
+                            "label": "Cambios de colores",
+                            "description": "Modificar la paleta de colores o colores específicos."
+                        },
+                        {
+                            "label": "Cambios de layout/estructura",
+                            "description": "Reorganizar secciones, cambiar disposición de elementos."
+                        },
+                        {
+                            "label": "Cambios de tipografía",
+                            "description": "Cambiar fuentes, tamaños o estilos de texto."
+                        },
+                        {
+                            "label": "Agregar/quitar elementos",
+                            "description": "Añadir nuevos componentes o eliminar existentes."
+                        },
+                        {
+                            "label": "Otro (especificar)",
+                            "description": "Otros cambios no listados."
+                        }
+                    ]
+                }
+            ]
+        )
+
+        tipo = tipo_cambios.answers["question_0"]
+
+        print(f"\n📋 Tipo de cambio seleccionado: {tipo}")
+        print("\n💬 Por favor describe los cambios específicos que deseas:")
+        print("   (El sistema esperará tu mensaje con los detalles)\n")
+
+        return {
+            'accion': 'iterar',
+            'tipo_cambio': tipo,
+            'esperar_feedback': True
+        }
+
+    else:  # Rediseñar desde cero
+        print("\n🔄 Rediseñando desde cero...")
+        print("\n💬 Por favor describe la nueva dirección de diseño:")
+        print("   (Describe el estilo, mood, referencias que prefieres)\n")
+
+        return {
+            'accion': 'rediseñar',
+            'esperar_feedback': True
+        }
+
+def procesar_feedback_diseno(feedback_usuario, tipo_cambio, estado):
+    """
+    Procesa el feedback del usuario y vuelve al Agente Diseñador
+    """
+    print(f"\n🔄 Procesando feedback del usuario...\n")
+    print(f"📝 Tipo de cambio: {tipo_cambio}")
+    print(f"💬 Feedback:\n{feedback_usuario}\n")
+
+    # Incrementar contador de iteraciones
+    estado.iteraciones_diseno += 1
+
+    # Seguridad: máximo 5 iteraciones
+    if estado.iteraciones_diseno > 5:
+        print("⚠️  ADVERTENCIA: Se han realizado 5 iteraciones de diseño")
+        print("   Considera aprobar el diseño actual o redefinir requerimientos\n")
+
+    # Re-invocar Agente Diseñador con feedback
+    print("🎨 Volviendo al Agente Diseñador con tus cambios...\n")
+
+    nuevo_diseño = invocar_agente_disenador(
+        plan=estado.plan,
+        diseño_anterior=estado.diseño_actual,
+        feedback=feedback_usuario,
+        tipo_cambio=tipo_cambio,
+        iteracion=estado.iteraciones_diseno
+    )
+
+    # Volver a validación manual (loop)
+    return validacion_manual_diseno(nuevo_diseño, estado)
+
+def mostrar_resumen_diseno(resultado_diseñador):
+    """
+    Muestra resumen legible del diseño para el usuario
+    """
+    print("📋 Resumen del Diseño:\n")
+
+    if resultado_diseñador.colores:
+        print("**Colores principales:**")
+        for color in resultado_diseñador.colores:
+            print(f"  - {color.nombre}: {color.hex}")
+
+    if resultado_diseñador.tipografia:
+        print("\n**Tipografía:**")
+        for fuente in resultado_diseñador.tipografia:
+            print(f"  - {fuente.elemento}: {fuente.familia} {fuente.tamaño} ({fuente.peso})")
+
+    if resultado_diseñador.secciones:
+        print("\n**Secciones del diseño:**")
+        for i, seccion in enumerate(resultado_diseñador.secciones, 1):
+            print(f"  {i}. {seccion.nombre}")
+            print(f"     {seccion.descripcion}")
+
+    if resultado_diseñador.archivo_pen:
+        print(f"\n📁 Archivo Pencil: {resultado_diseñador.archivo_pen}")
+
+    print("\n" + "-"*60 + "\n")
+```
+
+#### Ejemplo de Flujo Completo con Validación Manual
+
+```
+[PASO 3] Agente Diseñador ejecuta
+    ↓
+  Diseño completado:
+    - Paleta: #0A0A0A, #C4F82A, #FF00FF
+    - Tipografía: Orbitron
+    - Secciones: Hero, Features, Product, CTA
+    - Archivo: cereales-retro.pen
+    ↓
+[PASO 4] 👤 Validación Manual del Usuario
+    ↓
+  📸 [Muestra screenshot del diseño]
+    ↓
+  📋 Resumen del Diseño:
+  **Colores**: #0A0A0A (negro), #C4F82A (lime), #FF00FF (magenta)
+  **Tipografía**: Orbitron 96px (título), 32px (subtítulo)
+  **Secciones**: 5 secciones principales
+    ↓
+  [Selector interactivo]
+    Sí, aprobar y continuar ← Usuario selecciona esta
+    Hacer cambios al diseño
+    Rediseñar desde cero
+    ↓
+  ✅ Diseño aprobado por el usuario
+    ↓
+[PASO 5] Agente Validador (validación técnica)
+    ↓
+[PASO 6] Agente Desarrollador (implementación)
+    ↓
+  ... continúa el flujo
+```
+
+#### Ejemplo con Iteración (Usuario pide cambios)
+
+```
+[PASO 3] Agente Diseñador ejecuta
+    ↓
+[PASO 4] 👤 Validación Manual
+    ↓
+  [Selector interactivo]
+    Sí, aprobar y continuar
+    Hacer cambios al diseño ← Usuario selecciona esta
+    Rediseñar desde cero
+    ↓
+  [Selector de tipo de cambio]
+    Cambios de colores ← Usuario selecciona esta
+    Cambios de layout
+    Cambios de tipografía
+    Agregar/quitar elementos
+    Otro
+    ↓
+  💬 Usuario escribe:
+  "Cambia el lime #C4F82A por cyan #00FFFF, y el magenta
+   por un púrpura más oscuro #9D00FF"
+    ↓
+[PASO 3.2] 🔄 Agente Diseñador ejecuta (con feedback)
+    ↓
+  Diseño actualizado con nuevos colores
+    ↓
+[PASO 4.2] 👤 Validación Manual de nuevo
+    ↓
+  📸 [Muestra nuevo screenshot con cambios]
+    ↓
+  [Selector interactivo]
+    Sí, aprobar y continuar ← Usuario selecciona esta
+    Hacer cambios al diseño
+    Rediseñar desde cero
+    ↓
+  ✅ Diseño aprobado por el usuario
+    ↓
+[PASO 5] Agente Validador
+    ↓
+  ... continúa el flujo
+```
+
+#### Ejemplo con Múltiples Iteraciones
+
+```
+Iteración 1:
+  Usuario: "Hacer cambios" → "Aumenta tamaños de texto"
+  Sistema: [Actualiza diseño] → Vuelve a validación manual
+
+Iteración 2:
+  Usuario: "Hacer cambios" → "Añade más espaciado"
+  Sistema: [Actualiza diseño] → Vuelve a validación manual
+
+Iteración 3:
+  Usuario: "Sí, aprobar" → ✅ Continúa con implementación
+```
+
+### 4. Protocolo Especial: Pencil como Fuente Única de Diseño
 
 **CRÍTICO para proyectos con UI (web, mobile, desktop):**
 
@@ -595,13 +865,14 @@ Este proyecto requiere diseño de interfaz visual.
 ⏭️  Continuando con diseño...
 ```
 
-### 3. Ejecución del Flujo
+### 5. Ejecución del Flujo (Actualizado con Validación Manual)
 ```python
 # Pseudocódigo del proceso
 
 def ejecutar_flujo(solicitud):
     # Crear documento de estado
     estado = crear_documento_estado(solicitud)
+    estado.iteraciones_diseno = 0
 
     # Obtener flujo apropiado
     flujo = determinar_flujo(solicitud.tipo)
@@ -619,13 +890,55 @@ def ejecutar_flujo(solicitud):
         # Actualizar estado
         estado.agregar_resultado(paso, resultado)
 
+        # ⭐ NUEVO: Si es Agente Diseñador, validación manual obligatoria
+        if paso.agente == "Diseñador":
+            print("\n👤 Solicitando validación manual del diseño...\n")
+
+            # Loop de validación manual
+            validacion = validacion_manual_diseno(resultado, estado)
+
+            while validacion['accion'] != 'continuar':
+                if validacion['accion'] == 'iterar':
+                    # Usuario quiere cambios - esperar feedback
+                    print("⏸️  Esperando tu descripción de los cambios...\n")
+
+                    # El sistema esperará el siguiente mensaje del usuario
+                    # con la descripción de los cambios
+                    feedback_usuario = esperar_mensaje_usuario()
+
+                    # Procesar feedback y volver a diseñar
+                    validacion = procesar_feedback_diseno(
+                        feedback_usuario,
+                        validacion['tipo_cambio'],
+                        estado
+                    )
+
+                elif validacion['accion'] == 'rediseñar':
+                    # Usuario quiere rediseñar desde cero
+                    print("⏸️  Esperando nueva dirección de diseño...\n")
+
+                    nueva_direccion = esperar_mensaje_usuario()
+
+                    # Rediseñar desde cero
+                    resultado = invocar_agente_disenador(
+                        plan=estado.plan,
+                        direccion=nueva_direccion,
+                        desde_cero=True
+                    )
+
+                    validacion = validacion_manual_diseno(resultado, estado)
+
+            # Usuario aprobó el diseño - continuar
+            print("✅ Diseño aprobado - continuando con el flujo\n")
+            estado.diseño_aprobado = True
+
         # Si es Agente Desarrollador y proyecto web, ejecutar verificación visual
         if paso.agente == "Desarrollador" and es_proyecto_web(estado):
             print("🌐 Ejecutando Verificación Visual...")
             abrir_en_navegador(obtener_archivo_principal_web(estado))
             print("✅ Página abierta en navegador para verificación visual")
 
-        # Si es un paso de validación
+        # Si es un paso de validación técnica
         if paso.es_validacion:
             if resultado.estado == "rechazado":
                 # Feedback loop
@@ -859,7 +1172,7 @@ El Coordinador responde a estos comandos del usuario:
 
 ## Ejemplo de Ejecución
 
-### Ejemplo 1: Solicitud Contemplada
+### Ejemplo 1: Solicitud Contemplada (con Validación Manual)
 
 ```
 Usuario: "Implementa un sistema de autenticación con JWT"
@@ -885,23 +1198,85 @@ Coordinador:
   ├─> [PASO 3] Invoca Agente de Diseño
   │   └─> Diseño: JWT + Refresh tokens, middleware de autenticación
   │
-  ├─> [PASO 4] Invoca Agente Validador
+  ├─> [PASO 4] 👤 Validación Manual del Usuario (NUEVO)
+  │   ├─> Muestra resumen del diseño
+  │   ├─> [Selector interactivo]
+  │   │   • Sí, aprobar y continuar ← Usuario selecciona
+  │   │   • Hacer cambios al diseño
+  │   │   • Rediseñar desde cero
+  │   └─> ✅ Usuario aprueba - Continuar
+  │
+  ├─> [PASO 5] Invoca Agente Validador (validación técnica)
   │   └─> Validación: RECHAZADO ❌
   │       Razón: "No se consideró rate limiting para endpoints de auth"
   │
   ├─> [PASO 3.2] Re-invoca Agente de Diseño (con feedback)
   │   └─> Diseño actualizado: Incluye rate limiting
   │
-  ├─> [PASO 4.2] Invoca Agente Validador
+  ├─> [PASO 4.2] 👤 Validación Manual del Usuario de nuevo
+  │   └─> ✅ Usuario aprueba - Continuar
+  │
+  ├─> [PASO 5.2] Invoca Agente Validador
   │   └─> Validación: APROBADO ✅
   │
-  ├─> [PASO 5] Invoca Agente Desarrollador
+  ├─> [PASO 6] Invoca Agente Desarrollador
   │   └─> Código implementado en 3 módulos
   │
   ├─> ... continúa el flujo
   │
   └─> COMPLETADO ✅
       Resumen final generado
+```
+
+### Ejemplo 1b: Usuario Pide Cambios al Diseño
+
+```
+Usuario: "Crea una landing page retro futurista para cereales"
+
+Coordinador:
+  ├─> [PASO 0] ✅ Validación de Alcance (contemplada)
+  ├─> [PASO 1-2] Planificación y validación
+  │
+  ├─> [PASO 3] Agente de Diseño
+  │   └─> Diseño completado: Paleta neón (lime, magenta, cyan)
+  │
+  ├─> [PASO 4] 👤 Validación Manual del Usuario
+  │   ├─> 📸 Muestra screenshot del diseño Pencil
+  │   ├─> 📋 Resumen:
+  │   │   Colores: #0A0A0A, #C4F82A, #FF00FF
+  │   │   Tipografía: Orbitron 96px
+  │   │
+  │   ├─> [Selector interactivo]
+  │   │   • Sí, aprobar y continuar
+  │   │   • Hacer cambios al diseño ← Usuario selecciona
+  │   │   • Rediseñar desde cero
+  │   │
+  │   ├─> [Selector de tipo de cambio]
+  │   │   • Cambios de colores ← Usuario selecciona
+  │   │   • Cambios de layout
+  │   │   • Cambios de tipografía
+  │   │   • Agregar/quitar elementos
+  │   │
+  │   └─> 💬 Usuario escribe:
+  │       "Cambia el lime por cyan #00FFFF"
+  │
+  ├─> [PASO 3.2] 🔄 Agente de Diseño (con feedback)
+  │   └─> Diseño actualizado con cyan
+  │
+  ├─> [PASO 4.2] 👤 Validación Manual del Usuario de nuevo
+  │   ├─> 📸 Muestra nuevo screenshot
+  │   ├─> [Selector interactivo]
+  │   │   • Sí, aprobar y continuar ← Usuario selecciona
+  │   │   • Hacer cambios al diseño
+  │   │   • Rediseñar desde cero
+  │   │
+  │   └─> ✅ Usuario aprueba - Continuar
+  │
+  ├─> [PASO 5] Validador técnico ✅
+  ├─> [PASO 6] Desarrollador implementa
+  ├─> [PASO 7] Verificación visual automática
+  │
+  └─> COMPLETADO ✅
 ```
 
 ### Ejemplo 2: Solicitud NO Contemplada
