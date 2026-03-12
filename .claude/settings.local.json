@@ -14,7 +14,8 @@
       "WebFetch(domain:pencil.dev)",
       "WebFetch(domain:docs.pencil.dev)",
       "Bash([ -d \"/Applications/Pencil.app\" ])",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(git push:*)"
     ]
   }
 }
