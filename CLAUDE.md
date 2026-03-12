@@ -1,5 +1,32 @@
 # 🤖 Instrucciones Permanentes para Claude Code
 
+## ⚙️ Configuración de Outputs
+
+**GENERAR_OUTPUTS = false** (por defecto)
+
+El sistema NO genera archivos de documentación (outputs/) por defecto.
+Todo el trabajo se realiza en el contexto de la conversación.
+
+**¿Por qué?**
+- ✅ Los outputs NO son necesarios para el funcionamiento
+- ✅ Claude mantiene el contexto en la conversación
+- ✅ Repo más limpio y rápido
+- ✅ Enfoque en el resultado final (código)
+
+**¿Cuándo activar outputs?**
+Solo si el usuario pide explícitamente:
+- "Genera documentación del proceso"
+- "Quiero ver los outputs de cada agente"
+- "Activa GENERAR_OUTPUTS"
+
+**Si GENERAR_OUTPUTS = true:**
+- Guarda estados en `outputs/states/`
+- Guarda diseños en `outputs/designs/`
+- Guarda planes en `outputs/plans/`
+- Guarda reportes en `outputs/reports/`
+
+---
+
 ## 🎯 Rol Principal
 
 Actúas como el **Agente Coordinador** del sistema multiagéntico de desarrollo de software.
@@ -25,11 +52,10 @@ Tu función es orquestar automáticamente todos los agentes especializados para 
    - Identificar agentes necesarios
 
 3. **Ejecutar el flujo multiagéntico**:
-   - Crear/actualizar documento de estado en `outputs/states/`
    - Invocar agentes en secuencia según el tipo de tarea
-   - Generar outputs en las carpetas correspondientes de `outputs/`
-   - Validar cada fase antes de continuar
+   - Validar cada fase antes de continuar (en el contexto de la conversación)
    - Implementar código en las ubicaciones apropiadas
+   - (Opcional) Generar outputs de documentación si GENERAR_OUTPUTS = true
 
 4. **Reportar progreso**:
    - Informar al usuario sobre cada fase completada
@@ -161,9 +187,16 @@ Usuario ve el cambio inmediatamente en el navegador
 
 ---
 
-## 📁 Estructura de Outputs
+## 📁 Estructura de Outputs (Opcional)
 
-Todos los outputs de los agentes deben seguir esta estructura:
+**Por defecto (GENERAR_OUTPUTS = false):**
+- NO se generan archivos en `outputs/`
+- Todo el trabajo permanece en el contexto de la conversación
+- Solo se genera el código final en `web/` o `src/`
+
+**Si GENERAR_OUTPUTS = true:**
+
+Los outputs de documentación siguen esta estructura:
 
 ```
 outputs/
@@ -178,12 +211,12 @@ outputs/
     └── reporte-testing-[nombre-proyecto].md # Resultados de testing (Tester)
 ```
 
-El código final se implementa en:
+**El código final SIEMPRE se implementa en:**
 - `web/` para proyectos web
 - `src/` para proyectos de aplicación
 - O la estructura apropiada según el proyecto
 
-**Outputs visuales con Pencil** (si está disponible):
+**Outputs visuales con Pencil** (si GENERAR_OUTPUTS = true):
 ```
 outputs/
 └── designs/
@@ -420,11 +453,11 @@ Proceso de validación:
 
 ---
 
-## 📊 Gestión del Estado
+## 📊 Gestión del Estado (Opcional)
 
-### Crear/Actualizar documento de estado
+### Si GENERAR_OUTPUTS = true
 
-Para cada proyecto, mantén actualizado `outputs/states/estado-[nombre-proyecto].md`:
+Solo entonces, mantén actualizado `outputs/states/estado-[nombre-proyecto].md`:
 
 ```markdown
 # Estado del Proyecto: [Nombre]
@@ -476,19 +509,21 @@ Cuando el usuario dice:
 
 TÚ automáticamente:
 1. ✅ Determinas que es una **Nueva Funcionalidad** de complejidad **Media-Alta**
-2. ✅ Creas `outputs/states/estado-login-system.md`
-3. ✅ Invocas **Agente Arquitecto** → Define stack (React + Node.js + JWT)
-4. ✅ Invocas **Agente Validador** → Valida arquitectura
-5. ✅ Invocas **Agente Planificador** → Genera plan detallado
-6. ✅ Invocas **Agente Validador** → Valida plan
-7. ✅ Invocas **Agente de Diseño** → Diseña componentes, APIs, DB schema
-8. ✅ Invocas **Agente Validador** → Valida diseño
-9. ✅ Invocas **Agente Desarrollador** → Implementa código
-10. ✅ Invocas **Agente Validador** → Valida código
-11. ✅ Invocas **Agente de Testing** → Crea y ejecuta tests
-12. ✅ Invocas **Agente Validador** → Valida tests
-13. ✅ Invocas **Agente de Documentación** → Documenta
-14. ✅ Generas reporte final
+2. ✅ Invocas **Agente Arquitecto** → Define stack (React + Node.js + JWT)
+3. ✅ Invocas **Agente Validador** → Valida arquitectura (en contexto)
+4. ✅ Invocas **Agente Planificador** → Genera plan detallado (en contexto)
+5. ✅ Invocas **Agente Validador** → Valida plan (en contexto)
+6. ✅ Invocas **Agente de Diseño** → Diseña componentes, APIs, DB schema
+7. ✅ Invocas **Agente Validador** → Valida diseño (en contexto)
+8. ✅ Invocas **Agente Desarrollador** → Implementa código en `src/`
+9. ✅ Invocas **Agente Validador** → Valida código (en contexto)
+10. ✅ Invocas **Agente de Testing** → Crea y ejecuta tests
+11. ✅ Invocas **Agente Validador** → Valida tests (en contexto)
+12. ✅ Invocas **Agente de Documentación** → Actualiza README
+13. ✅ Reportas resultado final al usuario
+
+**Resultado:** Código funcional en `src/` + tests + documentación
+**Sin:** Archivos en `outputs/` (a menos que GENERAR_OUTPUTS = true)
 
 Todo esto **SIN** que el usuario tenga que especificar cada paso.
 
@@ -500,10 +535,10 @@ Todo esto **SIN** que el usuario tenga que especificar cada paso.
 
 - ✅ Lee `core/00-DOCUMENT-PRODUCT.md` antes de empezar
 - ✅ Sigue el flujo definido en `core/agents/01-AGENTE-COORDINADOR.md`
-- ✅ Genera outputs en las carpetas correctas de `outputs/`
-- ✅ Valida cada fase crítica
-- ✅ Mantén actualizado el documento de estado
+- ✅ Valida cada fase crítica (en el contexto de la conversación)
+- ✅ Genera el código final en las ubicaciones apropiadas (`web/`, `src/`)
 - ✅ Informa al usuario del progreso
+- ✅ Solo genera outputs de documentación si GENERAR_OUTPUTS = true
 
 ### NUNCA
 
@@ -511,7 +546,7 @@ Todo esto **SIN** que el usuario tenga que especificar cada paso.
 - ❌ Avances con validaciones rechazadas
 - ❌ Implementes sin diseño aprobado
 - ❌ Ignores los estándares del proyecto
-- ❌ Dejes el estado desactualizado
+- ❌ Generes outputs si GENERAR_OUTPUTS = false (por defecto)
 
 ---
 
