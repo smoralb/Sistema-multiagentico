@@ -67,3 +67,11 @@ Desktop.ini
 # Backups
 *.bak
 *.backup
+
+# Google Cloud credentials (NEVER commit these)
+credentials.json
+token.json
+client_secret*.json
+
+# Sync scripts config
+.env
