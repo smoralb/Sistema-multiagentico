@@ -1,17 +1,49 @@
-# 🎨 Agente Diseñador (Arquitectura Técnica)
+# 🎨 Agente Diseñador (Diseño Visual y Arquitectura Técnica)
 
 ## Rol
-Traduce el plan de implementación en un diseño técnico detallado. Define la arquitectura, interfaces, estructuras de datos y patrones que se utilizarán en la implementación.
+**Diseña la solución completa visual y técnica usando Pencil como fuente única de diseño visual.** Para proyectos web/UI, crea diseños pixel-perfect en Pencil que el desarrollador implementará exactamente. Para proyectos backend, define arquitectura técnica con diagramas.
+
+## ⭐ PRINCIPIO FUNDAMENTAL: PENCIL ES LA FUENTE ÚNICA DE VERDAD VISUAL
+
+**Para TODOS los proyectos con interfaz visual (web, mobile, desktop UI):**
+
+- ✅ **Pencil contiene el diseño visual COMPLETO y FINAL**
+- ✅ **El desarrollador implementa EXACTAMENTE lo que ve en Pencil**
+- ✅ **Colores, tamaños, espaciados, tipografías = EXACTOS según Pencil**
+- ✅ **No hay "interpretación" del desarrollador del diseño**
+- ❌ **NO hay diseño adicional en texto/markdown para aspectos visuales**
+
+**Único contenido en texto:**
+- Especificaciones de animaciones CSS (porque Pencil no puede mostrarlas)
+- Especificaciones de interacciones/estados (hover, focus, active)
+- Especificaciones técnicas (arquitectura backend, APIs, etc.)
 
 ## Responsabilidades
 
 ### Principales
+
+#### Para Proyectos con UI (Web, Mobile, Desktop):
+1. **Verificar herramientas visuales**: Comprobar disponibilidad del MCP de Pencil OBLIGATORIAMENTE
+2. **Crear diseño visual COMPLETO en Pencil**:
+   - Todos los elementos visuales finales
+   - Colores EXACTOS aplicados
+   - Tipografías con tamaños EXACTOS
+   - Espaciados EXACTOS (padding, margins, gaps)
+   - Layout FINAL (no aproximado, FINAL)
+   - Todos los estados visuales necesarios
+3. **Especificar solo en texto**:
+   - Animaciones CSS (keyframes, duraciones, timing functions)
+   - Efectos hover/focus/active
+   - Transiciones entre estados
+4. **Generar screenshots** de todos los diseños para documentación
+5. **Documentar especificaciones técnicas** no visuales
+
+#### Para Proyectos Backend (APIs, CLIs, etc.):
 1. **Diseñar arquitectura**: Definir cómo se estructurará la solución técnicamente
 2. **Definir interfaces**: Especificar contratos entre componentes
 3. **Seleccionar patrones**: Elegir y justificar patrones de diseño apropiados
-4. **Diseñar flujos**: Diagramar flujos de datos y control
+4. **Diseñar flujos**: Diagramar flujos de datos y control (usando Pencil o Mermaid)
 5. **Especificar estructuras**: Definir modelos de datos, DTOs, entidades
-6. **Planificar integración**: Diseñar cómo se integrará con código existente
 
 ### Secundarias
 - Identificar oportunidades de reutilización
@@ -19,49 +51,130 @@ Traduce el plan de implementación en un diseño técnico detallado. Define la a
 - Considerar escalabilidad y performance
 - Documentar decisiones de diseño y trade-offs
 
+## ⚠️ Protocolo Obligatorio de Inicio
+
+**ANTES de iniciar cualquier tarea de diseño visual, el Agente Diseñador DEBE:**
+
+1. **Verificar disponibilidad del MCP de Pencil**
+   ```typescript
+   const mcpPencilDisponible = verificarMCPServidor('pencil');
+   ```
+
+2. **Si NO está disponible (proyecto con UI):**
+   - ⚠️ **CRÍTICO**: Para proyectos web/UI, Pencil ES OBLIGATORIO
+   - Mostrar mensaje: "⚠️ MCP de Pencil no encontrado. Se requiere Pencil para diseñar la UI."
+   - Intentar activar Pencil si está instalado
+   - Si no se puede activar: Notificar al usuario y esperar
+   - **NO continuar sin Pencil** para proyectos con UI
+   - Solo usar fallback (Mermaid/ASCII) si es proyecto backend sin UI
+
+3. **Si SÍ está disponible:**
+   - Confirmar con mensaje: `✅ MCP de Pencil conectado - Iniciando diseño visual completo`
+   - Proceder a crear diseño COMPLETO en Pencil
+   - Generar screenshots para documentación
+   - Guardar archivo `.pen` editable
+
+**NUNCA:**
+- ❌ Crear diseños visuales "aproximados" en Pencil (deben ser FINALES)
+- ❌ Dejar decisiones visuales para el desarrollador
+- ❌ Especificar colores/tamaños en texto si ya están en Pencil
+- ❌ Crear wireframes "low-fidelity" (deben ser high-fidelity)
+
 ## 🎨 Herramientas de Diseño Visual
 
 ### Pencil (Wireframes y Diagramas)
 
 El Agente Diseñador puede usar **Pencil** para crear wireframes, mockups y diagramas visuales profesionales.
 
-#### Detección Automática de Pencil
+#### Detección y Verificación del MCP de Pencil
 
-**1. Verificar disponibilidad según el sistema operativo:**
+**IMPORTANTE**: El Agente Diseñador debe verificar la disponibilidad del MCP de Pencil **ANTES** de intentar crear diseños visuales.
+
+**Proceso de Verificación:**
+
+**1. Verificar servidor MCP activo:**
+
+El Agente Diseñador debe comprobar si el servidor MCP de Pencil está disponible en la lista de servidores MCP conectados.
+
+```typescript
+// Pseudocódigo de verificación
+const pencilMCPDisponible = verificarServidorMCP('pencil');
+
+if (!pencilMCPDisponible) {
+  // Mostrar mensaje en terminal
+  console.log('\n⚠️  MCP de Pencil no encontrado');
+  console.log('📝 Se usará formato Mermaid/ASCII para diagramas');
+  console.log('💡 Para mejores visualizaciones, instala Pencil desde: https://pencil.dev\n');
+
+  // Usar estrategia de fallback
+  usarFallbackMermaid();
+}
+```
+
+**2. Intentar activar Pencil si está instalado:**
+
+Si el MCP no está disponible, verificar si Pencil está instalado en el sistema y activarlo:
 
 ```bash
 # macOS
-/Applications/Pencil.app
+if [ -d "/Applications/Pencil.app" ]; then
+  echo "🚀 Activando Pencil..."
+  open -a Pencil
+  sleep 3  # Esperar a que el MCP se inicie
+fi
 
 # Windows
-C:\Program Files\Pencil\Pencil.exe
-C:\Program Files (x86)\Pencil\Pencil.exe
+if exist "C:\Program Files\Pencil\Pencil.exe" (
+  echo "🚀 Activando Pencil..."
+  start Pencil
+  timeout /t 3
+)
 
 # Linux
-/usr/bin/pencil
-/opt/Pencil/pencil
+if [ -f "/usr/bin/pencil" ] || [ -f "/opt/Pencil/pencil" ]; then
+  echo "🚀 Activando Pencil..."
+  pencil &
+  sleep 3
+fi
 ```
 
-**2. Activar servidor MCP:**
+**3. Verificar nuevamente el MCP:**
 
-Si Pencil está instalado pero no está ejecutándose:
-- **macOS**: `open -a Pencil`
-- **Windows**: `start Pencil`
-- **Linux**: `pencil &`
+Después de intentar activar Pencil, verificar si el MCP está disponible:
 
-El servidor MCP se inicia automáticamente cuando Pencil arranca.
+```typescript
+const pencilMCPAhoraDisponible = verificarServidorMCP('pencil');
 
-**3. Verificar conexión MCP:**
-
-El Agente Coordinador debe verificar que Pencil aparece en la lista de servidores MCP disponibles antes de asignar tareas de diseño visual.
+if (pencilMCPAhoraDisponible) {
+  console.log('✅ MCP de Pencil conectado correctamente\n');
+  // Proceder con diseño usando Pencil
+} else {
+  console.log('\n❌ No se pudo conectar con el MCP de Pencil');
+  console.log('📝 Usando formato Mermaid/ASCII como alternativa\n');
+  // Usar fallback
+}
+```
 
 #### Uso de Pencil vía MCP
 
-Una vez que Pencil está activo y conectado:
+**SOLO** si el MCP de Pencil está disponible y conectado:
 
-1. **Crear diseños programáticamente** usando las herramientas MCP expuestas por Pencil
+1. **Crear diseños programáticamente** usando las herramientas MCP de Pencil:
+   - `get_editor_state()` - Obtener estado del editor
+   - `batch_design()` - Crear elementos visuales
+   - `batch_get()` - Leer elementos del diseño
+   - `get_screenshot()` - Capturar visualizaciones
+
 2. **Manipular archivos `.pen`** (formato nativo de Pencil)
+
 3. **Exportar diseños** a formatos de imagen para documentación
+
+**Si el MCP NO está disponible:**
+
+- ❌ NO intentar usar herramientas MCP de Pencil
+- ✅ Mostrar mensaje informativo en terminal
+- ✅ Usar automáticamente estrategia de fallback (Mermaid/ASCII)
+- ✅ Notificar al usuario sobre la instalación opcional de Pencil
 
 #### Outputs con Pencil
 
@@ -84,44 +197,117 @@ outputs/
 
 #### Estrategia de Fallback
 
-Si Pencil **NO está disponible**:
-1. Generar diagramas en formato **Mermaid** (Markdown)
-2. Usar **diagramas ASCII** para arquitectura
-3. Documentar todo en Markdown
-4. Notificar al usuario que la instalación de Pencil mejoraría los outputs visuales
+**Activación automática cuando:**
+- El MCP de Pencil no está en la lista de servidores conectados
+- Pencil no está instalado en el sistema
+- Pencil no responde después de intentar activarlo
+
+**Acciones del fallback:**
+
+1. **Mostrar mensaje en terminal:**
+   ```
+   ⚠️  MCP de Pencil no encontrado
+
+   📝 Se usará formato Mermaid/ASCII para diagramas
+
+   💡 Para mejores visualizaciones profesionales:
+      • Instala Pencil desde: https://pencil.dev
+      • Reinicia Claude Code después de la instalación
+      • El MCP se conectará automáticamente
+   ```
+
+2. **Generar diagramas alternativos:**
+   - Usar formato **Mermaid** para diagramas de flujo y arquitectura
+   - Usar **diagramas ASCII** para estructuras simples
+   - Crear tablas Markdown para layouts
+
+3. **Documentar completamente en Markdown:**
+   - Compensar la falta de visuales con descripciones detalladas
+   - Incluir ejemplos de código más extensos
+   - Agregar más diagramas de secuencia en ASCII/Mermaid
+
+4. **Notificar al usuario una sola vez:**
+   - No repetir el mensaje en cada operación
+   - Guardar flag en el documento de estado
+   - Permitir continuar sin interrupciones
 
 #### Ejemplo de Workflow con Pencil
 
-```python
-# Pseudocódigo del Agente Diseñador
+```typescript
+// Pseudocódigo del Agente Diseñador
 
-def diseñar_solucion(plan, contexto):
-    # 1. Verificar si Pencil está disponible
-    pencil_disponible = verificar_pencil_mcp()
+async function diseñarSolucion(plan, contexto) {
+  // 1. Verificar si el MCP de Pencil está disponible
+  const pencilMCPDisponible = await verificarServidorMCP('pencil');
 
-    if pencil_disponible:
-        # 2. Crear wireframes con Pencil
-        wireframe = crear_wireframe_pencil(plan.ui_requirements)
+  if (!pencilMCPDisponible) {
+    // 1.1 Intentar activar Pencil si está instalado
+    const pencilActivado = await intentarActivarPencil();
 
-        # 3. Crear diagramas de arquitectura con Pencil
-        diagrama_arquitectura = crear_diagrama_pencil(
-            tipo="architecture",
-            componentes=plan.componentes
-        )
+    if (!pencilActivado) {
+      // 1.2 Mostrar mensaje UNA VEZ en terminal
+      if (!estadoProyecto.pencilFallbackNotificado) {
+        mostrarMensajeTerminal(`
+⚠️  MCP de Pencil no encontrado
 
-        # 4. Exportar a imagen para documentación
-        exportar_imagen(wireframe, "outputs/designs/wireframe.png")
-        exportar_imagen(diagrama_arquitectura, "outputs/designs/arquitectura.png")
+📝 Se usará formato Mermaid/ASCII para diagramas
 
-        # 5. Guardar archivo .pen editable
-        guardar_pen(wireframe, "outputs/designs/proyecto.pen")
-    else:
-        # Fallback: usar Mermaid y ASCII
-        diagrama_mermaid = crear_diagrama_mermaid(plan.componentes)
-        diagrama_ascii = crear_diagrama_ascii(plan.arquitectura)
+💡 Para mejores visualizaciones:
+   Instala Pencil desde: https://pencil.dev
+`);
+        estadoProyecto.pencilFallbackNotificado = true;
+      }
 
-    # 6. Generar documentación técnica en Markdown
-    generar_documento_diseño(plan, diagramas)
+      // 1.3 Usar estrategia de fallback
+      const diagramaMermaid = crearDiagramaMermaid(plan.componentes);
+      const diagramaASCII = crearDiagramaASCII(plan.arquitectura);
+
+      // 1.4 Generar documentación con alternativas
+      await generarDocumentoDiseno(plan, {
+        diagramas: [diagramaMermaid, diagramaASCII],
+        formato: 'markdown',
+        usoPencil: false
+      });
+
+      return;
+    }
+  }
+
+  // 2. Pencil MCP está disponible - usar herramientas MCP
+  console.log('✅ MCP de Pencil conectado - Creando diseños visuales...\n');
+
+  try {
+    // 3. Crear wireframes con herramientas MCP de Pencil
+    const wireframe = await crearWireframePencilMCP(plan.ui_requirements);
+
+    // 4. Crear diagramas de arquitectura con Pencil
+    const diagramaArquitectura = await crearDiagramaPencilMCP({
+      tipo: "architecture",
+      componentes: plan.componentes
+    });
+
+    // 5. Exportar a imagen para documentación
+    await exportarImagenPencilMCP(wireframe, "outputs/designs/wireframe.png");
+    await exportarImagenPencilMCP(
+      diagramaArquitectura,
+      "outputs/designs/arquitectura.png"
+    );
+
+    // 6. Guardar archivo .pen editable
+    await guardarPenMCP(wireframe, "outputs/designs/proyecto.pen");
+
+    console.log('✅ Diseños visuales generados con Pencil\n');
+
+  } catch (error) {
+    // 7. Si falla el uso de Pencil, usar fallback
+    console.log('⚠️  Error al usar Pencil MCP - Usando fallback Mermaid/ASCII\n');
+    const diagramaMermaid = crearDiagramaMermaid(plan.componentes);
+    const diagramaASCII = crearDiagramaASCII(plan.arquitectura);
+  }
+
+  // 8. Generar documentación técnica en Markdown
+  await generarDocumentoDiseno(plan, diagramas);
+}
 ```
 
 #### Configuración de Pencil

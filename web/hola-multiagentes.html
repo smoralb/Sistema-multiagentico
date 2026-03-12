@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velocidad - Hola Multiagentes</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            background: linear-gradient(135deg, #DC0000 0%, #8B0000 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Speed lines animadas */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 50px,
+                rgba(255, 255, 255, 0.1) 50px,
+                rgba(255, 255, 255, 0.1) 55px
+            );
+            animation: speedMove 2s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes speedMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100px); }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .speedometer {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border: 10px solid #FFD700;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow:
+                0 0 30px #FFD700,
+                inset 0 0 50px rgba(0, 0, 0, 0.8);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .speedometer::before {
+            content: 'MPH';
+            position: absolute;
+            bottom: 60px;
+            font-size: 20px;
+            color: #FFD700;
+            letter-spacing: 3px;
+        }
+
+        .speed-number {
+            font-size: 100px;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 0 20px #FFD700;
+            animation: countUp 3s ease-out infinite;
+        }
+
+        @keyframes countUp {
+            0% { content: '0'; }
+            20% { content: '50'; }
+            40% { content: '120'; }
+            60% { content: '180'; }
+            80% { content: '240'; }
+            100% { content: '300'; }
+        }
+
+        h1 {
+            font-size: 64px;
+            font-weight: 900;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            text-shadow:
+                3px 3px 0 #000,
+                0 0 30px #FFD700;
+            margin-bottom: 20px;
+            animation: slideInRight 1s ease-out;
+            transform: skewY(-2deg);
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px) skewY(-2deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) skewY(-2deg);
+            }
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: #FFD700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .stats {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 40px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .stat-box {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px 30px;
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-box .label {
+            font-size: 14px;
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
+
+        .stat-box .value {
+            font-size: 36px;
+            font-weight: 900;
+            color: #ffffff;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 20px 60px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #000;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border: 3px solid #000;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            animation: bounceIn 2.5s ease-out;
+        }
+
+        .back-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.6);
+        }
+
+        .back-button:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        @keyframes bounceIn {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-10px);
+            }
+            80% {
+                transform: translateY(5px);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        /* Lightning effect */
+        .lightning {
+            position: absolute;
+            font-size: 60px;
+            opacity: 0;
+            animation: lightning 3s ease-in-out infinite;
+        }
+
+        .lightning:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .lightning:nth-child(2) { top: 60%; right: 15%; animation-delay: 1s; }
+        .lightning:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 2s; }
+
+        @keyframes lightning {
+            0%, 90%, 100% { opacity: 0; }
+            5%, 15% { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 42px;
+                letter-spacing: 4px;
+            }
+
+            .speedometer {
+                width: 200px;
+                height: 200px;
+            }
+
+            .speed-number {
+                font-size: 60px;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .back-button {
+                font-size: 18px;
+                padding: 15px 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lightning">⚡</div>
+    <div class="lightning">⚡</div>
+    <div class="lightning">⚡</div>
+
+    <div class="container">
+        <div class="speedometer">
+            <span class="speed-number">300</span>
+        </div>
+
+        <h1>Hola Multiagentes</h1>
+        <p class="subtitle">⚡ Velocidad Máxima ⚡</p>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="label">VELOCIDAD</div>
+                <div class="value">300</div>
+            </div>
+            <div class="stat-box">
+                <div class="label">POTENCIA</div>
+                <div class="value">1000 HP</div>
+            </div>
+            <div class="stat-box">
+                <div class="label">0-100</div>
+                <div class="value">2.5s</div>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-button">← Volver al Menú</a>
+    </div>
+</body>
+</html>

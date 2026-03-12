@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pista - Hola de Nuevo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            background: #1a1a1a;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Asphalt texture */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.03) 2px,
+                    rgba(255, 255, 255, 0.03) 4px
+                );
+            pointer-events: none;
+        }
+
+        /* Road lines */
+        body::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: repeating-linear-gradient(
+                90deg,
+                #FFD700,
+                #FFD700 50px,
+                transparent 50px,
+                transparent 100px
+            );
+            animation: roadLines 1s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes roadLines {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100px); }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .checkered-flag {
+            width: 200px;
+            height: 200px;
+            background: repeating-conic-gradient(
+                #000 0deg 90deg,
+                #fff 90deg 180deg
+            );
+            background-size: 50px 50px;
+            border: 8px solid #FFD700;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            animation: wave 3s ease-in-out infinite;
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.4);
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg) translateY(0); }
+            25% { transform: rotate(5deg) translateY(-10px); }
+            50% { transform: rotate(0deg) translateY(0); }
+            75% { transform: rotate(-5deg) translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 64px;
+            font-weight: 900;
+            color: #00cc66;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            text-shadow:
+                3px 3px 0 #000,
+                0 0 30px #00cc66,
+                0 0 60px #00cc66;
+            margin-bottom: 20px;
+            animation: neonFlicker 2s ease-in-out infinite;
+            transform: skewY(-2deg);
+        }
+
+        @keyframes neonFlicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.9; }
+        }
+
+        .subtitle {
+            font-size: 28px;
+            color: #FFD700;
+            text-transform: uppercase;
+            letter-spacing: 6px;
+            margin-bottom: 40px;
+            animation: fadeInUp 1.5s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .track-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, rgba(0, 204, 102, 0.2) 0%, rgba(0, 153, 68, 0.2) 100%);
+            border: 3px solid #00cc66;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 204, 102, 0.4);
+        }
+
+        .info-card .icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .info-card .label {
+            font-size: 16px;
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
+
+        .info-card .value {
+            font-size: 32px;
+            font-weight: 900;
+            color: #ffffff;
+        }
+
+        .finish-line {
+            width: 100%;
+            max-width: 600px;
+            height: 10px;
+            background: repeating-linear-gradient(
+                90deg,
+                #000,
+                #000 30px,
+                #fff 30px,
+                #fff 60px
+            );
+            margin-bottom: 40px;
+            animation: slideFinish 2s ease-in-out;
+        }
+
+        @keyframes slideFinish {
+            from {
+                opacity: 0;
+                transform: scaleX(0);
+            }
+            to {
+                opacity: 1;
+                transform: scaleX(1);
+            }
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 20px 60px;
+            background: linear-gradient(135deg, #00cc66 0%, #009944 100%);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border: 3px solid #FFD700;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0, 204, 102, 0.5);
+            transition: all 0.3s ease;
+            animation: bounceIn 2.5s ease-out;
+        }
+
+        .back-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 204, 102, 0.7);
+        }
+
+        @keyframes bounceIn {
+            from {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            60% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        /* Checkpoint markers */
+        .checkpoint {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: #FFD700;
+            border: 3px solid #000;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .checkpoint:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .checkpoint:nth-child(2) { top: 20%; right: 10%; animation-delay: 0.5s; }
+        .checkpoint:nth-child(3) { bottom: 15%; left: 8%; animation-delay: 1s; }
+        .checkpoint:nth-child(4) { bottom: 25%; right: 5%; animation-delay: 1.5s; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.3); opacity: 0.7; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 42px;
+                letter-spacing: 4px;
+            }
+
+            .checkered-flag {
+                width: 150px;
+                height: 150px;
+            }
+
+            .track-info {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .back-button {
+                font-size: 18px;
+                padding: 15px 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="checkpoint"></div>
+    <div class="checkpoint"></div>
+    <div class="checkpoint"></div>
+    <div class="checkpoint"></div>
+
+    <div class="container">
+        <div class="checkered-flag"></div>
+
+        <h1>Hola de Nuevo</h1>
+        <p class="subtitle">🏁 Línea de Meta 🏁</p>
+
+        <div class="finish-line"></div>
+
+        <div class="track-info">
+            <div class="info-card">
+                <div class="icon">🏁</div>
+                <div class="label">VUELTAS</div>
+                <div class="value">50</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">⏱️</div>
+                <div class="label">MEJOR TIEMPO</div>
+                <div class="value">1:23.456</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">🎯</div>
+                <div class="label">POSICIÓN</div>
+                <div class="value">1st</div>
+            </div>
+            <div class="info-card">
+                <div class="icon">📊</div>
+                <div class="label">PUNTAJE</div>
+                <div class="value">9999</div>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-button">← Volver al Menú</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAgregar archivo CLAUDE.md con instrucciones permanentes del sistema multiagéntico\n\nEste archivo configura Claude Code para actuar automáticamente como Agente Coordinador,\nejecutando el flujo completo de agentes especializados para cualquier solicitud de desarrollo.\nEOF\n\\)\")",
+      "Bash(git push)",
+      "Bash(git commit:*)",
+      "Bash(mdfind:*)",
+      "Bash(/Applications/Pencil.app/Contents/MacOS/Pencil:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(open:*)",
+      "Bash(curl:*)",
+      "Bash(gh search:*)",
+      "WebFetch(domain:pencil.dev)",
+      "WebFetch(domain:docs.pencil.dev)",
+      "Bash([ -d \"/Applications/Pencil.app\" ])",
+      "Bash(find:*)"
+    ]
+  }
+}

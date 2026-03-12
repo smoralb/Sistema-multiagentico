@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Brutalista Moderna</title>
+    <style>
+        /* ============================================
+           RESET Y BASE
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                         "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+                         "Fira Sans", "Droid Sans", "Helvetica Neue",
+                         sans-serif;
+            background: #F5F1ED;
+            color: #000000;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ============================================
+           CONTAINER PRINCIPAL
+           ============================================ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero-card {
+            width: 100%;
+            min-height: 600px;
+            background: #000000;
+            border-radius: 40px;
+            border: 1px solid #333333;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .hero-title {
+            font-size: 64px;
+            font-weight: 900;
+            color: #FFFFFF;
+            line-height: 1.1;
+            text-transform: uppercase;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            color: #999999;
+            line-height: 1.6;
+        }
+
+        .info-grid {
+            display: flex;
+            gap: 32px;
+            max-width: 400px;
+        }
+
+        .info-col {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .info-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #999999;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .cta-button {
+            width: 200px;
+            height: 56px;
+            background: #FF3333;
+            border-radius: 28px;
+            border: none;
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        .checkered-pattern {
+            position: absolute;
+            top: 60px;
+            right: 60px;
+            width: 60px;
+            height: 60px;
+            display: grid;
+            grid-template-columns: 30px 30px;
+            grid-template-rows: 30px 30px;
+        }
+
+        .check-square {
+            width: 30px;
+            height: 30px;
+        }
+
+        .check-black {
+            background: #000000;
+        }
+
+        .check-white {
+            background: #FFFFFF;
+        }
+
+        /* ============================================
+           FEATURES SECTION
+           ============================================ */
+        .features-section {
+            display: flex;
+            gap: 40px;
+            width: 100%;
+            animation: fadeIn 0.6s ease-out 0.2s backwards;
+        }
+
+        .feature-card {
+            flex: 1;
+            min-height: 900px;
+            background: #F5F1ED;
+            border-radius: 40px;
+            border: 1px solid #333333;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            width: 120px;
+            height: 120px;
+            background: #000000;
+            border-radius: 60px;
+        }
+
+        .feature-decade {
+            font-size: 48px;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .feature-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #000000;
+            text-transform: uppercase;
+        }
+
+        .feature-info {
+            display: flex;
+            gap: 24px;
+            width: 100%;
+        }
+
+        .feature-col {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .feature-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #999999;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .feature-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        /* ============================================
+           STATS SECTION
+           ============================================ */
+        .stats-section {
+            width: 100%;
+            min-height: 400px;
+            background: #000000;
+            border-radius: 40px;
+            border: 1px solid #333333;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 0.6s ease-out 0.4s backwards;
+        }
+
+        .stats-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .stats-grid {
+            display: flex;
+            gap: 60px;
+            width: 100%;
+        }
+
+        .stat-col {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .stat-number {
+            font-size: 72px;
+            font-weight: 700;
+            color: #FFFFFF;
+            font-family: "SF Mono", "Monaco", "Inconsolata",
+                         "Fira Code", "Droid Sans Mono",
+                         "Courier New", monospace;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: #999999;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* ============================================
+           CTA SECTION
+           ============================================ */
+        .cta-section {
+            width: 100%;
+            min-height: 500px;
+            background: #F5F1ED;
+            border-radius: 40px;
+            border: 1px solid #333333;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            animation: fadeIn 0.6s ease-out 0.6s backwards;
+        }
+
+        .cta-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #000000;
+            text-align: center;
+        }
+
+        .cta-description {
+            font-size: 18px;
+            font-weight: 400;
+            color: #999999;
+            text-align: center;
+        }
+
+        .cta-form {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .email-input {
+            width: 100%;
+            height: 56px;
+            background: #FFFFFF;
+            border-radius: 8px;
+            border: 2px solid #000000;
+            padding: 0 20px;
+            font-size: 16px;
+            font-weight: 400;
+            color: #000000;
+            transition: border-color 0.2s ease;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: #FF3333;
+        }
+
+        .email-input::placeholder {
+            color: #999999;
+        }
+
+        .submit-button {
+            width: 100%;
+            height: 56px;
+            background: #FF3333;
+            border-radius: 8px;
+            border: none;
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .submit-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* ============================================
+           ANIMACIONES
+           ============================================ */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+
+        /* Tablet */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 56px;
+            }
+
+            .features-section {
+                flex-direction: column;
+            }
+
+            .feature-card {
+                min-height: auto;
+            }
+
+            .stats-grid {
+                gap: 40px;
+            }
+
+            .stat-number {
+                font-size: 64px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                gap: 24px;
+            }
+
+            .hero-card {
+                min-height: auto;
+                padding: 40px;
+                gap: 24px;
+            }
+
+            .hero-content {
+                max-width: 100%;
+            }
+
+            .hero-title {
+                font-size: 48px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .info-grid {
+                flex-direction: column;
+                gap: 16px;
+                max-width: 100%;
+            }
+
+            .checkered-pattern {
+                top: 40px;
+                right: 40px;
+                width: 40px;
+                height: 40px;
+                grid-template-columns: 20px 20px;
+                grid-template-rows: 20px 20px;
+            }
+
+            .check-square {
+                width: 20px;
+                height: 20px;
+            }
+
+            .feature-card {
+                padding: 40px;
+                gap: 24px;
+            }
+
+            .feature-icon {
+                width: 80px;
+                height: 80px;
+                border-radius: 40px;
+            }
+
+            .feature-decade {
+                font-size: 36px;
+            }
+
+            .feature-title {
+                font-size: 24px;
+            }
+
+            .feature-info {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .stats-section {
+                padding: 40px;
+                gap: 32px;
+            }
+
+            .stats-title {
+                font-size: 36px;
+            }
+
+            .stats-grid {
+                flex-direction: column;
+                gap: 32px;
+            }
+
+            .stat-number {
+                font-size: 56px;
+            }
+
+            .cta-section {
+                padding: 40px;
+                gap: 32px;
+            }
+
+            .cta-title {
+                font-size: 36px;
+            }
+
+            .cta-description {
+                font-size: 16px;
+            }
+
+            .cta-form {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- CONTAINER PRINCIPAL -->
+    <div class="container">
+
+        <!-- HERO SECTION -->
+        <section class="hero-card">
+            <!-- Checkered Pattern -->
+            <div class="checkered-pattern">
+                <div class="check-square check-black"></div>
+                <div class="check-square check-white"></div>
+                <div class="check-square check-white"></div>
+                <div class="check-square check-black"></div>
+            </div>
+
+            <!-- Hero Content -->
+            <div class="hero-content">
+                <h1 class="hero-title">MODERN BRUTALIST<br>DESIGN</h1>
+                <p class="hero-subtitle">Clean typography meets bold geometry.<br>Minimalism with maximum impact.</p>
+            </div>
+
+            <!-- Info Grid -->
+            <div class="info-grid">
+                <div class="info-col">
+                    <span class="info-label">STYLE</span>
+                    <span class="info-value">Brutalist</span>
+                </div>
+                <div class="info-col">
+                    <span class="info-label">YEAR</span>
+                    <span class="info-value">2026</span>
+                </div>
+            </div>
+
+            <!-- CTA Button -->
+            <a href="#cta" class="cta-button">Get Started</a>
+        </section>
+
+        <!-- FEATURES SECTION -->
+        <section class="features-section">
+            <!-- Feature Card 1 -->
+            <div class="feature-card">
+                <div class="feature-icon"></div>
+                <h2 class="feature-decade">1970S/</h2>
+                <h3 class="feature-title">SPEED</h3>
+                <div class="feature-info">
+                    <div class="feature-col">
+                        <span class="feature-label">TYPE</span>
+                        <span class="feature-value">Racing</span>
+                    </div>
+                    <div class="feature-col">
+                        <span class="feature-label">ERA</span>
+                        <span class="feature-value">Classic</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Card 2 -->
+            <div class="feature-card">
+                <div class="feature-icon"></div>
+                <h2 class="feature-decade">1990S/</h2>
+                <h3 class="feature-title">POWER</h3>
+                <div class="feature-info">
+                    <div class="feature-col">
+                        <span class="feature-label">ENGINE</span>
+                        <span class="feature-value">V8 Turbo</span>
+                    </div>
+                    <div class="feature-col">
+                        <span class="feature-label">HP</span>
+                        <span class="feature-value">850 HP</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feature Card 3 -->
+            <div class="feature-card">
+                <div class="feature-icon"></div>
+                <h2 class="feature-decade">2020S/</h2>
+                <h3 class="feature-title">TECH</h3>
+                <div class="feature-info">
+                    <div class="feature-col">
+                        <span class="feature-label">SYSTEM</span>
+                        <span class="feature-value">Hybrid</span>
+                    </div>
+                    <div class="feature-col">
+                        <span class="feature-label">0-100</span>
+                        <span class="feature-value">2.5s</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATS SECTION -->
+        <section class="stats-section">
+            <h2 class="stats-title">By The Numbers</h2>
+            <div class="stats-grid">
+                <div class="stat-col">
+                    <span class="stat-number">300+</span>
+                    <span class="stat-label">PROJECTS</span>
+                </div>
+                <div class="stat-col">
+                    <span class="stat-number">50K</span>
+                    <span class="stat-label">USERS</span>
+                </div>
+                <div class="stat-col">
+                    <span class="stat-number">99.9%</span>
+                    <span class="stat-label">UPTIME</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA SECTION -->
+        <section id="cta" class="cta-section">
+            <h2 class="cta-title">Start Your Project</h2>
+            <p class="cta-description">Join thousands of designers using brutalist principles.</p>
+            <form class="cta-form" onsubmit="event.preventDefault(); alert('Form submitted!');">
+                <input
+                    type="email"
+                    class="email-input"
+                    placeholder="Enter your email"
+                    required
+                >
+                <button type="submit" class="submit-button">Get Started →</button>
+            </form>
+        </section>
+
+    </div>
+</body>
+</html>

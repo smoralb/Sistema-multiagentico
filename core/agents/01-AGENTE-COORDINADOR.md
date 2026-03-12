@@ -117,26 +117,177 @@ Nueva Funcionalidad:
   3. Agente de Diseño
   4. Agente Validador (valida diseño)
   5. Agente Desarrollador
-  6. Agente Validador (valida código)
-  7. Agente de Testing
-  8. Agente Validador (valida tests)
-  9. Agente de Documentación
-  10. Revisión Final
+  6. Verificación Visual (si es proyecto web, abre navegador)
+  7. Agente Validador (valida código)
+  8. Agente de Testing
+  9. Agente Validador (valida tests)
+  10. Agente de Documentación
+  11. Revisión Final
 
 Bug Fix:
   1. Agente Planificador (análisis del bug)
   2. Agente Desarrollador
-  3. Agente Validador (valida fix)
-  4. Agente de Testing (regression tests)
-  5. Agente Validador (valida tests)
+  3. Verificación Visual (si es proyecto web, abre navegador)
+  4. Agente Validador (valida fix)
+  5. Agente de Testing (regression tests)
+  6. Agente Validador (valida tests)
 
 Refactor:
   1. Agente Planificador (alcance del refactor)
   2. Agente de Diseño (nuevo diseño)
   3. Agente Validador (valida diseño)
   4. Agente Desarrollador
-  5. Agente de Testing (tests de regresión)
-  6. Agente Validador (valida que no se rompe nada)
+  5. Verificación Visual (si es proyecto web, abre navegador)
+  6. Agente de Testing (tests de regresión)
+  7. Agente Validador (valida que no se rompe nada)
+```
+
+### 3. Protocolo Especial: Pencil como Fuente Única de Diseño
+
+**CRÍTICO para proyectos con UI (web, mobile, desktop):**
+
+#### Verificación Obligatoria del MCP de Pencil
+
+Antes de invocar al Agente Diseñador para proyectos con UI:
+
+```python
+def antes_de_disenar_ui(solicitud, estado):
+    """
+    Verificación obligatoria antes de diseño visual
+    """
+    # 1. Verificar si la solicitud requiere UI
+    if not requiere_diseño_ui(solicitud):
+        # Proyecto backend/CLI - continuar sin Pencil
+        return True
+
+    # 2. Verificar MCP de Pencil
+    pencil_disponible = verificar_mcp_servidor('pencil')
+
+    if not pencil_disponible:
+        # 3. Intentar activar Pencil
+        print("⚠️  MCP de Pencil no encontrado")
+        print("🚀 Intentando activar Pencil...")
+
+        pencil_activado = intentar_activar_pencil()
+
+        if pencil_activado:
+            print("✅ Pencil activado correctamente")
+            esperar_mcp_conexion(3)  # 3 segundos
+            pencil_disponible = verificar_mcp_servidor('pencil')
+
+        if not pencil_disponible:
+            # 4. Escalar al usuario
+            print("❌ No se pudo conectar con Pencil")
+            print("📝 Para proyectos con UI, Pencil ES OBLIGATORIO")
+            print("\n⚠️  ACCIÓN REQUERIDA:")
+            print("   1. Instala Pencil desde: https://pencil.dev")
+            print("   2. Reinicia Claude Code")
+            print("   3. Vuelve a ejecutar la solicitud\n")
+
+            escalar_a_usuario(
+                razon="MCP de Pencil no disponible",
+                accion_requerida="Instalar Pencil para proyectos con UI",
+                bloquea_flujo=True
+            )
+            return False
+
+    # 5. Pencil disponible - continuar
+    print("✅ MCP de Pencil conectado")
+    estado.pencil_disponible = True
+    return True
+
+def requiere_diseño_ui(solicitud):
+    """Detecta si la solicitud requiere diseño de UI"""
+    keywords_ui = [
+        'web', 'página', 'interfaz', 'ui', 'ux', 'diseño',
+        'frontend', 'app', 'mobile', 'botón', 'formulario',
+        'dashboard', 'landing', 'website', 'layout'
+    ]
+
+    texto = solicitud.descripcion.lower()
+    return any(keyword in texto for keyword in keywords_ui)
+```
+
+#### Flujo con Pencil como Fuente Única
+
+```python
+# Para Nueva Funcionalidad con UI:
+def flujo_nueva_funcionalidad_ui():
+    # 1. Verificar Pencil ANTES de empezar
+    if not antes_de_disenar_ui(solicitud, estado):
+        # Bloqueado - no continuar sin Pencil
+        return estado
+
+    # 2. Agente Planificador (define qué diseñar)
+    plan = invocar_agente_planificador(solicitud)
+
+    # 3. Agente Validador (valida plan)
+    validacion_plan = invocar_agente_validador(plan)
+
+    # 4. Agente Diseñador (crea diseño COMPLETO en Pencil)
+    print("🎨 Iniciando diseño visual en Pencil...")
+    print("⚠️  IMPORTANTE: El diseño en Pencil será la única fuente de verdad visual")
+
+    diseño = invocar_agente_disenador(
+        plan=plan,
+        usar_pencil=True,
+        diseño_completo=True  # No aproximado, COMPLETO
+    )
+
+    # Verificar que el diseño tenga:
+    # - Todos los colores definidos (hex codes exactos)
+    # - Todos los tamaños especificados (px exactos)
+    # - Todos los espaciados definidos (padding/margin exactos)
+    # - Todas las fuentes especificadas (family, size, weight)
+
+    estado.diseño_fuente_unica = diseño.archivo_pen
+    estado.diseño_screenshots = diseño.screenshots
+
+    # 5. Agente Validador (valida diseño)
+    validacion_diseño = invocar_agente_validador(diseño)
+
+    # 6. Agente Desarrollador (implementa EXACTO de Pencil)
+    print("💻 Iniciando implementación pixel-perfect...")
+    print("📖 Desarrollador implementará EXACTAMENTE lo de Pencil")
+
+    codigo = invocar_agente_desarrollador(
+        diseño=diseño,
+        diseño_pencil=estado.diseño_fuente_unica,
+        screenshots=estado.diseño_screenshots,
+        instruccion_especial="Implementar pixel-perfect desde Pencil"
+    )
+
+    # 7. Verificación Visual Automática
+    verificacion_visual_automatica(estado, codigo)
+
+    # 8. Continuar flujo normal...
+    # Validador, Tester, etc.
+```
+
+#### Comunicación al Usuario sobre Pencil
+
+Cuando se detecta proyecto con UI, informar:
+
+```markdown
+🎨 **Diseño Visual con Pencil**
+
+Este proyecto requiere diseño de interfaz visual.
+
+✅ MCP de Pencil: Conectado
+📝 Modo de diseño: Fuente única de verdad visual
+
+**Protocolo activo:**
+- El Agente Diseñador creará el diseño COMPLETO en Pencil
+- Todos los aspectos visuales estarán en Pencil (colores, tamaños, espaciados, fuentes)
+- El Agente Desarrollador implementará EXACTAMENTE lo de Pencil
+- Las animaciones e interacciones se especificarán en texto
+
+📁 Outputs de diseño:
+- `outputs/designs/[proyecto].pen` (archivo editable)
+- `outputs/designs/[proyecto]-wireframe.png` (screenshot)
+- `outputs/designs/diseno-[proyecto].md` (especificaciones técnicas)
+
+⏭️  Continuando con diseño...
 ```
 
 ### 3. Ejecución del Flujo
@@ -162,6 +313,12 @@ def ejecutar_flujo(solicitud):
 
         # Actualizar estado
         estado.agregar_resultado(paso, resultado)
+
+        # Si es Agente Desarrollador y proyecto web, ejecutar verificación visual
+        if paso.agente == "Desarrollador" and es_proyecto_web(estado):
+            print("🌐 Ejecutando Verificación Visual...")
+            abrir_en_navegador(obtener_archivo_principal_web(estado))
+            print("✅ Página abierta en navegador para verificación visual")
 
         # Si es un paso de validación
         if paso.es_validacion:
@@ -208,6 +365,84 @@ Escalamiento al Usuario:
   │     c) Continuar con excepción
   └─> Esperar decisión
 ```
+
+### 5. Verificación Visual Automática
+
+```python
+# Nuevo paso automático después del Agente Desarrollador
+
+def verificacion_visual_automatica(estado, resultado_desarrollo):
+    """
+    Ejecuta verificación visual para proyectos web
+    Se activa automáticamente después del Agente Desarrollador
+    """
+    # 1. Verificar si es proyecto web
+    if not es_proyecto_web(estado):
+        print("ℹ️  No es proyecto web, omitiendo verificación visual")
+        return
+
+    # 2. Identificar archivo principal
+    archivo_principal = obtener_archivo_principal_web(estado)
+    # Prioridad: web/index.html > index.html > public/index.html
+
+    # 3. Abrir en navegador
+    try:
+        print("\n🌐 Verificación Visual Automática\n")
+        print(f"✅ Cambios implementados en: {resultado_desarrollo.archivos}")
+        print("🚀 Abriendo en navegador...\n")
+
+        abrir_navegador(archivo_principal)
+
+        print(f"📍 Ubicación: {obtener_ruta_completa(archivo_principal)}")
+        print("\nPor favor verifica visualmente que los cambios son correctos:")
+        print("- [ ] Cambios visibles")
+        print("- [ ] Sin errores de consola")
+        print("- [ ] Layout correcto")
+        print("- [ ] Responsive funcional\n")
+
+    except Exception as e:
+        print(f"⚠️  No se pudo abrir automáticamente: {e}")
+        print(f"Por favor abre manualmente: {archivo_principal}")
+
+    # 4. Continuar con el flujo (no espera confirmación del usuario)
+    return
+
+def es_proyecto_web(estado):
+    """Detecta si el proyecto es web"""
+    return (
+        existe_archivo('web/index.html') or
+        existe_archivo('index.html') or
+        existe_archivo('public/index.html') or
+        existe_carpeta('web/') or
+        existe_carpeta('public/')
+    )
+
+def abrir_navegador(archivo):
+    """Abre el archivo en el navegador según el sistema operativo"""
+    import platform
+    import subprocess
+
+    sistema = platform.system()
+
+    if sistema == 'Darwin':  # macOS
+        subprocess.run(['open', archivo])
+    elif sistema == 'Linux':
+        subprocess.run(['xdg-open', archivo])
+    elif sistema == 'Windows':
+        subprocess.run(['start', archivo], shell=True)
+```
+
+**Cuándo se ejecuta:**
+- ✅ Después de cada implementación del Agente Desarrollador
+- ✅ Después de cada modificación en archivos HTML/CSS/JS
+- ✅ Solo para proyectos web (detectado automáticamente)
+- ❌ NO se ejecuta para proyectos backend/CLI/librerías
+
+**Comportamiento:**
+- No bloquea el flujo (continúa automáticamente)
+- No requiere confirmación del usuario
+- Permite al usuario ver cambios inmediatamente
+- Si falla, notifica pero continúa el flujo
 
 ## Criterios de Validación
 

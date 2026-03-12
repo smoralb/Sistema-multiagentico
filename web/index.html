@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hola Multiagentes</title>
+    <title>Racing Menu - Sistema Multiagéntico</title>
     <style>
         * {
             margin: 0;
@@ -12,27 +12,296 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #ffffff;
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Speed lines background effect */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 215, 0, 0.03) 10px,
+                rgba(255, 215, 0, 0.03) 20px
+            );
+            animation: speedLines 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes speedLines {
+            0% { transform: translateX(-100px); }
+            100% { transform: translateX(100px); }
         }
 
         .container {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            gap: 30px;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
-        h1 {
-            font-size: 48px;
-            font-weight: 700;
-            color: #333333;
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo h1 {
+            font-size: 72px;
+            font-weight: 900;
+            color: #FFD700;
+            text-shadow:
+                0 0 10px #FFD700,
+                0 0 20px #FFD700,
+                3px 3px 0 #DC0000,
+                6px 6px 0 #000;
+            letter-spacing: 8px;
+            transform: skewY(-2deg);
+        }
+
+        .logo p {
+            font-size: 18px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .racing-link {
+            position: relative;
+            display: block;
+            padding: 30px 40px;
+            text-decoration: none;
+            font-size: 32px;
+            font-weight: 900;
+            text-align: center;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border: 3px solid transparent;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .racing-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .racing-link:hover::before {
+            left: 100%;
+        }
+
+        .racing-link:hover {
+            transform: translateX(10px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .racing-link:active {
+            transform: translateX(10px) scale(0.98);
+        }
+
+        /* Link 1 - Velocidad (Rojo Ferrari) */
+        .link-1 {
+            background: linear-gradient(135deg, #DC0000 0%, #8B0000 100%);
+            border-color: #FFD700;
+            animation: slideInLeft 0.8s ease-out 0.2s backwards;
+        }
+
+        .link-1::after {
+            content: '⚡';
+            position: absolute;
+            right: 30px;
+            font-size: 40px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Link 2 - Pista (Verde) */
+        .link-2 {
+            background: linear-gradient(135deg, #00cc66 0%, #009944 100%);
+            border-color: #FFD700;
+            animation: slideInLeft 0.8s ease-out 0.4s backwards;
+        }
+
+        .link-2::after {
+            content: '🏁';
+            position: absolute;
+            right: 30px;
+            font-size: 40px;
+            animation: wave 1.5s ease-in-out infinite;
+        }
+
+        /* Link 3 - Garage (Naranja) */
+        .link-3 {
+            background: linear-gradient(135deg, #ff9500 0%, #cc6600 100%);
+            border-color: #FFD700;
+            animation: slideInLeft 0.8s ease-out 0.6s backwards;
+        }
+
+        .link-3::after {
+            content: '🔧';
+            position: absolute;
+            right: 30px;
+            font-size: 40px;
+            animation: rotate 3s linear infinite;
+        }
+
+        /* Link 4 - Podio (Rosa/Magenta) */
+        .link-4 {
+            background: linear-gradient(135deg, #cc0066 0%, #880044 100%);
+            border-color: #FFD700;
+            animation: slideInLeft 0.8s ease-out 0.8s backwards;
+        }
+
+        .link-4::after {
+            content: '🏆';
+            position: absolute;
+            right: 30px;
+            font-size: 40px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            75% { transform: rotate(-15deg); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: 48px;
+                letter-spacing: 4px;
+            }
+
+            .racing-link {
+                font-size: 24px;
+                padding: 25px 30px;
+            }
+
+            .racing-link::after {
+                font-size: 30px;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 36px;
+                letter-spacing: 2px;
+            }
+
+            .logo p {
+                font-size: 14px;
+                letter-spacing: 2px;
+            }
+
+            .racing-link {
+                font-size: 18px;
+                padding: 20px 25px;
+            }
+
+            .racing-link::after {
+                font-size: 24px;
+                right: 15px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Hola multiagentes</h1>
+        <div class="logo">
+            <h1>RACING</h1>
+            <p>Sistema Multiagéntico</p>
+        </div>
+
+        <div class="menu">
+            <a href="hola-multiagentes.html" class="racing-link link-1">
+                Hola multiagentes
+            </a>
+
+            <a href="hola-de-nuevo.html" class="racing-link link-2">
+                Hola de nuevo
+            </a>
+
+            <a href="esto-es-una-prueba.html" class="racing-link link-3">
+                Esto es una prueba
+            </a>
+
+            <a href="uso-pencil.html" class="racing-link link-4">
+                Uso pencil?
+            </a>
+        </div>
     </div>
 </body>
 </html>

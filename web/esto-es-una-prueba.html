@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garage - Esto es una Prueba</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Concrete floor texture */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 100px,
+                    rgba(255, 149, 0, 0.1) 100px,
+                    rgba(255, 149, 0, 0.1) 101px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 100px,
+                    rgba(255, 149, 0, 0.1) 100px,
+                    rgba(255, 149, 0, 0.1) 101px
+                );
+            pointer-events: none;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .garage-sign {
+            background: rgba(0, 0, 0, 0.8);
+            border: 5px solid #ff9500;
+            border-radius: 20px;
+            padding: 30px 60px;
+            margin-bottom: 40px;
+            box-shadow:
+                0 0 30px rgba(255, 149, 0, 0.5),
+                inset 0 0 30px rgba(0, 0, 0, 0.5);
+            animation: signFlicker 3s ease-in-out infinite;
+        }
+
+        @keyframes signFlicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.95; }
+        }
+
+        .garage-sign h1 {
+            font-size: 64px;
+            font-weight: 900;
+            color: #ff9500;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            text-shadow:
+                0 0 10px #ff9500,
+                0 0 20px #ff9500,
+                0 0 30px #ff9500;
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 50px;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .pitstop-timer {
+            display: flex;
+            gap: 50px;
+            margin-bottom: 50px;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .timer-display {
+            background: #000;
+            border: 5px solid #ff9500;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(255, 149, 0, 0.3);
+        }
+
+        .timer-display .time {
+            font-size: 72px;
+            font-weight: 900;
+            color: #ff9500;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 20px #ff9500;
+            animation: timerBlink 1s ease-in-out infinite;
+        }
+
+        @keyframes timerBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .timer-display .label {
+            font-size: 18px;
+            color: #ffffff;
+            margin-top: 15px;
+            letter-spacing: 2px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tools-display {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 50px;
+            animation: fadeIn 2.5s ease-out;
+        }
+
+        .tool-icon {
+            font-size: 60px;
+            animation: toolRotate 4s ease-in-out infinite;
+            filter: drop-shadow(0 5px 15px rgba(255, 149, 0, 0.5));
+        }
+
+        .tool-icon:nth-child(2) { animation-delay: 0.5s; }
+        .tool-icon:nth-child(3) { animation-delay: 1s; }
+        .tool-icon:nth-child(4) { animation-delay: 1.5s; }
+
+        @keyframes toolRotate {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(10deg) scale(1.1); }
+            50% { transform: rotate(0deg) scale(1); }
+            75% { transform: rotate(-10deg) scale(1.1); }
+        }
+
+        .status-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 50px;
+            animation: fadeIn 3s ease-out;
+        }
+
+        .status-item {
+            background: rgba(255, 149, 0, 0.1);
+            border: 2px solid #ff9500;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .status-item:hover {
+            background: rgba(255, 149, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .status-item .icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .status-item .label {
+            font-size: 14px;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .status-item .value {
+            font-size: 24px;
+            font-weight: 900;
+            color: #ff9500;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 20px 60px;
+            background: linear-gradient(135deg, #ff9500 0%, #cc6600 100%);
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border: 3px solid #000;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(255, 149, 0, 0.5);
+            transition: all 0.3s ease;
+            animation: bounceIn 3.5s ease-out;
+        }
+
+        .back-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 149, 0, 0.7);
+        }
+
+        @keyframes bounceIn {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-10px);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        /* Sparks effect */
+        .spark {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ff9500;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ff9500;
+            animation: sparkFly 3s ease-out infinite;
+        }
+
+        .spark:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .spark:nth-child(2) { top: 40%; right: 15%; animation-delay: 1s; }
+        .spark:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 2s; }
+
+        @keyframes sparkFly {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(100px, -100px); opacity: 0; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .garage-sign h1 {
+                font-size: 36px;
+                letter-spacing: 4px;
+            }
+
+            .pitstop-timer {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .timer-display .time {
+                font-size: 48px;
+            }
+
+            .tools-display {
+                gap: 20px;
+            }
+
+            .tool-icon {
+                font-size: 40px;
+            }
+
+            .status-board {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .back-button {
+                font-size: 18px;
+                padding: 15px 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="spark"></div>
+    <div class="spark"></div>
+    <div class="spark"></div>
+
+    <div class="container">
+        <div class="garage-sign">
+            <h1>Esto es una Prueba</h1>
+        </div>
+
+        <p class="subtitle">🔧 PIT STOP - GARAGE 🔧</p>
+
+        <div class="pitstop-timer">
+            <div class="timer-display">
+                <div class="time">2.4s</div>
+                <div class="label">PIT STOP TIME</div>
+            </div>
+        </div>
+
+        <div class="tools-display">
+            <span class="tool-icon">🔧</span>
+            <span class="tool-icon">🔩</span>
+            <span class="tool-icon">⚙️</span>
+            <span class="tool-icon">🛠️</span>
+        </div>
+
+        <div class="status-board">
+            <div class="status-item">
+                <div class="icon">🛞</div>
+                <div class="label">NEUMÁTICOS</div>
+                <div class="value">OK</div>
+            </div>
+            <div class="status-item">
+                <div class="icon">⛽</div>
+                <div class="label">COMBUSTIBLE</div>
+                <div class="value">FULL</div>
+            </div>
+            <div class="status-item">
+                <div class="icon">🔋</div>
+                <div class="label">BATERÍA</div>
+                <div class="value">100%</div>
+            </div>
+            <div class="status-item">
+                <div class="icon">🌡️</div>
+                <div class="label">TEMPERATURA</div>
+                <div class="value">90°C</div>
+            </div>
+            <div class="status-item">
+                <div class="icon">💨</div>
+                <div class="label">PRESIÓN</div>
+                <div class="value">2.5 BAR</div>
+            </div>
+            <div class="status-item">
+                <div class="icon">✅</div>
+                <div class="label">ESTADO</div>
+                <div class="value">READY</div>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-button">← Volver al Menú</a>
+    </div>
+</body>
+</html>

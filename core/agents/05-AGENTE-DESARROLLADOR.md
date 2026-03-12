@@ -3,6 +3,227 @@
 ## Rol
 Implementa el código siguiendo el diseño técnico aprobado. Escribe código limpio, mantenible y testeado que cumple con todos los estándares del proyecto.
 
+## ⭐ PRINCIPIO FUNDAMENTAL: IMPLEMENTACIÓN PIXEL-PERFECT DESDE PENCIL
+
+**Para TODOS los proyectos con interfaz visual (web, mobile, desktop UI):**
+
+### Pencil es la Única Fuente de Diseño Visual
+
+- ✅ **Implementar EXACTAMENTE lo que se ve en los diseños de Pencil**
+- ✅ **Colores: Usar los EXACTOS códigos hexadecimales de Pencil**
+- ✅ **Tamaños: Usar los EXACTOS píxeles/valores de Pencil**
+- ✅ **Espaciados: Usar los EXACTOS paddings/margins de Pencil**
+- ✅ **Tipografía: Usar las EXACTAS fuentes y tamaños de Pencil**
+- ✅ **Layout: Implementar la EXACTA estructura de Pencil**
+- ❌ **NO interpretar o "mejorar" el diseño visual**
+- ❌ **NO usar colores/tamaños "aproximados"**
+- ❌ **NO añadir elementos visuales no presentes en Pencil**
+
+### Fuentes de Información por Tipo
+
+**Desde Pencil (diseños `.pen` o screenshots):**
+- Colores (backgrounds, borders, text colors)
+- Tamaños (width, height, font-size)
+- Espaciados (padding, margin, gap)
+- Tipografía (font-family, font-weight, font-size)
+- Layout (posición, alineación, estructura)
+- Estados visuales (normal, hover, active, disabled)
+
+**Desde el documento de diseño (texto/markdown):**
+- Animaciones CSS (keyframes, durations, easing)
+- Efectos de hover/focus/active (transiciones, transformaciones)
+- Interacciones complejas (drag & drop, gestures)
+- Especificaciones técnicas (APIs, arquitectura backend)
+
+### Protocolo de Implementación Visual
+
+#### 1. Antes de Implementar
+```typescript
+✓ Abrir el archivo .pen en Pencil (si está disponible)
+✓ Ver los screenshots del diseño
+✓ Identificar TODOS los elementos visuales
+✓ Anotar los valores EXACTOS:
+  - Colores (hex codes)
+  - Tamaños (px, rem, etc.)
+  - Espaciados (padding, margin, gap)
+  - Fuentes (family, size, weight)
+```
+
+#### 2. Durante la Implementación
+```typescript
+// ❌ MAL: Valores aproximados o inventados
+.button {
+  background: blue;        // ¿Qué azul?
+  padding: 10px;          // ¿De dónde salió este valor?
+  font-size: 16px;        // ¿Coincide con Pencil?
+}
+
+// ✅ BIEN: Valores EXACTOS de Pencil
+.button {
+  background: #0066cc;    // Exacto de Pencil: Primary Blue
+  padding: 12px 24px;     // Exacto de Pencil: 12px vertical, 24px horizontal
+  font-size: 18px;        // Exacto de Pencil: Body Large
+  font-weight: 600;       // Exacto de Pencil: Semibold
+  border-radius: 8px;     // Exacto de Pencil: Border Radius Medium
+}
+```
+
+#### 3. Validación Visual
+
+Después de implementar, verificar:
+```typescript
+✓ Comparar visualmente la implementación con el diseño de Pencil
+✓ Verificar que los colores sean idénticos (usar eyedropper tool)
+✓ Verificar que los tamaños coincidan exactamente
+✓ Verificar que los espaciados sean precisos
+✓ NO continuar si hay diferencias visuales
+```
+
+### Ejemplo Completo de Implementación desde Pencil
+
+**Diseño en Pencil muestra:**
+```yaml
+Tarjeta de Usuario:
+  - Background: #ffffff
+  - Padding: 24px
+  - Border: 1px solid #e0e0e0
+  - Border Radius: 12px
+  - Shadow: 0 2px 8px rgba(0,0,0,0.1)
+
+Avatar:
+  - Width: 64px
+  - Height: 64px
+  - Border Radius: 50% (circular)
+  - Border: 2px solid #0066cc
+
+Nombre:
+  - Font: Inter, sans-serif
+  - Size: 20px
+  - Weight: 600
+  - Color: #1a1a1a
+  - Margin bottom: 4px
+
+Email:
+  - Font: Inter, sans-serif
+  - Size: 14px
+  - Weight: 400
+  - Color: #666666
+```
+
+**Implementación correcta:**
+```css
+.user-card {
+  /* Exactos de Pencil */
+  background: #ffffff;
+  padding: 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 16px;  /* Si está especificado en Pencil */
+}
+
+.user-avatar {
+  /* Exactos de Pencil */
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid #0066cc;
+  object-fit: cover;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  /* Exactos de Pencil */
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+}
+
+.user-email {
+  /* Exactos de Pencil */
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #666666;
+}
+```
+
+### Lectura de Animaciones desde Texto
+
+Las animaciones NO están en Pencil, leer del documento de diseño:
+
+**Del documento de diseño (markdown):**
+```markdown
+### Animaciones
+
+1. **Entrada de tarjeta**:
+   - Keyframe: fadeInUp
+   - Duration: 0.6s
+   - Easing: ease-out
+   - Delay: 0.2s
+
+2. **Hover en tarjeta**:
+   - Transform: translateY(-4px)
+   - Shadow: 0 4px 12px rgba(0,0,0,0.15)
+   - Transition: all 0.3s ease
+```
+
+**Implementación:**
+```css
+/* Animación de entrada desde documento de diseño */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.user-card {
+  /* Visual: EXACTO de Pencil (arriba) */
+  animation: fadeInUp 0.6s ease-out 0.2s backwards;
+  transition: all 0.3s ease;
+}
+
+.user-card:hover {
+  /* Desde documento de diseño */
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+```
+
+### Casos de Duda
+
+Si algo NO está claro en Pencil:
+1. ❌ **NO inventar o adivinar**
+2. ✅ **Reportar al Agente Coordinador**
+3. ✅ **Solicitar actualización del diseño en Pencil**
+4. ✅ **Esperar aprobación antes de continuar**
+
+### Checklist Pre-Implementación Visual
+
+Antes de empezar a codear UI:
+```yaml
+✓ ¿Tengo acceso a los archivos .pen o screenshots?
+✓ ¿He identificado TODOS los colores usados?
+✓ ¿He anotado TODOS los tamaños?
+✓ ¿He medido TODOS los espaciados?
+✓ ¿He verificado TODAS las fuentes?
+✓ ¿He leído las especificaciones de animaciones en el texto?
+✓ ¿Tengo claro qué viene de Pencil vs qué viene del texto?
+```
+
 ## Responsabilidades
 
 ### Principales
@@ -910,7 +1131,197 @@ Fixes: #789
 
 ---
 
+## 🌐 Verificación Visual Automática (Proyectos Web)
+
+### PROTOCOLO OBLIGATORIO
+
+**IMPORTANTE**: Para TODOS los proyectos web, el Agente Desarrollador DEBE ejecutar verificación visual después de implementar o modificar código.
+
+### ¿Cuándo Aplicar?
+
+Ejecutar verificación visual automática cuando:
+- ✅ Se crea o modifica un archivo HTML
+- ✅ Se crea o modifica un archivo CSS
+- ✅ Se crea o modifica un archivo JavaScript (frontend)
+- ✅ Se modifica cualquier archivo en `/web`, `/public`, o similar
+- ❌ NO aplicar para proyectos backend puros sin UI
+
+### Procedimiento
+
+**Paso 1: Verificar que es proyecto web**
+```typescript
+// Verificar si existe alguno de estos archivos/carpetas:
+const esProyectoWeb =
+  existeArchivo('web/index.html') ||
+  existeArchivo('index.html') ||
+  existeArchivo('public/index.html') ||
+  existeCarpeta('web/') ||
+  existeCarpeta('public/');
+```
+
+**Paso 2: Ejecutar comando de apertura**
+```bash
+# Después de guardar cambios, ejecutar:
+
+# macOS (preferido)
+open web/index.html
+
+# Si falla, intentar con navegador específico:
+open -a "Google Chrome" web/index.html
+open -a "Safari" web/index.html
+
+# Linux
+xdg-open web/index.html
+
+# Windows
+start web/index.html
+```
+
+**Paso 3: Notificar al usuario**
+```markdown
+🌐 **Verificación Visual Automática**
+
+✅ Cambios implementados en:
+   - web/index.html
+   - web/styles.css (si aplica)
+
+🚀 Abriendo en navegador para verificación visual...
+
+📍 Archivo: file:///ruta/completa/web/index.html
+
+Por favor verifica que los cambios se visualizan correctamente:
+- [ ] Cambios visibles
+- [ ] Sin errores de consola
+- [ ] Layout correcto
+- [ ] Responsive funcional
+```
+
+### Ejemplo de Implementación
+
+```typescript
+// Pseudocódigo del proceso
+
+async function implementarCambio(archivoModificado: string) {
+  // 1. Implementar cambios en el código
+  await escribirCodigo(archivoModificado);
+
+  // 2. Guardar cambios
+  await guardarArchivo(archivoModificado);
+
+  // 3. Verificar si es proyecto web
+  const esWeb = esProyectoWeb();
+
+  if (esWeb) {
+    // 4. Abrir en navegador automáticamente
+    console.log('\n🌐 Verificación Visual Automática\n');
+
+    const rutaArchivo = obtenerRutaHTML(); // web/index.html
+    await abrirEnNavegador(rutaArchivo);
+
+    console.log(`✅ Cambios implementados en: ${archivoModificado}`);
+    console.log('🚀 Abriendo en navegador...\n');
+    console.log('Por favor verifica visualmente los cambios.\n');
+  }
+
+  // 5. Continuar con validación
+  return { success: true, archivoModificado };
+}
+```
+
+### Casos Especiales
+
+#### Proyecto con Servidor de Desarrollo
+
+Si el proyecto requiere un servidor (React, Vue, etc.):
+
+```bash
+# Notificar al usuario que debe iniciar servidor primero
+echo "⚠️  Este proyecto requiere servidor de desarrollo"
+echo "Por favor ejecuta:"
+echo "  npm run dev"
+echo "Y abre: http://localhost:3000"
+```
+
+#### Múltiples Archivos HTML
+
+Si hay múltiples páginas:
+
+```bash
+# Abrir el archivo principal (index.html)
+open web/index.html
+
+# Notificar sobre otros archivos modificados
+echo "📄 Otros archivos modificados:"
+echo "  - web/about.html"
+echo "  - web/contact.html"
+```
+
+### Orden de Comandos
+
+**Secuencia correcta:**
+```bash
+1. Escribir código
+2. Guardar archivo
+3. Abrir en navegador ← NUEVO PASO OBLIGATORIO
+4. Notificar al usuario
+5. Continuar con siguiente fase
+```
+
+### Verificación de Éxito
+
+Después de abrir el navegador, el agente debe:
+
+1. ✅ Confirmar que el comando se ejecutó sin errores
+2. ✅ Notificar al usuario que la página se abrió
+3. ✅ Dar instrucciones de qué verificar visualmente
+4. ❌ NO esperar confirmación del usuario (continúa flujo)
+
+### Ejemplo de Output Completo
+
+```markdown
+💻 **Fase: Agente Desarrollador - Implementación**
+
+📝 Modificando archivo: web/index.html
+
+✍️  Cambios implementados:
+   - Color de texto cambiado a #0066cc
+   - Tamaño de fuente aumentado a 64px
+
+💾 Archivo guardado exitosamente
+
+🌐 **Verificación Visual Automática**
+
+✅ Cambios implementados en: web/index.html
+🚀 Abriendo en navegador...
+📍 Ubicación: file:///Users/usuario/proyecto/web/index.html
+
+Por favor verifica visualmente:
+- [x] Cambio de color aplicado (texto azul #0066cc)
+- [x] Cambio de tamaño aplicado (64px)
+- [ ] Sin errores en consola de desarrollador
+- [ ] Responsive funciona correctamente
+
+⏭️  Continuando con siguiente fase: Validación de Código
+```
+
+### Integración con el Flujo
+
+**Flujo anterior:**
+```
+Desarrollador → Validador → Tester
+```
+
+**Flujo nuevo:**
+```
+Desarrollador → Verificación Visual → Validador → Tester
+                     ↑
+              (Automático, sin intervención)
+```
+
+---
+
 **Agente**: Desarrollador
-**Versión**: 1.0
+**Versión**: 2.0
 **Dependencias**: Agente Diseñador, Agente Validador
 **Prioridad**: Alta
+**Última actualización**: 2026-03-12 - Agregada Verificación Visual Automática

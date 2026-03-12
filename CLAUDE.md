@@ -50,11 +50,12 @@ Tu función es orquestar automáticamente todos los agentes especializados para 
 6. Agente de Diseño (diseño técnico)
 7. Agente Validador (valida diseño)
 8. Agente Desarrollador (implementación)
-9. Agente Validador (valida código)
-10. Agente de Testing (tests y validación)
-11. Agente Validador (valida tests)
-12. Agente de Documentación (actualiza docs)
-13. Revisión Final
+9. Verificación Visual Automática (abre navegador si es web)
+10. Agente Validador (valida código)
+11. Agente de Testing (tests y validación)
+12. Agente Validador (valida tests)
+13. Agente de Documentación (actualiza docs)
+14. Revisión Final
 ```
 
 ### Bug Fix
@@ -62,9 +63,10 @@ Tu función es orquestar automáticamente todos los agentes especializados para 
 1. Agente Coordinador (análisis inicial)
 2. Agente Planificador (análisis del bug)
 3. Agente Desarrollador (fix)
-4. Agente Validador (valida fix)
-5. Agente de Testing (regression tests)
-6. Agente Validador (valida tests)
+4. Verificación Visual Automática (abre navegador si es web)
+5. Agente Validador (valida fix)
+6. Agente de Testing (regression tests)
+7. Agente Validador (valida tests)
 ```
 
 ### Refactor
@@ -74,8 +76,87 @@ Tu función es orquestar automáticamente todos los agentes especializados para 
 3. Agente de Diseño (nuevo diseño)
 4. Agente Validador (valida diseño)
 5. Agente Desarrollador (implementación)
-6. Agente de Testing (tests de regresión)
-7. Agente Validador (valida que no se rompe nada)
+6. Verificación Visual Automática (abre navegador si es web)
+7. Agente de Testing (tests de regresión)
+8. Agente Validador (valida que no se rompe nada)
+```
+
+---
+
+## 🔍 Verificación Visual Automática
+
+### ¿Cuándo se Activa?
+
+La verificación visual automática se ejecuta **DESPUÉS** de que el Agente Desarrollador implemente o modifique código, **SOLO** para proyectos web.
+
+### ¿Cómo Funciona?
+
+**Paso 1: Detección Automática**
+```typescript
+// El sistema detecta automáticamente si es un proyecto web
+const esProyectoWeb = existeArchivo('web/index.html') ||
+                      existeArchivo('index.html') ||
+                      existeArchivo('public/index.html');
+```
+
+**Paso 2: Apertura del Navegador**
+```bash
+# Después de cada cambio en el código, ejecutar:
+
+# macOS
+open web/index.html
+
+# Linux
+xdg-open web/index.html
+
+# Windows
+start web/index.html
+```
+
+**Paso 3: Notificación al Usuario**
+```
+🌐 Verificación Visual Automática
+
+✅ Cambios implementados en: web/index.html
+🚀 Abriendo en navegador...
+📍 Ubicación: file:///ruta/al/proyecto/web/index.html
+
+Por favor verifica visualmente que los cambios son correctos.
+```
+
+### Casos de Uso
+
+**✅ SE ABRE AUTOMÁTICAMENTE:**
+- Después de implementar nueva funcionalidad web
+- Después de fix de bugs en HTML/CSS/JS
+- Después de refactorizar código visual
+- Después de modificar estilos
+
+**❌ NO SE ABRE AUTOMÁTICAMENTE:**
+- Proyectos backend/API puros
+- Scripts de terminal
+- Librerías sin UI
+- Proyectos que requieren servidor (el usuario debe iniciar servidor primero)
+
+### Configuración del Sistema
+
+El Agente Desarrollador **SIEMPRE** ejecuta esta verificación automáticamente cuando:
+1. El proyecto tiene archivos en `/web` o `/public`
+2. Se modifica un archivo HTML, CSS o JS
+3. La implementación se completa exitosamente
+
+### Ejemplo de Flujo
+
+```
+Usuario: "Cambia el color del texto a azul"
+    ↓
+Agente Desarrollador:
+    1. Modifica web/index.html (color: #0066cc)
+    2. Guarda los cambios
+    3. Ejecuta: open web/index.html ← NUEVO
+    4. Notifica al usuario
+    ↓
+Usuario ve el cambio inmediatamente en el navegador
 ```
 
 ---
@@ -113,63 +194,168 @@ outputs/
 
 ---
 
-## 🎨 Integración Automática con Pencil
+## 🎨 Pencil: Fuente Única de Diseño Visual
 
-### Activación de Pencil
+### ⭐ PRINCIPIO FUNDAMENTAL
 
-Cuando el **Agente Diseñador** necesite crear wireframes o diagramas visuales:
+**Para TODOS los proyectos con interfaz visual (web, mobile, desktop UI):**
+
+- ✅ **Pencil ES OBLIGATORIO** - No continuar sin Pencil para proyectos con UI
+- ✅ **Pencil es la ÚNICA fuente de verdad visual** - No complemento, sino fuente completa
+- ✅ **Diseños deben ser COMPLETOS** - Colores, tamaños, espaciados, fuentes EXACTOS
+- ✅ **Desarrollador implementa pixel-perfect** - EXACTAMENTE lo de Pencil, sin interpretación
+- ❌ **NO usar diseños aproximados** - Todo debe estar especificado en Pencil
+- ❌ **NO permitir fallback para UI** - Si no hay Pencil, bloquear hasta instalarlo
+
+### Verificación Obligatoria del MCP de Pencil
+
+**ANTES** de invocar al Agente Diseñador para proyectos con UI, el Agente Coordinador **DEBE**:
+
+```typescript
+// Pseudocódigo
+if (requiere_diseño_ui(solicitud)) {
+  const pencilDisponible = verificarMCPServidor('pencil');
+
+  if (!pencilDisponible) {
+    // Intentar activar
+    intentarActivarPencil();
+    esperar(3000); // 3 segundos
+
+    if (!verificarMCPServidor('pencil')) {
+      // BLOQUEAR el flujo
+      console.log("❌ MCP de Pencil NO ENCONTRADO");
+      console.log("⚠️  Para proyectos con UI, Pencil ES OBLIGATORIO");
+      console.log("\n📝 ACCIÓN REQUERIDA:");
+      console.log("   1. Instala Pencil: https://pencil.dev");
+      console.log("   2. Reinicia Claude Code");
+      console.log("   3. Vuelve a ejecutar la solicitud\n");
+
+      // Escalar y NO continuar
+      escalarAlUsuario("Pencil requerido para UI");
+      return; // DETENER FLUJO
+    }
+  }
+
+  console.log("✅ MCP de Pencil conectado");
+  console.log("🎨 Diseño visual será la única fuente de verdad");
+}
+```
+
+### Activación Automática de Pencil
 
 **1. Detectar Pencil automáticamente:**
 
 ```bash
 # macOS
 if [ -d "/Applications/Pencil.app" ]; then
+    echo "🚀 Activando Pencil..."
     open -a Pencil
+    sleep 3
 fi
 
 # Windows
 if exist "C:\Program Files\Pencil\Pencil.exe" (
+    echo "🚀 Activando Pencil..."
     start Pencil
+    timeout /t 3
 )
 
 # Linux
 if [ -f "/usr/bin/pencil" ] || [ -f "/opt/Pencil/pencil" ]; then
+    echo "🚀 Activando Pencil..."
     pencil &
+    sleep 3
 fi
 ```
 
 **2. Verificar servidor MCP activo:**
 
-Confirmar que Pencil aparece en la lista de servidores MCP antes de invocar al Agente Diseñador para crear diseños visuales.
+Confirmar que Pencil aparece en la lista de servidores MCP antes de continuar.
 
 **3. Usar herramientas MCP de Pencil:**
 
-Una vez conectado, el Agente Diseñador puede:
-- Crear wireframes programáticamente
-- Generar diagramas de arquitectura
-- Manipular archivos `.pen`
-- Exportar diseños a imágenes
+Una vez conectado, el Agente Diseñador **DEBE**:
+- Crear diseños COMPLETOS (no aproximados)
+- Especificar TODOS los colores (hex codes exactos)
+- Definir TODOS los tamaños (píxeles exactos)
+- Especificar TODOS los espaciados (padding/margin exactos)
+- Definir TODAS las fuentes (family, size, weight exactos)
+- Generar screenshots para documentación
+- Guardar archivos `.pen` editables
 
-### Estrategia de Fallback
+### Protocolo de Diseño Visual
 
-Si Pencil **NO está disponible**:
-1. El Agente Diseñador usa **Mermaid** para diagramas
-2. Usa **diagramas ASCII** para arquitectura
-3. Notifica al usuario: "Pencil no detectado. Usando formato Mermaid/ASCII. Para mejores visualizaciones, instala Pencil desde https://pencil.dev"
+#### Para el Agente Diseñador:
 
-### Cuándo Activar Pencil
+```markdown
+1. Verificar que Pencil MCP está conectado
+2. Crear diseño COMPLETO en Pencil:
+   - Todos los elementos visuales FINALES
+   - Colores EXACTOS aplicados
+   - Tamaños EXACTOS especificados
+   - Espaciados EXACTOS definidos
+   - Tipografía EXACTA configurada
+3. Generar screenshots de todos los diseños
+4. Guardar archivo .pen editable
+5. Especificar animaciones SOLO en texto (porque Pencil no las soporta)
+6. NO dejar decisiones visuales para el desarrollador
+```
 
-Activa Pencil automáticamente cuando:
-- ✅ La solicitud incluye diseño de UI/UX
-- ✅ Se necesitan wireframes o mockups
-- ✅ Se requieren diagramas de arquitectura visual
-- ✅ El proyecto es una aplicación web con interfaz
+#### Para el Agente Desarrollador:
 
-NO activar Pencil para:
+```markdown
+1. Recibir archivos .pen o screenshots de Pencil
+2. Implementar EXACTAMENTE lo de Pencil:
+   - Colores: Usar códigos hex EXACTOS
+   - Tamaños: Usar píxeles EXACTOS
+   - Espaciados: Usar valores EXACTOS
+   - Fuentes: Usar especificaciones EXACTAS
+3. Leer animaciones del documento de diseño (texto)
+4. NO interpretar o "mejorar" aspectos visuales
+5. Comparar visualmente con Pencil al terminar
+6. Si hay diferencias, corregir hasta que sea idéntico
+```
+
+### Cuándo es OBLIGATORIO Pencil
+
+Pencil es **OBLIGATORIO** cuando la solicitud incluye:
+- ✅ Diseño de páginas web
+- ✅ Interfaces de usuario (UI/UX)
+- ✅ Aplicaciones mobile
+- ✅ Dashboards o paneles
+- ✅ Formularios o componentes visuales
+- ✅ Landing pages o websites
+- ✅ Cualquier interfaz visual
+
+Pencil es **OPCIONAL** (puede usar fallback) para:
 - ❌ APIs puras sin interfaz
-- ❌ Scripts o CLIs
+- ❌ Scripts de terminal/CLI
 - ❌ Microservicios backend
-- ❌ Tareas de refactoring sin cambios de UI
+- ❌ Diagramas de arquitectura backend (puede usar Mermaid)
+
+### Sin Pencil = Sin Continuar (para UI)
+
+**IMPORTANTE**: Si es proyecto con UI y Pencil no está disponible:
+
+```markdown
+❌ **FLUJO BLOQUEADO**
+
+⚠️  Este proyecto requiere diseño de interfaz visual.
+
+🎨 **Pencil es OBLIGATORIO** para proyectos con UI porque:
+   - Es la única fuente de verdad visual
+   - Define colores, tamaños, espaciados exactos
+   - El desarrollador implementa pixel-perfect desde Pencil
+
+📝 **ACCIÓN REQUERIDA**:
+   1. Instala Pencil desde: https://pencil.dev
+   2. Reinicia Claude Code (para que MCP se conecte)
+   3. Vuelve a ejecutar tu solicitud
+
+💡 Después de instalar, el flujo continuará automáticamente.
+
+⏸️  **El flujo está en pausa hasta que Pencil esté disponible.**
+```
 
 ### Verificación de Configuración
 
@@ -187,6 +373,19 @@ Debe contener:
     "claudeDesktop"
   ]
 }
+```
+
+### Outputs con Pencil
+
+Cuando se usa Pencil correctamente, generar:
+
+```
+outputs/
+└── designs/
+    ├── [nombre-proyecto].pen              # Archivo Pencil editable (FUENTE DE VERDAD)
+    ├── [nombre-proyecto]-wireframe.png    # Screenshot para documentación
+    ├── [nombre-proyecto]-mobile.png       # Screenshot versión mobile (si aplica)
+    └── diseno-[nombre-proyecto].md        # Especificaciones técnicas + animaciones
 ```
 
 ---
