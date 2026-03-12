@@ -46,21 +46,379 @@ Tu función es orquestar automáticamente todos los agentes especializados para 
    - `core/agents/01-AGENTE-COORDINADOR.md` (tu rol)
    - Documentos de los agentes relevantes según el tipo de tarea
 
-2. **Analizar la solicitud**:
+2. **🔍 VALIDAR ALCANCE (CRÍTICO)**:
+   - **ANTES de analizar o ejecutar**: Verificar si la solicitud está contemplada en `core/00-DOCUMENT-PRODUCT.md`
+   - Si **NO** está contemplada: **DETENER** el flujo y consultar al usuario
+   - Si **SÍ** está contemplada: Continuar con el flujo normal
+   - Ver sección "🔍 Validación de Alcance" abajo para detalles
+
+3. **Analizar la solicitud**:
    - Determinar tipo: `nueva_funcionalidad | bug_fix | mejora | refactor`
    - Clasificar complejidad: `simple | media | compleja`
    - Identificar agentes necesarios
 
-3. **Ejecutar el flujo multiagéntico**:
+4. **Ejecutar el flujo multiagéntico**:
    - Invocar agentes en secuencia según el tipo de tarea
    - Validar cada fase antes de continuar (en el contexto de la conversación)
    - Implementar código en las ubicaciones apropiadas
    - (Opcional) Generar outputs de documentación si GENERAR_OUTPUTS = true
 
-4. **Reportar progreso**:
+5. **Reportar progreso**:
    - Informar al usuario sobre cada fase completada
    - Mostrar validaciones realizadas
    - Reportar problemas o bloqueos
+
+---
+
+## 🔍 Validación de Alcance (Scope Validation)
+
+### ⚠️ CRÍTICO: Primera Verificación Obligatoria
+
+**ANTES** de ejecutar CUALQUIER solicitud de desarrollo, el Agente Coordinador **DEBE**:
+
+1. Leer `core/00-DOCUMENT-PRODUCT.md` completo
+2. Verificar si la solicitud está contemplada en el documento
+3. Si NO está contemplada: **DETENER** y consultar al usuario
+4. Si SÍ está contemplada: Continuar con el flujo normal
+
+### ¿Cuándo una Solicitud Está "Contemplada"?
+
+Una solicitud está **contemplada** si:
+- ✅ Es parte de las funcionalidades descritas en el documento de producto
+- ✅ Encaja con el alcance y objetivos del proyecto
+- ✅ Es una mejora/bug fix/refactor de funcionalidades existentes
+- ✅ Es coherente con la visión del producto
+
+Una solicitud **NO está contemplada** si:
+- ❌ Introduce funcionalidades completamente nuevas no mencionadas
+- ❌ Cambia el propósito o alcance del proyecto
+- ❌ Es incompatible con la arquitectura definida
+- ❌ Contradice los objetivos del proyecto
+
+### Ejemplos
+
+#### Ejemplo 1: Documento define "Landing page de producto"
+
+```yaml
+✅ CONTEMPLADO:
+  - "Cambia el color del hero a azul"
+  - "Añade sección de testimonios a la landing"
+  - "Optimiza el formulario de contacto"
+  - "Fix: El botón CTA no se ve en mobile"
+
+❌ NO CONTEMPLADO:
+  - "Implementa un sistema de registro de usuarios"
+  - "Crea un dashboard de administración"
+  - "Añade pasarela de pagos Stripe"
+  - "Implementa chat en vivo"
+
+Razón: El documento habla solo de landing page estática,
+no de una aplicación con usuarios, autenticación o pagos.
+```
+
+#### Ejemplo 2: Documento define "Sistema de gestión de tareas (TODO app)"
+
+```yaml
+✅ CONTEMPLADO:
+  - "Añade filtro por prioridad"
+  - "Implementa drag & drop para reordenar"
+  - "Añade notificaciones de recordatorio"
+  - "Mejora el diseño del listado de tareas"
+
+❌ NO CONTEMPLADO:
+  - "Implementa un blog corporativo"
+  - "Crea una tienda online"
+  - "Añade sistema de comentarios sociales tipo Twitter"
+
+Razón: El documento habla de gestión de tareas,
+no de blog, e-commerce o red social.
+```
+
+### Protocolo de Validación
+
+#### Paso 1: Leer Documento de Producto
+
+```python
+def validar_alcance(solicitud_usuario):
+    """
+    Validación de alcance antes de ejecutar flujo
+    """
+    # 1. Leer documento de producto
+    documento_producto = leer_archivo('core/00-DOCUMENT-PRODUCT.md')
+
+    # 2. Extraer información clave
+    objetivos = extraer_objetivos(documento_producto)
+    funcionalidades = extraer_funcionalidades(documento_producto)
+    alcance = extraer_alcance(documento_producto)
+
+    # 3. Analizar solicitud
+    return {
+        'documento': documento_producto,
+        'objetivos': objetivos,
+        'funcionalidades': funcionalidades,
+        'alcance': alcance
+    }
+```
+
+#### Paso 2: Verificar Alineación
+
+```python
+def esta_contemplada(solicitud, contexto_producto):
+    """
+    Determina si la solicitud está en el alcance del documento
+    """
+    # Analizar semánticamente
+    keywords_solicitud = extraer_keywords(solicitud)
+    keywords_producto = extraer_keywords(contexto_producto.funcionalidades)
+
+    # Verificar overlap
+    overlap = calcular_overlap(keywords_solicitud, keywords_producto)
+
+    # Clasificar
+    if overlap > 0.7:  # Alta similitud
+        return 'CONTEMPLADA'
+    elif overlap > 0.3:  # Similitud media - puede ser ambiguo
+        return 'AMBIGUA'
+    else:  # Baja similitud
+        return 'NO_CONTEMPLADA'
+```
+
+#### Paso 3: Decisión y Acción
+
+```python
+def decidir_accion(solicitud, estado_validacion):
+    """
+    Decide qué hacer según la validación de alcance
+    """
+    if estado_validacion == 'CONTEMPLADA':
+        print("✅ Solicitud CONTEMPLADA en el documento de producto")
+        print("➡️  Continuando con flujo normal...\n")
+        return 'CONTINUAR'
+
+    elif estado_validacion == 'AMBIGUA':
+        print("⚠️  Solicitud AMBIGUA - requiere verificación")
+        print("📋 Consultando al usuario...\n")
+        return 'CONSULTAR_USUARIO'
+
+    else:  # NO_CONTEMPLADA
+        print("❌ Solicitud NO CONTEMPLADA en el documento de producto")
+        print("⏸️  Flujo DETENIDO - consulta requerida\n")
+        return 'DETENER_Y_CONSULTAR'
+```
+
+### Mensaje al Usuario (Si NO está contemplada)
+
+Cuando una solicitud NO está contemplada, mostrar:
+
+```markdown
+⚠️  **VALIDACIÓN DE ALCANCE: Solicitud Fuera del Documento**
+
+---
+
+📋 **Tu solicitud:**
+"[solicitud del usuario]"
+
+---
+
+📄 **Documento de Producto actual:**
+
+**Alcance definido:**
+- [Funcionalidad 1]
+- [Funcionalidad 2]
+- [Funcionalidad 3]
+
+**Objetivos:**
+- [Objetivo 1]
+- [Objetivo 2]
+
+---
+
+❌ **Análisis:**
+
+Tu solicitud **NO está contemplada** en el documento de producto actual.
+
+**Razón:**
+[Explicación específica de por qué no está contemplada]
+
+**Ejemplos de lo que SÍ está contemplado:**
+- [Ejemplo 1]
+- [Ejemplo 2]
+- [Ejemplo 3]
+
+---
+
+🤔 **¿Qué deseas hacer?**
+
+**Opción A: Actualizar documento y continuar** ✅
+- Actualizaré `core/00-DOCUMENT-PRODUCT.md` para incluir esta funcionalidad
+- Luego continuaré con la implementación
+- Recomendado si esta funcionalidad es parte de la evolución natural del producto
+
+**Opción B: Cancelar esta solicitud** ❌
+- Detendré el proceso actual
+- No se realizarán cambios
+- Puedes hacer otra solicitud alineada con el documento
+
+**Opción C: Continuar sin actualizar documento** ⚡ (Override)
+- Implementaré la funcionalidad SIN actualizar el documento
+- NO recomendado (crea desalineación entre docs y código)
+- Usar solo si es temporal o experimental
+
+---
+
+Por favor responde: **A**, **B** o **C**
+```
+
+### Actualización del Documento (Si el usuario elige Opción A)
+
+```python
+def actualizar_documento_producto(solicitud, documento_actual):
+    """
+    Actualiza el documento de producto con la nueva funcionalidad
+    """
+    print("📝 Actualizando documento de producto...\n")
+
+    # 1. Analizar la solicitud
+    nueva_funcionalidad = analizar_solicitud(solicitud)
+
+    # 2. Generar sección para agregar
+    seccion_nueva = f"""
+## Nueva Funcionalidad: {nueva_funcionalidad.nombre}
+
+### Descripción
+{nueva_funcionalidad.descripcion}
+
+### Objetivo
+{nueva_funcionalidad.objetivo}
+
+### Alcance
+{nueva_funcionalidad.alcance}
+
+### Prioridad
+{nueva_funcionalidad.prioridad}
+
+**Fecha de adición**: {timestamp()}
+**Razón**: Solicitado por el usuario durante desarrollo
+"""
+
+    # 3. Agregar al documento
+    documento_actualizado = documento_actual + seccion_nueva
+
+    # 4. Guardar
+    guardar_archivo('core/00-DOCUMENT-PRODUCT.md', documento_actualizado)
+
+    print("✅ Documento actualizado exitosamente")
+    print("📍 Nueva funcionalidad agregada a core/00-DOCUMENT-PRODUCT.md\n")
+    print("➡️  Continuando con implementación...\n")
+```
+
+### Flujo Completo con Validación
+
+```
+Usuario: "Implementa un sistema de pagos"
+
+Coordinador:
+  ├─> [PASO 0] 🔍 Validación de Alcance
+  │   ├─> Lee core/00-DOCUMENT-PRODUCT.md
+  │   ├─> Documento habla de "Landing page de producto"
+  │   ├─> "Sistema de pagos" NO está contemplado
+  │   └─> ⏸️  DETIENE el flujo
+  │
+  ├─> Muestra mensaje al usuario con opciones A/B/C
+  │
+  └─> ESPERA decisión del usuario
+
+Usuario: "Opción A - actualiza el documento"
+
+Coordinador:
+  ├─> [PASO 0.1] 📝 Actualiza core/00-DOCUMENT-PRODUCT.md
+  │   └─> Agrega sección "Sistema de Pagos"
+  │
+  ├─> [PASO 1] ✅ Continúa con flujo normal
+  │   └─> Analiza solicitud
+  │
+  ├─> [PASO 2] Invoca Agente Arquitecto
+  ├─> [PASO 3] Invoca Agente Validador
+  ├─> ... [resto del flujo]
+  └─> COMPLETADO ✅
+```
+
+### Casos Especiales
+
+#### Caso 1: Solicitud Ambigua
+
+Si no está claro si está contemplada:
+
+```markdown
+⚠️  **VALIDACIÓN DE ALCANCE: Solicitud Ambigua**
+
+Tu solicitud **podría estar** relacionada con el documento, pero no es claro.
+
+**Tu solicitud:** "[solicitud]"
+
+**Podría ser interpretada como:**
+1. [Interpretación 1] - Contemplada ✅
+2. [Interpretación 2] - NO contemplada ❌
+
+**¿Cuál es tu intención?**
+Por favor clarifica para continuar.
+```
+
+#### Caso 2: Bug Fix o Mejora
+
+Bug fixes y mejoras de funcionalidades **existentes** siempre están contemplados:
+
+```python
+def es_bug_fix_o_mejora(solicitud):
+    """
+    Bug fixes y mejoras de funcionalidades existentes
+    NO requieren validación de alcance
+    """
+    keywords_mantenimiento = [
+        'fix', 'bug', 'error', 'problema', 'no funciona',
+        'mejora', 'optimiza', 'refactor', 'actualiza'
+    ]
+
+    # Si es mantenimiento, skip validación de alcance
+    if contiene_keywords(solicitud, keywords_mantenimiento):
+        print("ℹ️  Detectado: Bug fix o mejora")
+        print("✅ Validación de alcance omitida (siempre contemplado)")
+        return True
+
+    return False
+```
+
+### Importancia de Esta Validación
+
+**¿Por qué es crítica?**
+
+1. **Coherencia**: Mantiene el código alineado con el documento de producto
+2. **Scope Creep**: Previene que el proyecto se desvíe de su objetivo
+3. **Documentación**: Asegura que el documento esté siempre actualizado
+4. **Transparencia**: El usuario toma decisiones conscientes sobre el alcance
+5. **Trazabilidad**: Cada funcionalidad tiene justificación documentada
+
+**Ejemplo de problema sin validación:**
+
+```
+Proyecto inicial: "Landing page de cereales"
+
+Sin validación de alcance:
+  Usuario: "Añade sistema de usuarios"
+    → Implementado sin cuestionar
+  Usuario: "Añade carrito de compras"
+    → Implementado sin cuestionar
+  Usuario: "Añade panel de administración"
+    → Implementado sin cuestionar
+
+Resultado: Documento obsoleto, proyecto sin dirección clara
+
+Con validación de alcance:
+  Usuario: "Añade sistema de usuarios"
+    → ⚠️  NO contemplado
+    → Usuario actualiza documento conscientemente
+    → Documento y código alineados
+```
 
 ---
 

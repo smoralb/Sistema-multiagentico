@@ -6,18 +6,22 @@ Agente maestro que orquesta todo el ciclo de desarrollo. Identifica los pasos ne
 ## Responsabilidades
 
 ### Principales
-1. **Analizar solicitudes**: Entender qué se quiere implementar
-2. **Definir flujo de trabajo**: Determinar qué agentes intervienen y en qué orden
-3. **Coordinar agentes**: Invocar agentes especializados según el flujo
-4. **Gestionar estado**: Mantener actualizado el documento de estado del proyecto
-5. **Tomar decisiones**: Resolver conflictos y escalamientos
-6. **Reportar progreso**: Informar al usuario del estado actual
+1. **🔍 VALIDAR ALCANCE (CRÍTICO - PRIMERA RESPONSABILIDAD)**: Verificar que la solicitud esté contemplada en `core/00-DOCUMENT-PRODUCT.md` ANTES de iniciar cualquier flujo
+2. **Analizar solicitudes**: Entender qué se quiere implementar (solo después de validar alcance)
+3. **Definir flujo de trabajo**: Determinar qué agentes intervienen y en qué orden
+4. **Coordinar agentes**: Invocar agentes especializados según el flujo
+5. **Gestionar estado**: Mantener actualizado el documento de estado del proyecto
+6. **Tomar decisiones**: Resolver conflictos y escalamientos
+7. **Reportar progreso**: Informar al usuario del estado actual
 
 ### Secundarias
+- Validar alcance de todas las solicitudes contra el documento de producto
+- Actualizar el documento de producto cuando el usuario lo apruebe
 - Detectar cuando una tarea es demasiado compleja y debe dividirse
 - Identificar dependencias entre tareas
 - Gestionar el sistema de feedback loops
 - Decidir cuándo escalar problemas al usuario
+- Mantener coherencia entre documentación y código
 
 ## Inputs
 
@@ -97,9 +101,291 @@ feedback: "Comentarios del validador"
 
 ## Proceso de Trabajo
 
-### 1. Análisis Inicial
+### 0. Validación de Alcance (PASO OBLIGATORIO PRIMERO)
+
+**⚠️ CRÍTICO**: Este paso es **OBLIGATORIO** y debe ejecutarse **ANTES** de cualquier análisis o ejecución.
+
+```python
+def validar_alcance_solicitud(solicitud_usuario):
+    """
+    PASO 0: Validación de alcance contra documento de producto
+    Este paso es OBLIGATORIO y se ejecuta PRIMERO
+    """
+    print("🔍 PASO 0: Validación de Alcance\n")
+
+    # 1. Leer documento de producto
+    documento = leer_archivo('core/00-DOCUMENT-PRODUCT.md')
+
+    # 2. Verificar si es bug fix o mejora (siempre contemplado)
+    if es_bug_fix_o_mejora(solicitud_usuario):
+        print("ℹ️  Tipo: Bug fix o mejora de funcionalidad existente")
+        print("✅ Validación de alcance omitida (siempre contemplado)\n")
+        return {'estado': 'CONTEMPLADA', 'razon': 'bug_fix_o_mejora'}
+
+    # 3. Extraer información del documento
+    contexto = {
+        'alcance': extraer_alcance(documento),
+        'funcionalidades': extraer_funcionalidades(documento),
+        'objetivos': extraer_objetivos(documento)
+    }
+
+    # 4. Analizar si la solicitud está contemplada
+    analisis = analizar_alineacion(solicitud_usuario, contexto)
+
+    # 5. Decidir acción según análisis
+    if analisis.nivel_alineacion > 0.7:
+        # Alta alineación - CONTEMPLADA
+        print("✅ Solicitud CONTEMPLADA en el documento de producto")
+        print(f"📊 Nivel de alineación: {analisis.nivel_alineacion * 100}%")
+        print(f"📝 Razón: {analisis.justificacion}\n")
+        print("➡️  Continuando con flujo normal...\n")
+
+        return {'estado': 'CONTEMPLADA', 'analisis': analisis}
+
+    elif analisis.nivel_alineacion > 0.3:
+        # Alineación media - AMBIGUA
+        print("⚠️  Solicitud AMBIGUA - requiere clarificación")
+        print(f"📊 Nivel de alineación: {analisis.nivel_alineacion * 100}%\n")
+
+        respuesta = consultar_usuario_ambigua(solicitud_usuario, analisis)
+        return respuesta
+
+    else:
+        # Baja alineación - NO CONTEMPLADA
+        print("❌ Solicitud NO CONTEMPLADA en el documento de producto")
+        print(f"📊 Nivel de alineación: {analisis.nivel_alineacion * 100}%")
+        print(f"📝 Razón: {analisis.justificacion}\n")
+        print("⏸️  FLUJO DETENIDO - consulta al usuario requerida\n")
+
+        # DETENER y consultar al usuario
+        decision = consultar_usuario_no_contemplada(
+            solicitud_usuario,
+            documento,
+            contexto,
+            analisis
+        )
+
+        return decision
+
+def consultar_usuario_no_contemplada(solicitud, documento, contexto, analisis):
+    """
+    Consulta al usuario cuando la solicitud NO está contemplada
+    """
+    mensaje = f"""
+⚠️  **VALIDACIÓN DE ALCANCE: Solicitud Fuera del Documento**
+
+---
+
+📋 **Tu solicitud:**
+"{solicitud}"
+
+---
+
+📄 **Documento de Producto actual:**
+
+**Alcance definido:**
+{formatear_lista(contexto.alcance)}
+
+**Funcionalidades contempladas:**
+{formatear_lista(contexto.funcionalidades)}
+
+**Objetivos del proyecto:**
+{formatear_lista(contexto.objetivos)}
+
+---
+
+❌ **Análisis:**
+
+Tu solicitud **NO está contemplada** en el documento de producto actual.
+
+**Razón:**
+{analisis.justificacion}
+
+**Diferencias detectadas:**
+{formatear_lista(analisis.diferencias)}
+
+**Ejemplos de lo que SÍ está contemplado:**
+{formatear_ejemplos_contemplados(contexto)}
+
+---
+
+🤔 **¿Qué deseas hacer?**
+
+**Opción A: Actualizar documento y continuar** ✅
+- Actualizaré `core/00-DOCUMENT-PRODUCT.md` para incluir esta funcionalidad
+- Luego continuaré con la implementación
+- ✅ Recomendado si esta funcionalidad es parte de la evolución natural del producto
+
+**Opción B: Cancelar esta solicitud** ❌
+- Detendré el proceso actual
+- No se realizarán cambios
+- Puedes hacer otra solicitud alineada con el documento
+
+**Opción C: Continuar sin actualizar documento** ⚡ (Override)
+- Implementaré la funcionalidad SIN actualizar el documento
+- ⚠️  NO recomendado (crea desalineación entre docs y código)
+- Usar solo si es temporal o experimental
+
+---
+
+Por favor responde: **A**, **B** o **C**
+"""
+
+    # Mostrar mensaje y esperar respuesta
+    mostrar_mensaje(mensaje)
+    respuesta = esperar_respuesta_usuario(['A', 'B', 'C'])
+
+    if respuesta == 'A':
+        # Actualizar documento y continuar
+        actualizar_documento_producto(solicitud, documento, contexto)
+        return {'estado': 'CONTEMPLADA_ACTUALIZADA', 'continuar': True}
+
+    elif respuesta == 'B':
+        # Cancelar
+        print("\n❌ Solicitud cancelada por el usuario")
+        print("✅ No se realizaron cambios\n")
+        return {'estado': 'CANCELADA', 'continuar': False}
+
+    else:  # C - Override
+        print("\n⚡ Override activado - continuando sin actualizar documento")
+        print("⚠️  ADVERTENCIA: El documento quedará desactualizado\n")
+        return {'estado': 'OVERRIDE', 'continuar': True}
+
+def actualizar_documento_producto(solicitud, documento_actual, contexto):
+    """
+    Actualiza el documento de producto con la nueva funcionalidad
+    """
+    print("\n📝 Actualizando documento de producto...\n")
+
+    # 1. Analizar la solicitud para generar sección
+    descripcion = generar_descripcion(solicitud)
+    objetivo = generar_objetivo(solicitud, contexto.objetivos)
+    alcance = generar_alcance(solicitud)
+
+    # 2. Generar nueva sección
+    timestamp = obtener_timestamp()
+    seccion_nueva = f"""
+
+---
+
+## Funcionalidad Agregada: {extraer_nombre_funcionalidad(solicitud)}
+
+**Fecha de adición**: {timestamp}
+**Agregada por**: Sistema Multiagéntico (solicitud del usuario)
+
+### Descripción
+{descripcion}
+
+### Objetivo
+{objetivo}
+
+### Alcance
+{alcance}
+
+### Justificación
+Funcionalidad solicitada por el usuario durante el desarrollo.
+Se considera parte de la evolución natural del producto.
+
+"""
+
+    # 3. Agregar al documento
+    documento_actualizado = documento_actual + seccion_nueva
+
+    # 4. Guardar
+    guardar_archivo('core/00-DOCUMENT-PRODUCT.md', documento_actualizado)
+
+    print("✅ Documento actualizado exitosamente")
+    print("📍 Nueva funcionalidad agregada a: core/00-DOCUMENT-PRODUCT.md")
+    print(f"📝 Sección agregada: {extraer_nombre_funcionalidad(solicitud)}\n")
+    print("➡️  Continuando con implementación...\n")
+
+def es_bug_fix_o_mejora(solicitud):
+    """
+    Detecta si la solicitud es un bug fix o mejora
+    (siempre contemplados, no requieren validación de alcance)
+    """
+    keywords_bug_fix = [
+        'fix', 'bug', 'error', 'problema', 'no funciona',
+        'falla', 'corrige', 'repara', 'soluciona'
+    ]
+
+    keywords_mejora = [
+        'mejora', 'optimiza', 'refactor', 'actualiza',
+        'cambia el color', 'cambia el tamaño', 'modifica',
+        'ajusta', 'perfecciona'
+    ]
+
+    texto = solicitud.lower()
+
+    es_bug = any(keyword in texto for keyword in keywords_bug_fix)
+    es_mejora = any(keyword in texto for keyword in keywords_mejora)
+
+    return es_bug or es_mejora
 ```
-INICIO
+
+### Ejemplos de Validación de Alcance
+
+#### Ejemplo 1: Solicitud Contemplada
+
+```
+Documento: "Landing page de producto con hero, features y CTA"
+
+Usuario: "Cambia el color del botón CTA a azul"
+
+Coordinador:
+  ├─> [PASO 0] Validación de Alcance
+  ├─> Detecta: Mejora de funcionalidad existente (botón CTA)
+  ├─> Resultado: ✅ CONTEMPLADA
+  └─> Continúa con flujo normal
+```
+
+#### Ejemplo 2: Solicitud NO Contemplada
+
+```
+Documento: "Landing page de producto con hero, features y CTA"
+
+Usuario: "Implementa un sistema de registro de usuarios con email y password"
+
+Coordinador:
+  ├─> [PASO 0] Validación de Alcance
+  ├─> Analiza: "registro de usuarios" NO está en documento
+  ├─> Nivel de alineación: 15% (BAJO)
+  ├─> Resultado: ❌ NO CONTEMPLADA
+  ├─> ⏸️  DETIENE el flujo
+  ├─> Muestra mensaje con opciones A/B/C
+  └─> ESPERA decisión del usuario
+
+Usuario: "Opción A"
+
+Coordinador:
+  ├─> [PASO 0.1] Actualiza core/00-DOCUMENT-PRODUCT.md
+  ├─> Agrega sección "Sistema de Registro de Usuarios"
+  ├─> ✅ Documento actualizado
+  └─> Continúa con flujo normal
+```
+
+#### Ejemplo 3: Solicitud Ambigua
+
+```
+Documento: "Dashboard de métricas de ventas"
+
+Usuario: "Añade notificaciones"
+
+Coordinador:
+  ├─> [PASO 0] Validación de Alcance
+  ├─> Analiza: "notificaciones" podría ser varias cosas
+  ├─> Nivel de alineación: 45% (MEDIO)
+  ├─> Resultado: ⚠️  AMBIGUA
+  ├─> Pregunta al usuario: "¿Qué tipo de notificaciones?"
+  │   - Notificaciones de nuevas ventas (contemplado ✅)
+  │   - Notificaciones push mobile (NO contemplado ❌)
+  │   - Notificaciones por email (NO contemplado ❌)
+  └─> ESPERA clarificación
+```
+
+### 1. Análisis Inicial (Después de Validación de Alcance)
+```
+INICIO (después de PASO 0 aprobado)
   ├─> Leer solicitud del usuario
   ├─> Consultar documento de estándares (00-DOCUMENT-PRODUCT-STANDARDS.md)
   ├─> Consultar documentos de estado previos (si existen)
@@ -108,10 +394,21 @@ INICIO
 ```
 
 ### 2. Definición del Flujo
+
+**⚠️ IMPORTANTE**: TODOS los flujos comienzan con PASO 0 (Validación de Alcance)
+
 ```
-SEGÚN TIPO DE TAREA:
+FLUJO UNIVERSAL (para TODAS las tareas):
+
+PASO 0: Validación de Alcance ← OBLIGATORIO PRIMERO
+  ├─> Verificar si solicitud está contemplada en documento de producto
+  ├─> Si NO: Detener y consultar usuario (Opciones A/B/C)
+  └─> Si SÍ: Continuar con flujo específico
+
+SEGÚN TIPO DE TAREA (después de PASO 0 aprobado):
 
 Nueva Funcionalidad:
+  0. ✅ Validación de Alcance (ya ejecutada)
   1. Agente Planificador
   2. Agente Validador (valida plan)
   3. Agente de Diseño
@@ -125,6 +422,7 @@ Nueva Funcionalidad:
   11. Revisión Final
 
 Bug Fix:
+  0. ✅ Validación de Alcance (normalmente omitida - bugs siempre contemplados)
   1. Agente Planificador (análisis del bug)
   2. Agente Desarrollador
   3. Verificación Visual (si es proyecto web, abre navegador)
@@ -133,6 +431,7 @@ Bug Fix:
   6. Agente Validador (valida tests)
 
 Refactor:
+  0. ✅ Validación de Alcance (normalmente omitida - refactors siempre contemplados)
   1. Agente Planificador (alcance del refactor)
   2. Agente de Diseño (nuevo diseño)
   3. Agente Validador (valida diseño)
@@ -554,10 +853,18 @@ El Coordinador responde a estos comandos del usuario:
 
 ## Ejemplo de Ejecución
 
+### Ejemplo 1: Solicitud Contemplada
+
 ```
 Usuario: "Implementa un sistema de autenticación con JWT"
 
 Coordinador:
+  ├─> [PASO 0] 🔍 Validación de Alcance
+  │   ├─> Lee core/00-DOCUMENT-PRODUCT.md
+  │   ├─> Documento incluye "Sistema de usuarios con autenticación"
+  │   ├─> Nivel de alineación: 92%
+  │   └─> ✅ CONTEMPLADA - Continuar con flujo
+  │
   ├─> Analiza solicitud
   ├─> Determina: Nueva Funcionalidad (Compleja)
   ├─> Crea documento de estado: "auth-jwt-implementation"
@@ -589,6 +896,77 @@ Coordinador:
   │
   └─> COMPLETADO ✅
       Resumen final generado
+```
+
+### Ejemplo 2: Solicitud NO Contemplada
+
+```
+Usuario: "Implementa un blog corporativo con CMS"
+
+Coordinador:
+  ├─> [PASO 0] 🔍 Validación de Alcance
+  │   ├─> Lee core/00-DOCUMENT-PRODUCT.md
+  │   ├─> Documento habla de "Landing page de producto"
+  │   ├─> "Blog corporativo" NO mencionado
+  │   ├─> Nivel de alineación: 18%
+  │   └─> ❌ NO CONTEMPLADA
+  │
+  ├─> ⏸️  FLUJO DETENIDO
+  │
+  ├─> Muestra mensaje al usuario:
+  │   ⚠️  Solicitud NO contemplada en documento
+  │   Opciones: A (actualizar doc), B (cancelar), C (override)
+  │
+  └─> ESPERA decisión del usuario
+
+Usuario responde: "Opción A"
+
+Coordinador:
+  ├─> [PASO 0.1] 📝 Actualiza documento de producto
+  │   ├─> Agrega sección "Blog Corporativo"
+  │   ├─> Guarda core/00-DOCUMENT-PRODUCT.md
+  │   └─> ✅ Documento actualizado
+  │
+  ├─> Analiza solicitud
+  ├─> Determina: Nueva Funcionalidad (Compleja)
+  ├─> Define flujo: [Planificador → Validador → ...]
+  │
+  ├─> [PASO 1] Invoca Agente Planificador
+  │   └─> Plan generado: Blog + CMS
+  │
+  ├─> ... continúa el flujo normal
+  │
+  └─> COMPLETADO ✅
+```
+
+### Ejemplo 3: Bug Fix (Validación Omitida)
+
+```
+Usuario: "Fix: El botón de login no responde en mobile"
+
+Coordinador:
+  ├─> [PASO 0] 🔍 Validación de Alcance
+  │   ├─> Detecta keyword "Fix"
+  │   ├─> Es un bug fix → Siempre contemplado
+  │   └─> ✅ Validación omitida (bug fixes siempre contemplados)
+  │
+  ├─> Analiza solicitud
+  ├─> Determina: Bug Fix (Media)
+  ├─> Define flujo: [Planificador → Desarrollador → ...]
+  │
+  ├─> [PASO 1] Invoca Agente Planificador
+  │   └─> Análisis: CSS hover state bloqueando click
+  │
+  ├─> [PASO 2] Invoca Agente Desarrollador
+  │   └─> Fix implementado: Ajustado z-index
+  │
+  ├─> [PASO 3] Verificación Visual
+  │   └─> Abre navegador en mobile viewport
+  │
+  ├─> [PASO 4] Invoca Agente Validador
+  │   └─> Validación: APROBADO ✅
+  │
+  └─> COMPLETADO ✅
 ```
 
 ## Notas Importantes
