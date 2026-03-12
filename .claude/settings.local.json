@@ -15,7 +15,14 @@
       "WebFetch(domain:docs.pencil.dev)",
       "Bash([ -d \"/Applications/Pencil.app\" ])",
       "Bash(find:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "WebFetch(domain:docs.google.com)",
+      "Bash(chmod:*)",
+      "Bash(pip3 install:*)",
+      "Bash(python3:*)",
+      "Bash(git init:*)",
+      "Bash(gh repo create:*)",
+      "Bash(git config:*)"
     ]
   }
 }

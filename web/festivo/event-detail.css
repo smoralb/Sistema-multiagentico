@@ -1,0 +1,428 @@
+/* Event Detail Page Specific Styles */
+
+/* Logo as Link */
+.logo {
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.logo:hover {
+    opacity: 0.8;
+}
+
+/* Hero Section with Floating Favorite Button */
+.event-hero {
+    background-color: #FFFFFF;
+}
+
+.hero-image-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+}
+
+.event-hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.btn-favorite {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 64px;
+    height: 64px;
+    border-radius: 32px;
+    background-color: #FFFFFF;
+    border: 2px solid #FF6B35;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.btn-favorite .material-icons {
+    font-size: 32px;
+    color: #FF6B35;
+}
+
+.btn-favorite:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.btn-favorite.active .material-icons {
+    content: 'favorite';
+}
+
+.btn-favorite.active .material-icons::before {
+    content: 'favorite';
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 80px 0 80px;
+    background-color: #FFFFFF;
+}
+
+.breadcrumb-link {
+    font-size: 14px;
+    color: #666666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-link:hover {
+    color: #FF6B35;
+}
+
+.breadcrumb-sep {
+    font-size: 14px;
+    color: #CCCCCC;
+}
+
+.breadcrumb-current {
+    font-size: 14px;
+    color: #1A1A1A;
+    font-weight: 500;
+}
+
+/* Event Header */
+.event-header {
+    padding: 40px 80px;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.badge-row {
+    display: flex;
+    gap: 12px;
+}
+
+.event-title {
+    font-size: 48px;
+    font-weight: bold;
+    color: #1A1A1A;
+    margin: 0;
+}
+
+.event-meta {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.meta-icon {
+    font-size: 18px;
+}
+
+.meta-text {
+    font-size: 16px;
+    color: #666666;
+}
+
+/* Main Content Two-Column Layout */
+.event-content {
+    background-color: #FFFFFF;
+    padding: 60px 80px;
+}
+
+.content-container {
+    display: flex;
+    gap: 40px;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.content-left {
+    flex: 1;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.content-right {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* About Section */
+.about-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1A1A1A;
+    margin: 0;
+}
+
+.section-text {
+    font-size: 16px;
+    color: #666666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Highlights Section */
+.highlights-section {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.highlights-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.highlight-card {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    background-color: #F9F9F9;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.highlight-card:hover {
+    background-color: #F5F5F5;
+}
+
+.highlight-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    background-color: rgba(255, 107, 53, 0.13);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+}
+
+.highlight-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.highlight-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #1A1A1A;
+    margin: 0;
+}
+
+.highlight-text {
+    font-size: 14px;
+    color: #666666;
+    margin: 0;
+}
+
+/* Hotel Card */
+.hotel-card {
+    padding: 24px;
+    background-color: #FFF8F0;
+    border: 1px solid #FFE5CC;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.hotel-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.hotel-icon {
+    font-size: 28px;
+}
+
+.hotel-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1A1A1A;
+    margin: 0;
+}
+
+.hotel-desc {
+    font-size: 14px;
+    color: #666666;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.btn-hotel {
+    padding: 14px 20px;
+    background-color: #FF6B35;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-hotel:hover {
+    background-color: #E55A2B;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.hotel-partner {
+    font-size: 12px;
+    color: #999999;
+    text-align: center;
+    margin: 0;
+}
+
+/* Good to Know Card */
+.info-card {
+    padding: 24px;
+    background-color: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.info-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1A1A1A;
+    margin: 0;
+}
+
+.info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.info-item {
+    display: flex;
+    gap: 12px;
+}
+
+.info-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.info-text {
+    font-size: 14px;
+    color: #666666;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Related Events Section */
+.related-section {
+    background-color: #F9F9F9;
+    padding: 60px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .breadcrumb,
+    .event-header,
+    .event-content {
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .content-container {
+        flex-direction: column;
+    }
+
+    .content-right {
+        width: 100%;
+        max-width: 800px;
+    }
+
+    .event-title {
+        font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-image-container {
+        height: 400px;
+    }
+
+    .btn-favorite {
+        width: 56px;
+        height: 56px;
+        border-radius: 28px;
+        top: 16px;
+        right: 16px;
+    }
+
+    .btn-favorite .material-icons {
+        font-size: 28px;
+    }
+
+    .breadcrumb,
+    .event-header,
+    .event-content {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .event-title {
+        font-size: 28px;
+    }
+
+    .event-meta {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .content-left {
+        gap: 32px;
+    }
+
+    .highlights-grid {
+        gap: 12px;
+    }
+
+    .highlight-card {
+        padding: 16px;
+    }
+
+    .highlight-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+}

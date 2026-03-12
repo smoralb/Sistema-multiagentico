@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carnival of Rio de Janeiro - FESTIVO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="event-detail.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div>
+                <span class="logo-text">FESTIVO</span>
+            </a>
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" placeholder="Search countries, cities, festivals...">
+            </div>
+            <div class="nav-buttons">
+                <button class="btn-login">Login</button>
+                <button class="btn-signup">Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section with Favorite Button -->
+        <section class="event-hero">
+            <div class="hero-image-container">
+                <img src="https://images.unsplash.com/photo-1680442302920-6b5703538aa0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1440" alt="Carnival of Rio de Janeiro" class="event-hero-image">
+                <button class="btn-favorite" id="favoriteBtn" aria-label="Add to favorites">
+                    <span class="material-icons">favorite_border</span>
+                </button>
+            </div>
+
+            <!-- Breadcrumb -->
+            <div class="breadcrumb">
+                <a href="index.html" class="breadcrumb-link">Home</a>
+                <span class="breadcrumb-sep">/</span>
+                <a href="#" class="breadcrumb-link">Brazil</a>
+                <span class="breadcrumb-sep">/</span>
+                <span class="breadcrumb-current">Carnival of Rio</span>
+            </div>
+
+            <!-- Event Header -->
+            <div class="event-header">
+                <div class="badge-row">
+                    <span class="badge badge-brazil">🇧🇷 Brazil</span>
+                    <span class="badge badge-spain">National Holiday</span>
+                </div>
+                <h1 class="event-title">Carnival of Rio de Janeiro</h1>
+                <div class="event-meta">
+                    <div class="meta-item">
+                        <span class="meta-icon">📅</span>
+                        <span class="meta-text">Feb 28 - Mar 5, 2026</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-icon">⏱️</span>
+                        <span class="meta-text">5 days</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="meta-icon">📍</span>
+                        <span class="meta-text">Rio de Janeiro, Brazil</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <section class="event-content">
+            <div class="content-container">
+                <!-- Left Column -->
+                <div class="content-left">
+                    <!-- About Section -->
+                    <div class="about-section">
+                        <h2 class="section-title">About This Event</h2>
+                        <p class="section-text">The Carnival in Rio de Janeiro is one of the world's most spectacular celebrations, attracting millions of visitors from around the globe. This iconic festival transforms the entire city into a vibrant tapestry of music, dance, and color.</p>
+                        <p class="section-text">The heart of Rio Carnival is the Sambadrome parade, where samba schools compete in elaborate displays featuring thousands of dancers, musicians, and massive float displays. Each school tells a story through their theme, costumes, and choreography.</p>
+                    </div>
+
+                    <!-- Highlights Section -->
+                    <div class="highlights-section">
+                        <h2 class="section-title">Event Highlights</h2>
+                        <div class="highlights-grid">
+                            <div class="highlight-card">
+                                <div class="highlight-icon">👥</div>
+                                <div class="highlight-content">
+                                    <h3 class="highlight-title">Expected Attendance</h3>
+                                    <p class="highlight-text">2M+ participants from 150+ countries</p>
+                                </div>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-icon">🎭</div>
+                                <div class="highlight-content">
+                                    <h3 class="highlight-title">Main Venue</h3>
+                                    <p class="highlight-text">Sambadrome Marquês de Sapucaí</p>
+                                </div>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-icon">🎉</div>
+                                <div class="highlight-content">
+                                    <h3 class="highlight-title">Best Neighborhoods</h3>
+                                    <p class="highlight-text">Copacabana, Ipanema, Lapa, Santa Teresa</p>
+                                </div>
+                            </div>
+                            <div class="highlight-card">
+                                <div class="highlight-icon">💰</div>
+                                <div class="highlight-content">
+                                    <h3 class="highlight-title">Price Range</h3>
+                                    <p class="highlight-text">Free street parties, paid stadium seats ($50-500)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Sidebar -->
+                <div class="content-right">
+                    <!-- Hotel Booking Card -->
+                    <div class="hotel-card">
+                        <div class="hotel-header">
+                            <span class="hotel-icon">🏨</span>
+                            <h3 class="hotel-title">Find Hotels in Rio</h3>
+                        </div>
+                        <p class="hotel-desc">Book your stay during Carnival and get the best deals on hotels near the festivities.</p>
+                        <button class="btn-hotel">Search Hotels →</button>
+                        <p class="hotel-partner">Powered by Booking.com</p>
+                    </div>
+
+                    <!-- Good to Know Card -->
+                    <div class="info-card">
+                        <h3 class="info-title">Good to Know</h3>
+                        <div class="info-list">
+                            <div class="info-item">
+                                <span class="info-icon">☀️</span>
+                                <p class="info-text">Rio is in summer during Carnival - expect hot and humid weather</p>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-icon">🎫</span>
+                                <p class="info-text">Book Sambadrome tickets months in advance - they sell out quickly</p>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-icon">💳</span>
+                                <p class="info-text">Many street vendors are cash-only - bring Brazilian Reais</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Related Events -->
+        <section class="related-section">
+            <div class="carousel-container">
+                <div class="carousel-header">
+                    <h2 class="carousel-title">Other Events in Brazil</h2>
+                    <a href="#" class="view-all-btn">View All →</a>
+                </div>
+                <div class="cards-grid">
+                    <div class="event-card">
+                        <img src="https://images.unsplash.com/photo-1710987584061-562ba3df7bb6?w=400" alt="São Paulo Carnival" class="card-image">
+                        <div class="card-content">
+                            <span class="badge badge-brazil">🇧🇷 Brazil</span>
+                            <h3 class="card-title">São Paulo Carnival</h3>
+                            <p class="card-date">Feb 28 - Mar 5, 2026</p>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <img src="https://images.unsplash.com/photo-1745249072622-e4f8a8c69f3e?w=400" alt="Festa Junina" class="card-image">
+                        <div class="card-content">
+                            <span class="badge badge-brazil">🇧🇷 Brazil</span>
+                            <h3 class="card-title">Festa Junina</h3>
+                            <p class="card-date">June 1 - 30, 2026</p>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <img src="https://images.unsplash.com/photo-1583166614297-a97b68d5cead?w=400" alt="Salvador Carnival" class="card-image">
+                        <div class="card-content">
+                            <span class="badge badge-brazil">🇧🇷 Brazil</span>
+                            <h3 class="card-title">Salvador Carnival</h3>
+                            <p class="card-date">Feb 28 - Mar 5, 2026</p>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <img src="https://images.unsplash.com/photo-1703967971275-08a55cc219f4?w=400" alt="New Year's Eve Copacabana" class="card-image">
+                        <div class="card-content">
+                            <span class="badge badge-brazil">🇧🇷 Brazil</span>
+                            <h3 class="card-title">New Year's Eve Copacabana</h3>
+                            <p class="card-date">Dec 31, 2026</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <span class="footer-logo">FESTIVO</span>
+                    <p class="footer-tagline">Discover the world's most vibrant festivals and cultural celebrations</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-column-title">Explore</h4>
+                        <a href="#" class="footer-link">All Festivals</a>
+                        <a href="#" class="footer-link">Countries</a>
+                        <a href="#" class="footer-link">Popular Cities</a>
+                        <a href="#" class="footer-link">This Month</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-column-title">Resources</h4>
+                        <a href="#" class="footer-link">Travel Guides</a>
+                        <a href="#" class="footer-link">Festival Calendar</a>
+                        <a href="#" class="footer-link">Blog</a>
+                        <a href="#" class="footer-link">Help Center</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-column-title">Company</h4>
+                        <a href="#" class="footer-link">About Us</a>
+                        <a href="#" class="footer-link">Contact</a>
+                        <a href="#" class="footer-link">Privacy Policy</a>
+                        <a href="#" class="footer-link">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright">© 2026 Festivo. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="event-detail.js"></script>
+</body>
+</html>

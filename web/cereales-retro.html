@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COSMIC CRUNCH - El Cereal del Futuro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;800;900&display=swap');
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: #0A0A0A;
+            color: #FFFFFF;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 100px 120px;
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .hero-title {
+            font-size: 96px;
+            font-weight: 800;
+            color: #C4F82A;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            text-shadow:
+                0 0 10px #C4F82A,
+                0 0 20px #C4F82A,
+                0 0 40px #C4F82A,
+                0 0 80px #C4F82A;
+            animation: neonGlow 2s ease-in-out infinite alternate;
+            margin-bottom: 24px;
+        }
+
+        @keyframes neonGlow {
+            from {
+                text-shadow:
+                    0 0 10px #C4F82A,
+                    0 0 20px #C4F82A,
+                    0 0 40px #C4F82A,
+                    0 0 80px #C4F82A;
+            }
+            to {
+                text-shadow:
+                    0 0 20px #C4F82A,
+                    0 0 40px #C4F82A,
+                    0 0 60px #C4F82A,
+                    0 0 100px #C4F82A;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 32px;
+            font-weight: 400;
+            color: #FFFFFF;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .hero-description {
+            font-size: 20px;
+            font-weight: 400;
+            color: #A1A1AA;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #FF00FF;
+            color: #FFFFFF;
+            font-size: 20px;
+            font-weight: 700;
+            padding: 20px 60px;
+            border-radius: 35px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 3px solid #FF00FF;
+            box-shadow:
+                0 0 10px #FF00FF,
+                0 0 20px #FF00FF,
+                0 0 30px #FF00FF;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            box-shadow:
+                0 0 20px #FF00FF,
+                0 0 40px #FF00FF,
+                0 0 60px #FF00FF;
+            transform: scale(1.05);
+        }
+
+        .cta-button-lime {
+            background: #C4F82A;
+            border-color: #C4F82A;
+            color: #0A0A0A;
+            box-shadow:
+                0 0 10px #C4F82A,
+                0 0 20px #C4F82A,
+                0 0 30px #C4F82A;
+        }
+
+        .cta-button-lime:hover {
+            background: transparent;
+            color: #C4F82A;
+            box-shadow:
+                0 0 20px #C4F82A,
+                0 0 40px #C4F82A,
+                0 0 60px #C4F82A;
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+        }
+
+        .feature-card {
+            background: #18181B;
+            border: 3px solid;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, currentColor, transparent);
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .feature-card:hover::before {
+            opacity: 0.3;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px currentColor;
+        }
+
+        .feature-card-1 {
+            border-color: #C4F82A;
+            color: #C4F82A;
+        }
+
+        .feature-card-2 {
+            border-color: #FF00FF;
+            color: #FF00FF;
+        }
+
+        .feature-card-3 {
+            border-color: #00FFFF;
+            color: #00FFFF;
+        }
+
+        .feature-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 900;
+        }
+
+        .feature-card-1 .feature-icon {
+            background: #7C3AED;
+            box-shadow: 0 0 20px #7C3AED;
+        }
+
+        .feature-card-2 .feature-icon {
+            background: #00FFFF;
+            box-shadow: 0 0 20px #00FFFF;
+        }
+
+        .feature-card-3 .feature-icon {
+            background: #FA541C;
+            box-shadow: 0 0 20px #FA541C;
+        }
+
+        .feature-title {
+            font-size: 28px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .feature-description {
+            font-size: 16px;
+            font-weight: 400;
+            color: #A1A1AA;
+            line-height: 1.5;
+        }
+
+        /* Product Showcase */
+        .product-showcase {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 80px;
+            padding: 60px 0;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(0, 255, 255, 0.1));
+            border-radius: 30px;
+            padding: 80px;
+            border: 2px solid rgba(124, 58, 237, 0.3);
+        }
+
+        .product-image {
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7C3AED, #00FFFF);
+            box-shadow:
+                0 0 40px #7C3AED,
+                0 0 80px #00FFFF;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1), transparent);
+            border-radius: 50%;
+        }
+
+        .product-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .product-title {
+            font-size: 48px;
+            font-weight: 800;
+            color: #C4F82A;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px #C4F82A;
+        }
+
+        .product-description {
+            font-size: 20px;
+            font-weight: 400;
+            color: #FFFFFF;
+            line-height: 1.6;
+        }
+
+        .product-price {
+            font-size: 64px;
+            font-weight: 900;
+            color: #FF00FF;
+            text-shadow:
+                0 0 10px #FF00FF,
+                0 0 20px #FF00FF;
+        }
+
+        .product-features {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .product-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+            color: #FFFFFF;
+        }
+
+        .product-feature-item::before {
+            content: '✓';
+            color: #C4F82A;
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        /* CTA Final Section */
+        .cta-final {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta-final-title {
+            font-size: 56px;
+            font-weight: 800;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-text {
+            font-size: 14px;
+            color: #71717A;
+            letter-spacing: 1px;
+        }
+
+        /* Scanlines effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Grid background */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(196, 248, 42, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(196, 248, 42, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 80px 60px;
+            }
+
+            .hero-title {
+                font-size: 72px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .product-showcase {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .product-image {
+                width: 400px;
+                height: 400px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 60px 30px;
+                gap: 60px;
+            }
+
+            .hero-title {
+                font-size: 48px;
+                letter-spacing: 4px;
+            }
+
+            .hero-subtitle {
+                font-size: 24px;
+            }
+
+            .hero-description {
+                font-size: 16px;
+            }
+
+            .cta-button {
+                font-size: 16px;
+                padding: 16px 40px;
+            }
+
+            .feature-card {
+                height: auto;
+                padding: 30px 20px;
+            }
+
+            .feature-title {
+                font-size: 22px;
+            }
+
+            .product-showcase {
+                padding: 40px 30px;
+            }
+
+            .product-image {
+                width: 300px;
+                height: 300px;
+            }
+
+            .product-title {
+                font-size: 32px;
+            }
+
+            .product-price {
+                font-size: 48px;
+            }
+
+            .cta-final-title {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 class="hero-title">COSMIC CRUNCH</h1>
+            <p class="hero-subtitle">El cereal del futuro está aquí</p>
+            <p class="hero-description">
+                Experimenta el sabor del espacio exterior con nuestra revolucionaria fórmula
+                de cereales energéticos diseñados para la era digital.
+            </p>
+            <a href="#producto" class="cta-button">DESCUBRE MÁS</a>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <div class="feature-card feature-card-1">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">ENERGÍA X1000</h3>
+                <p class="feature-description">
+                    Carga completa para todo el día con nuestra fórmula cuántica de nutrientes avanzados.
+                </p>
+            </div>
+
+            <div class="feature-card feature-card-2">
+                <div class="feature-icon">🌟</div>
+                <h3 class="feature-title">SABOR GALÁCTICO</h3>
+                <p class="feature-description">
+                    Explosión de sabores cósmicos que transportarán tus sentidos a otra dimensión.
+                </p>
+            </div>
+
+            <div class="feature-card feature-card-3">
+                <div class="feature-icon">🚀</div>
+                <h3 class="feature-title">ZERO GRAVEDAD</h3>
+                <p class="feature-description">
+                    Ligereza absoluta con ingredientes que desafían las leyes de la nutrición tradicional.
+                </p>
+            </div>
+        </section>
+
+        <!-- Product Showcase -->
+        <section class="product-showcase" id="producto">
+            <div class="product-image"></div>
+            <div class="product-content">
+                <h2 class="product-title">CAJA INTERGALÁCTICA</h2>
+                <p class="product-description">
+                    La caja de 500g contiene suficiente combustible cósmico para 15 desayunos
+                    del futuro. Fabricado con tecnología espacial de última generación.
+                </p>
+                <div class="product-features">
+                    <div class="product-feature-item">500g de pura energía cósmica</div>
+                    <div class="product-feature-item">15 porciones de sabor intergaláctico</div>
+                    <div class="product-feature-item">Envío instantáneo vía teletransporte</div>
+                    <div class="product-feature-item">Garantía del Consejo Galáctico</div>
+                </div>
+                <div class="product-price">€ 9.99</div>
+                <a href="#comprar" class="cta-button">COMPRAR AHORA</a>
+            </div>
+        </section>
+
+        <!-- CTA Final -->
+        <section class="cta-final">
+            <h2 class="cta-final-title">¿LISTO PARA EL DESPEGUE?</h2>
+            <p class="hero-description">
+                Únete a miles de exploradores espaciales que ya disfrutan del cereal más avanzado del universo.
+            </p>
+            <a href="#comprar" class="cta-button cta-button-lime">EMPEZAR AHORA</a>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">© 2026 COSMIC CRUNCH - TODOS LOS DERECHOS RESERVADOS</p>
+            <p class="footer-text">FABRICADO EN EL SECTOR GALÁCTICO 7</p>
+        </footer>
+    </div>
+</body>
+</html>
